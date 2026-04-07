@@ -492,6 +492,183 @@
       }
     },
 
+    "aqua-elite": {
+      "name": "AquaElite Rudergerät",
+      "is_hero_product": false,
+      "product_category": "rowing_machine",
+      "supabase_product_id": "d5940011-5325-4074-aa88-24c4e51817a4",
+
+      "appearance": {
+        "summary": "Premium Wasser-Rudergerät aus hellem Eichenholz mit transparentem Wassertank und LED-Beleuchtung. 21.5-Zoll Touchscreen-Display auf Holz-Ständer. Elegantes Wohnzimmer-Design. SPORTSTECH Logo seitlich auf dem Holzrahmen.",
+        "key_features": "Helles Eichenholz-Rahmen (hellbraun/natur), transparenter Wassertank vorne mit LED-Beleuchtung (7 Farben reagieren auf Performance), 21.5-Zoll HD Touchscreen auf Holz-Ständer, schwarze Schiene mit Doppel-Aluminium-Rails, gepolsterter schwarzer Sitz, Fußschlaufen mit verstellbaren Riemen, SPORTSTECH Logo + S-Icon seitlich auf dem Holzrahmen, Transportrollen, klappbar",
+        "colors_available": ["light-brown", "dark-brown"],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Seitlich auf dem langen Holzrahmen + AquaElite Schriftzug vorne",
+          "style": "Schwarzes SPORTSTECH Logo mit S-Icon auf hellem Holz"
+        }
+      },
+
+      "specs": {
+        "resistance_type": "water (3-in-1 system)",
+        "display": "21.5 inch HD touchscreen",
+        "max_user_weight_kg": 120,
+        "dimensions_cm": "207.8 x 53 x 108",
+        "folded_cm": "91 x 53 x 116",
+        "weight_kg": 45.5,
+        "rail_type": "double aluminum",
+        "wood": "oak (Eiche)",
+        "led_water_tank_colors": 7,
+        "foldable": true,
+        "price_eur": 1649
+      },
+
+      "how_it_works": {
+        "principle": "Person sitzt auf dem gepolsterten Sitz und zieht den Griff mit beiden Händen zum Körper. Wasserwiderstand — je stärker man zieht, desto mehr Widerstand. Realistisches Ruder-Gefühl durch Wasser.",
+        "position": "SITZEND auf dem schwarzen Sitz, Füße in den Fußschlaufen, Hände greifen die gepolsterte Griffstange",
+        "motion": "Catch → Drive → Finish → Recovery. Beine strecken, Arme ziehen, zurückgleiten."
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Catch (Start)",
+          "position": "Knie gebeugt, Arme ausgestreckt, Oberkörper leicht nach vorne",
+          "camera_angle": "Seitlich für volle Schienenlänge"
+        },
+        {
+          "name": "Drive (Zug)",
+          "position": "Beine gestreckt, Arme zum Körper gezogen, aufrechter Oberkörper",
+          "camera_angle": "3/4 oder seitlich"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "EXAKTE Nachbildung — helles Eichenholz-Rahmen mit schwarzer Schiene",
+          "Transparenter Wassertank vorne mit sichtbarem Wasser und LED-Beleuchtung",
+          "21.5-Zoll Touchscreen auf Holz-Ständer über dem Wassertank",
+          "SPORTSTECH Logo seitlich auf dem Holzrahmen",
+          "Korrekte Ruderhaltung — Sitzen, beide Hände am Griff",
+          "Doppel-Aluminium-Schienen sichtbar"
+        ],
+        "must_avoid": [
+          "Fehlender oder nicht-transparenter Wassertank — das Wasser MUSS sichtbar sein",
+          "Falsches Holz — muss HELLES Eichenholz sein (nicht dunkel, nicht Plastik)",
+          "Generisches Rudergerät statt exakter AquaElite Nachbildung",
+          "Fehlende LED-Beleuchtung am Wassertank"
+        ],
+        "color_variant_rules": {
+          "light_to_dark": "Holzfarbe von Hellbraun zu Dunkelbraun ändern, Holzmaserung MUSS sichtbar bleiben"
+        }
+      },
+
+      "reference_images": {
+        "storage_prefix": "products/aqua-elite/",
+        "count": 6,
+        "key_angles": [
+          "0.jpg — Seitenansicht komplett, Holzrahmen + Display + Wassertank",
+          "1.jpg — 3/4 Ansicht von vorne-links",
+          "2.jpg — 3/4 Ansicht von hinten-rechts",
+          "3.png — Zusammengeklappt (Seitenansicht)",
+          "4.png — Seitenansicht kompakt ohne Display-Inhalt",
+          "5.png — 3/4 Ansicht mit Display-Inhalt"
+        ]
+      }
+    },
+
+    "sgym-pro": {
+      "name": "sGym Pro Kraftstation",
+      "is_hero_product": false,
+      "product_category": "power_station",
+      "supabase_product_id": "7e776cc9-dc86-47e9-b8da-cdc0a3ffff69",
+
+      "appearance": {
+        "summary": "Kompakte, schlanke Kraftstation in Schwarz. Turmförmiges Design mit 21-Zoll Touchscreen, Seilzug-System, Klimmzugstange oben und Dip-Attachment. Klappbar auf unter 1m² Grundfläche.",
+        "key_features": "Kompakter schwarzer Stahlrahmen (Turm-Design), 21-Zoll Touchscreen-Display (zeigt Workouts), Seilzug-System mit 13 verstellbaren Positionen (oben + unten), Klimmzugstange oben, Dip-Griffe, Standfläche/Trittplatte unten, Zubehör: Trizeps-Seil, Einzel-Griffe, Langhantel-Attachment, Kickback-Strap, klappbar",
+        "colors_available": ["black"],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Auf dem Rahmen/Display-Bereich",
+          "style": "Sportstech Branding auf schwarzem Rahmen"
+        }
+      },
+
+      "specs": {
+        "resistance_kg": 120,
+        "resistance_per_side_kg": 60,
+        "resistance_type": "electronic, stepless",
+        "cable_positions": 13,
+        "exercises": "400+",
+        "display": "21 inch touchscreen",
+        "pullup_bar_max_kg": 200,
+        "extended_cm": "160 x 90 x 220",
+        "folded_cm": "44 x 90 x 220",
+        "weight_kg": 115,
+        "dual_user": true,
+        "foldable": true,
+        "assembly_minutes": 10,
+        "price_eur": 3119
+      },
+
+      "how_it_works": {
+        "principle": "Multifunktionale Kraftstation mit elektronischem Seilzug-Widerstand. Kabel können in 13 Positionen eingestellt werden für über 400 Übungen. Klimmzugstange und Dip-Griffe integriert.",
+        "position": "STEHEND vor dem Gerät für Seilzug-Übungen, HÄNGEND an der Klimmzugstange, SITZEND auf optionaler Bank",
+        "exercises": "Cable Flys, Lat Pulldown, Tricep Pushdown, Bicep Curls, Rows, Pull-Ups, Dips, Kickbacks — über 400 Varianten"
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Cable Pull (stehend)",
+          "position": "STEHEND vor dem Gerät, Hände greifen Seilzug-Griffe, Zug-Bewegung nach vorne/unten/seitlich",
+          "camera_angle": "3/4 frontal oder seitlich"
+        },
+        {
+          "name": "Pull-Ups",
+          "position": "HÄNGEND an der Klimmzugstange oben, Arme ziehen Körper nach oben",
+          "camera_angle": "Frontal oder leicht seitlich"
+        },
+        {
+          "name": "Lat Pulldown",
+          "position": "SITZEND oder KNIEND, Kabel von oben nach unten ziehen",
+          "camera_angle": "3/4 von hinten für Rückenmuskulatur"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "EXAKTE Nachbildung — schwarzer Turm mit Display, Seilzug, Klimmzugstange",
+          "21-Zoll Touchscreen-Display am Gerät",
+          "Seilzug-Kabel sichtbar",
+          "Klimmzugstange oben am Gerät",
+          "Kompaktes Turm-Design — das Gerät ist SCHMAL und HOCH, nicht breit",
+          "Korrekte Übungsausführung — natürliche Krafttraining-Posen"
+        ],
+        "must_avoid": [
+          "Verwechslung mit klassischer Multi-Gym/Kraftstation mit Gewichtsblock — sGym Pro ist SCHLANK und MODERN",
+          "Falsche Proportionen — das Gerät ist ein schmaler TURM (44cm breit geklappt)",
+          "Generische Kraftstation statt exakter Nachbildung",
+          "Unrealistische Übungsposen"
+        ]
+      },
+
+      "reference_images": {
+        "storage_prefix": "products/sgym-pro/",
+        "count": 10,
+        "key_angles": [
+          "0.png — 3/4 Ansicht von vorne mit Display",
+          "1.png — Frontansicht schmal",
+          "2.png — 3/4 Ansicht mit Seilzug sichtbar",
+          "3.png — Seitenansicht schmal",
+          "4.png — Detail Seilzug/Kabel",
+          "5.png — 3/4 Ansicht mit Kabel ausgezogen",
+          "6.png — 3/4 Ansicht mit Zubehör",
+          "7.png — Frontansicht mit Display-Inhalt",
+          "8.png — Perspektive von vorne-unten",
+          "9.png — Zusammengeklappt"
+        ]
+      }
+    },
+
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
