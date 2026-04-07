@@ -1,0 +1,13 @@
+{
+  "_description": "Varianz-Pool für Lifestyle-Creatives. Der Creative Producer wählt zufällig aus diesen Optionen um diverse Bilder zu generieren.",
+
+  "models": [],
+
+  "poses": {},
+
+  "settings": {},
+
+  "outfits_summer": [],
+
+  "_outfit_rules": "TODO: Outfit-Regeln für Sportstech Zielgruppe definieren"
+}

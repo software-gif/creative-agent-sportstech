@@ -1,0 +1,59 @@
+{
+  "name": "Sportstech",
+  "shop_url": "TODO: Sportstech Shop URL",
+  "facebook_page_id": "TODO: Facebook Page ID",
+  "shop_platform": "shopify",
+  "tagline": "TODO: Sportstech Tagline",
+  "category": "Fitnessgeräte / Home Fitness / Sport Equipment",
+  "target_market": "DACH",
+  "language": "de",
+  "currency": "EUR",
+  "brand_values": [
+    "TODO: Brand Values hier eintragen"
+  ],
+  "products": [],
+  "trust_signals": [
+    "TODO: Trust Signals hier eintragen"
+  ],
+  "social_proof": {
+    "trustpilot_rating": null,
+    "shop_rating": null,
+    "total_reviews": null,
+    "review_source": "TODO"
+  },
+  "target_audience": {
+    "gender": "TODO",
+    "age_range": "TODO",
+    "description": "TODO: Zielgruppenbeschreibung",
+    "lifestyle": "TODO",
+    "pain_points": [
+      "TODO"
+    ],
+    "values": [
+      "TODO"
+    ],
+    "settings_for_images": [
+      "TODO: Wo sollen Lifestyle-Bilder spielen?"
+    ]
+  },
+  "winning_angles": {
+    "primary": "TODO",
+    "sub_themes": [],
+    "note": ""
+  },
+  "dos_and_donts": {
+    "dos": [
+      "TODO"
+    ],
+    "donts": [
+      "TODO"
+    ]
+  },
+  "product_details": {},
+  "priority_products": {
+    "hero": "TODO",
+    "sets": [],
+    "test_category": [],
+    "lower_priority": []
+  }
+}

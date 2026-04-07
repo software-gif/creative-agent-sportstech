@@ -1,0 +1,93 @@
+{
+  "_description": "Meta/Facebook Ad Creative Best Practices 2026. Wird automatisch in Gemini-Prompts für Performance-optimierte Creatives eingebaut.",
+  "_sources": [
+    "https://leadsbridge.com/blog/meta-ads-best-practices/",
+    "https://www.flighted.co/blog/meta-ads-best-practices",
+    "https://sierrasocialmarketing.com/meta-ads-best-practices-2026-strategies/",
+    "https://surfsideppc.com/blogs/meta-ads-blog-by-surfside-ppc/meta-ad-image-sizes-specs-2026"
+  ],
+
+  "image_specs": {
+    "feed_4_5": {
+      "resolution": "1440x1800 px (empfohlen für 4:5)",
+      "aspect_ratio": "4:5",
+      "note": "4:5 hat signifikant höhere CTR als 1:1 oder 16:9 — nimmt mehr Platz im Feed ein"
+    },
+    "stories_9_16": {
+      "resolution": "1440x2560 px (empfohlen für 9:16)",
+      "aspect_ratio": "9:16",
+      "safe_zones": {
+        "top": "250px frei lassen (Profilbild/Name Overlay)",
+        "bottom": "340px frei lassen (CTA Button, Swipe-Up Bereich)"
+      }
+    },
+    "format": "JPG für Fotos, PNG für text-lastige Bilder",
+    "max_file_size": "30 MB"
+  },
+
+  "creative_performance_rules": {
+    "hook_in_first_second": {
+      "rule": "Der Betrachter entscheidet in unter 1 Sekunde ob er weiterschrollt. Die Headline/das Bild muss SOFORT die Frage beantworten: 'Was hab ich davon?'",
+      "implementation": "Headline muss den BENEFIT sofort kommunizieren, nicht das Feature. Benefit-driven Headlines statt Feature-Beschreibungen."
+    },
+    "text_minimal": {
+      "rule": "Meta hat die 20%-Text-Regel offiziell entfernt, ABER: Ads mit weniger Text im Bild performen besser und kosten weniger. Text gehört in die Ad Copy, nicht aufs Bild.",
+      "implementation": "Maximal Headline + kurze Subheadline auf dem Bild. Keine langen Texte, keine Absätze, keine Feature-Listen IM Bild."
+    },
+    "benefit_over_feature": {
+      "rule": "Jede Winning Ad beantwortet 'Was hab ich davon?' in Sekunden. Benefits führen, nicht Features.",
+      "examples": {
+        "bad": ["Technische Produktspezifikationen", "Material-Beschreibungen", "Garantie-Details"],
+        "good": ["Ergebnis-bezogene Headlines", "Emotionale Benefits", "Lifestyle-Versprechen"]
+      }
+    },
+    "native_look_wins": {
+      "rule": "Ads die im Feed wie organischer Content aussehen, outperformen 'offensichtliche' Werbung. UGC-Style, echte Menschen, authentische Settings schlagen polierte Studio-Shots.",
+      "implementation": "Off-Brand/Ugly Ads: wie Instagram Stories, Phone-Fotos, User Posts. On-Brand: mindestens authentisch wirken, nicht wie Stock-Fotos."
+    },
+    "one_clear_message": {
+      "rule": "Eine Ad = eine Botschaft. Nicht versuchen alles auf einmal zu kommunizieren.",
+      "implementation": "Pro Creative nur EIN Angle, EIN Benefit, EIN CTA. Nicht: Preis + Benefits + Trust Signals + CTA + Logo alles zusammen."
+    },
+    "creative_diversity": {
+      "rule": "Creative Diversity schlägt Creative Volume. Wenn ein Winner gefunden wird, in VERSCHIEDENE Formate und Styles übersetzen — nicht 20 Varianten desselben Layouts.",
+      "implementation": "Jeder Angle sollte als On-Brand UND Off-Brand existieren. Verschiedene Posen, Settings, Farben. Meta Andromeda belohnt Diversität.",
+      "andromeda_note": "Meta Andromeda zeigt verschiedenen Nutzertypen verschiedene Creatives. Polished Ads erreichen Nutzer die auf Werbung reagieren. Ugly/Native Ads erreichen Nutzer die 'normale Werbung' ignorieren."
+    },
+    "refresh_cycle": {
+      "rule": "Creatives alle 3-6 Wochen refreshen. Mindestens 5-10 aktive Varianten pro Campaign um Creative Fatigue zu vermeiden.",
+      "implementation": "Regelmäßig neue Batches generieren mit neuen Hooks, Settings und Styles."
+    },
+    "color_contrast": {
+      "rule": "Hoher Kontrast zwischen Text und Hintergrund. Text muss sofort lesbar sein beim Scrollen.",
+      "implementation": "Weiß auf dunklem Bild, Dunkel auf hellem Bild. Immer Text-Shadow oder Background-Overlay für Lesbarkeit."
+    },
+    "headline_specs": {
+      "primary_text": "50-150 Zeichen (wird in der Ad Copy unter dem Bild angezeigt)",
+      "headline_on_image": "Maximal 5-8 Wörter — muss beim Scrollen in einer Sekunde erfassbar sein",
+      "subheadline": "Maximal 8-12 Wörter — ergänzt die Headline, nicht wiederholen"
+    }
+  },
+
+  "prompt_injection_rules": {
+    "always_include": [
+      "Headline muss in unter 1 Sekunde den Benefit kommunizieren",
+      "Text minimal halten — nur Headline + optionale kurze Subheadline auf dem Bild",
+      "Hoher Kontrast zwischen Text und Hintergrund für sofortige Lesbarkeit",
+      "Eine klare Botschaft pro Creative — nicht überladen",
+      "4:5 Format für Feed — nimmt mehr Platz ein, höhere CTR"
+    ],
+    "for_on_brand": [
+      "Premium aber authentisch — nicht wie Stock-Foto",
+      "Benefit-driven Headline, nicht Feature-driven",
+      "Warme Farben, natürliche Materialien, Holz-Ästhetik"
+    ],
+    "for_off_brand": [
+      "Muss im Feed wie organischer Content aussehen, NICHT wie Werbung",
+      "UGC-Style: Phone-Foto Qualität, authentische Belichtung, nicht perfekt",
+      "Bold Text wie Instagram Stories — sofort lesbar beim Scrollen",
+      "Emojis und informeller Ton erlaubt",
+      "Kein Brand-Styling — soll wie ein Post einer echten Person wirken"
+    ]
+  }
+}

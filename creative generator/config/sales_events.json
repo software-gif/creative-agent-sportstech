@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "id": "valentinstag",
+      "name": "Valentinstag",
+      "month": 2,
+      "colors": { "primary": "#E91E63", "secondary": "#FCE4EC", "accent": "#AD1457" },
+      "background_hints": ["Rosa/Pink Töne", "Herzen", "Romantische Blumen", "Soft Lighting"],
+      "clean_background_hint": "Sanfter rosa Hintergrund, minimalistisch",
+      "themed_background_hint": "Romantische Szene mit Rosenblättern, Herzen, warmes Licht",
+      "typical_offers": ["Geschenkset zum Valentinstag", "Bundle-Angebot für Paare"]
+    },
+    {
+      "id": "ostern",
+      "name": "Ostern",
+      "month": 3,
+      "colors": { "primary": "#8BC34A", "secondary": "#F1F8E9", "accent": "#FFD54F" },
+      "background_hints": ["Frühling", "Pastell-Farben", "Blumen", "Grüntöne"],
+      "clean_background_hint": "Heller pastellgrüner Hintergrund, frisch und clean",
+      "themed_background_hint": "Frühlingswiese, natürliches Licht",
+      "typical_offers": ["Oster-Sale", "Frühlingsrabatt"]
+    },
+    {
+      "id": "muttertag",
+      "name": "Muttertag",
+      "month": 5,
+      "colors": { "primary": "#E91E63", "secondary": "#FFF0F5", "accent": "#FF80AB" },
+      "background_hints": ["Blumen", "Elegant", "Warm", "Rosa/Pink"],
+      "clean_background_hint": "Zartrosa, eleganter Hintergrund",
+      "themed_background_hint": "Elegante Blumenarrangements, warme feminine Atmosphäre",
+      "typical_offers": ["Perfektes Geschenk für Mama"]
+    },
+    {
+      "id": "vatertag",
+      "name": "Vatertag",
+      "month": 5,
+      "colors": { "primary": "#1565C0", "secondary": "#E3F2FD", "accent": "#42A5F5" },
+      "background_hints": ["Maskulin", "Blautöne", "Klar", "Premium"],
+      "clean_background_hint": "Dunkles Blau, maskulin und clean",
+      "themed_background_hint": "Premium maskuline Szene, Blautöne",
+      "typical_offers": ["Das perfekte Geschenk für Papa"]
+    },
+    {
+      "id": "black_friday",
+      "name": "Black Friday",
+      "month": 11,
+      "colors": { "primary": "#000000", "secondary": "#B71C1C", "accent": "#FFD700" },
+      "background_hints": ["Tiefschwarz", "Gold", "Rot", "Maximum Urgency"],
+      "clean_background_hint": "Pures Schwarz mit Gold-Text",
+      "themed_background_hint": "Dramatisch schwarzer Hintergrund, goldene Elemente, maximale Urgency",
+      "typical_offers": ["Black Friday: Bis zu X% Rabatt", "Nur heute", "Größter Sale des Jahres"]
+    },
+    {
+      "id": "cyber_monday",
+      "name": "Cyber Monday",
+      "month": 11,
+      "colors": { "primary": "#00BCD4", "secondary": "#0D1B2A", "accent": "#00E5FF" },
+      "background_hints": ["Neon", "Digital", "Tech", "Maximum Urgency"],
+      "clean_background_hint": "Dunkler Hintergrund mit Neon-Cyan, Urgency",
+      "themed_background_hint": "Intensiv futuristische Neon-Szene, Cyber Monday Countdown",
+      "typical_offers": ["Cyber Monday: Letzte Chance", "Nur noch heute online sparen"]
+    },
+    {
+      "id": "weihnachten",
+      "name": "Weihnachten",
+      "month": 12,
+      "colors": { "primary": "#C62828", "secondary": "#1B5E20", "accent": "#FFD700" },
+      "background_hints": ["Rot/Grün/Gold", "Tannenbäume", "Schnee", "Geschenke"],
+      "clean_background_hint": "Elegantes Dunkelrot mit Gold-Akzenten",
+      "themed_background_hint": "Weihnachtliche Szene mit Tannenzweigen, Kugeln, warmem Licht",
+      "typical_offers": ["Weihnachts-Sale", "Das perfekte Geschenk"]
+    },
+    {
+      "id": "neujahr",
+      "name": "Neujahr",
+      "month": 1,
+      "colors": { "primary": "#FFD700", "secondary": "#1A1A1A", "accent": "#FFFFFF" },
+      "background_hints": ["Gold/Schwarz", "Feuerwerk", "Neues Jahr"],
+      "clean_background_hint": "Schwarz mit Gold, elegant und festlich",
+      "themed_background_hint": "Feuerwerk-Szene, goldene Funken, Neujahrsnacht",
+      "typical_offers": ["Neujahrs-Sale", "Fresh Start Rabatt"]
+    }
+  ],
+  "default_ctas": [
+    "Jetzt sparen",
+    "Jetzt bestellen",
+    "Jetzt sichern",
+    "Jetzt entdecken",
+    "Zum Angebot"
+  ],
+  "default_sub_headlines": [
+    "Bis zu 50% Rabatt",
+    "Bundle kaufen & sparen",
+    "Nur solange der Vorrat reicht",
+    "Limitiertes Angebot"
+  ]
+}

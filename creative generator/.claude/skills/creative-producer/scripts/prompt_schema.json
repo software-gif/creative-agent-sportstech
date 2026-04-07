@@ -1,0 +1,186 @@
+{
+  "$schema": "JSON Prompt Schema for Static Ad Generation via Gemini 3.1 Flash",
+  "$version": "1.0",
+  "$description": "Jedes Feld beschreibt exakt einen Aspekt der zu generierenden Static Ad. Claude füllt dieses Schema pro Ad aus und übergibt es zusammen mit dem Produktbild an Gemini.",
+
+  "meta": {
+    "angle": "string — Name des Angles (z.B. 'Problem/Pain')",
+    "sub_angle": "string — Name des Sub-Angles (z.B. 'Kaputte Pumpspender')",
+    "variant": "integer — Varianten-Nummer (1, 2 oder 3)",
+    "scene_type": "string — 'negative' | 'neutral' | 'positive'. PFLICHT. 'negative' = Szene zeigt Problem/Pain/Konkurrenz-Kritik → Produktbild wird NICHT an Gemini gesendet, generisches Produkt wird erzwungen. 'positive'/'neutral' = Produkt darf gezeigt werden.",
+    "creative_style": "string — 'on_brand' | 'off_brand'. PFLICHT. 'on_brand' = CI-konforme Ads (New Spirit Bold + Assistant Medium, Brand-Farben). 'off_brand' = Ugly Ads / Native-Look (freie Fonts, keine CI-Farben, organisch wie UGC). Off-Brand konvertiert besser auf Meta. Andre sagt: 60% On-Brand, 40% Off-Brand.",
+    "creative_type": "string — 'lifestyle' | 'product_static'. PFLICHT. 'lifestyle' = Frau 45+ nutzt Produkt in echtem Setting (Sofa, Garten, Bett). Nur Headline + Subheadline. 'product_static' = Produkt-Hero-Shot mit Text-Overlays, Icons, Benefits, CTA.",
+    "season": "string — 'evergreen' | 'sommer' | 'frühling' | 'herbst' | 'winter' | 'valentinstag' | 'ostern' | 'muttertag' | 'black_friday' | 'black_week' | 'weihnachten'. Default: 'evergreen'. Bestimmt Umgebung, Farben, Kleidung der Person.",
+    "environment": "string | null — 'wohnzimmer' | 'garten' | 'schlafzimmer' | 'studio' | null. Für Lifestyle-Bilder: wo die Szene spielt. Null für Product Statics ohne Umgebung.",
+    "product_category": "string | null — Produkt-Kategorie passend zum Handle aus brand.json. Wird dynamisch aus den Produktdaten gelesen.",
+    "generation_mode": "string — 'raw' | 'composited' | 'both'. 'raw' = nur Lifestyle/Produkt-Bild ohne Text-Overlay. 'composited' = mit Text + Compositor. 'both' = Raw + Composited werden beide gespeichert. Default: 'both'.",
+    "format": "string — '4:5' oder '9:16'",
+    "resolution": {
+      "width": "integer — Pixelbreite (4:5 = 1536, 9:16 = 2160)",
+      "height": "integer — Pixelhöhe (4:5 = 1920, 9:16 = 3840)"
+    }
+  },
+
+  "canvas": {
+    "background": {
+      "type": "string — 'solid_color' | 'gradient' | 'photo_scene' | 'texture' | 'blurred_lifestyle'",
+      "primary_color": "string — Hex-Farbcode (z.B. '#F4F2F2')",
+      "secondary_color": "string | null — Für Gradienten, zweiter Hex-Farbcode",
+      "gradient_direction": "string | null — 'top_to_bottom' | 'left_to_right' | 'radial' | 'diagonal'",
+      "scene_description": "string | null — Falls type='photo_scene': Detaillierte Beschreibung der Szene",
+      "texture_description": "string | null — Falls type='texture': z.B. 'soft linen fabric, warm beige tones'",
+      "opacity": "float — 0.0 bis 1.0, Hintergrund-Deckkraft (1.0 = voll sichtbar)"
+    },
+    "lighting": {
+      "type": "string — 'soft_natural' | 'studio' | 'golden_hour' | 'flat' | 'dramatic'",
+      "direction": "string — 'top_left' | 'top_right' | 'frontal' | 'backlit' | 'ambient'",
+      "warmth": "string — 'warm' | 'neutral' | 'cool'",
+      "intensity": "string — 'soft' | 'medium' | 'bright'",
+      "shadows": "string — 'none' | 'subtle' | 'medium' | 'dramatic'"
+    },
+    "color_mood": {
+      "palette": ["string — Array von 3-5 Hex-Farben die den Gesamteindruck definieren"],
+      "mood": "string — z.B. 'warm and inviting', 'clean and clinical', 'luxurious and calm'",
+      "saturation": "string — 'muted' | 'natural' | 'vibrant'",
+      "contrast": "string — 'low' | 'medium' | 'high'"
+    }
+  },
+
+  "layout": {
+    "type": "string — 'three_zone_vertical' | 'three_column_steps' | 'diagonal_splash' | 'centered_hero' | 'split_composition' | 'full_bleed_lifestyle'",
+    "zones": {
+      "top": {
+        "height_percent": "integer — Prozent der Gesamthöhe (z.B. 20)",
+        "content": "string — 'headline' | 'logo' | 'empty' | 'badge'",
+        "background": "string | null — Eigene Hintergrundfarbe oder null für Canvas-BG"
+      },
+      "middle": {
+        "height_percent": "integer — (z.B. 55)",
+        "content": "string — 'product_hero' | 'lifestyle_scene' | 'before_after' | 'step_panels' | 'ingredient_showcase'"
+      },
+      "bottom": {
+        "height_percent": "integer — (z.B. 25)",
+        "content": "string — 'cta_price' | 'tagline' | 'trust_signals' | 'product_name'"
+      }
+    },
+    "margins": {
+      "outer": "string — 'none' | 'small' (2%) | 'medium' (5%) | 'large' (8%)",
+      "inner_gap": "string — 'tight' (8px) | 'normal' (16px) | 'spacious' (32px)"
+    },
+    "alignment": "string — 'center' | 'left' | 'right'"
+  },
+
+  "product": {
+    "source_image": "string — Pfad zum Produktbild (z.B. 'products/images/niacinamid-serum/0.jpg')",
+    "display_mode": "string — 'single_hero' | 'set_lineup' | 'floating' | 'in_hand' | 'on_surface'",
+    "position": {
+      "x": "string — 'left' | 'center' | 'right' | 'left_third' | 'right_third'",
+      "y": "string — 'top' | 'center' | 'bottom' | 'lower_third'"
+    },
+    "scale": "float — Relative Größe: 0.3 (klein) bis 0.8 (dominant)",
+    "rotation": "float — Grad der Drehung (-15 bis 15)",
+    "perspective": "string — 'straight_on' | 'slight_angle' | 'three_quarter' | 'birds_eye'",
+    "shadow": {
+      "type": "string — 'none' | 'drop_shadow' | 'reflection' | 'contact_shadow'",
+      "intensity": "string — 'subtle' | 'medium' | 'strong'",
+      "direction": "string — 'below' | 'right' | 'behind'"
+    },
+    "surface": "string | null — Falls auf Oberfläche: 'marble' | 'wood' | 'fabric' | 'glass' | 'concrete' | null",
+    "decorative_elements": ["string | null — z.B. 'water droplets on bottle', 'green leaves around base', 'cream swatch beside product'"]
+  },
+
+  "text_overlays": [
+    {
+      "role": "string — 'headline' | 'subheadline' | 'cta' | 'price' | 'badge' | 'disclaimer' | 'step_label'",
+      "content": "string — Der tatsächliche Text",
+      "position": {
+        "x": "string — 'left' | 'center' | 'right'",
+        "y": "string — 'top' | 'upper_third' | 'center' | 'lower_third' | 'bottom'",
+        "offset_x_percent": "integer | null — Fein-Offset in % der Breite",
+        "offset_y_percent": "integer | null — Fein-Offset in % der Höhe"
+      },
+      "style": {
+        "font_family": "string — 'serif_elegant' | 'sans_modern' | 'sans_bold' | 'handwritten'. On-Brand: 'serif_elegant' = Lora Bold (Headlines), 'sans_modern' = Assistant Medium (Body). Off-Brand: freie Wahl, z.B. 'handwritten', 'sans_bold', System-Fonts.",
+        "font_weight": "string — 'regular' | 'medium' | 'semibold' | 'bold'",
+        "font_size": "string — 'xs' (12px) | 'sm' (16px) | 'md' (24px) | 'lg' (36px) | 'xl' (48px) | 'xxl' (64px) | 'display' (80px+)",
+        "color": "string — Hex-Farbcode",
+        "letter_spacing": "string — 'normal' | 'wide' | 'extra_wide'",
+        "text_transform": "string — 'none' | 'uppercase' | 'lowercase'",
+        "line_height": "float — z.B. 1.2 für eng, 1.5 für luftig",
+        "max_width_percent": "integer — Maximale Textbreite in % der Canvas-Breite (z.B. 80)",
+        "text_align": "string — 'left' | 'center' | 'right'"
+      },
+      "decoration": {
+        "background": "string | null — Hex-Farbe für Text-Highlight-Box oder null",
+        "background_padding": "string | null — 'tight' | 'normal' | 'spacious'",
+        "background_shape": "string | null — 'rectangle' | 'rounded' | 'pill'",
+        "border": "string | null — z.B. '2px solid #190a00' oder null",
+        "shadow": "string | null — 'subtle' | 'medium' | null",
+        "strikethrough": "boolean — Für durchgestrichene Originalpreise",
+        "underline": "boolean"
+      },
+      "emphasis_words": ["string | null — Wörter die besonders hervorgehoben werden sollen (andere Farbe/Gewicht)"],
+      "emphasis_style": {
+        "color": "string | null",
+        "font_weight": "string | null",
+        "background": "string | null"
+      }
+    }
+  ],
+
+  "visual_elements": {
+    "badges": [
+      {
+        "type": "string — 'cta_button' | 'price_tag' | 'discount' | 'trust_seal' | 'urgency'",
+        "text": "string",
+        "position": {
+          "x": "string",
+          "y": "string"
+        },
+        "style": {
+          "background_color": "string — Hex",
+          "text_color": "string — Hex",
+          "shape": "string — 'rectangle' | 'rounded' | 'pill' | 'circle'",
+          "size": "string — 'small' | 'medium' | 'large'"
+        }
+      }
+    ],
+    "dividers": [
+      {
+        "type": "string — 'horizontal_line' | 'vertical_line' | 'dots' | 'numbered_timeline'",
+        "position_y_percent": "integer",
+        "color": "string — Hex",
+        "thickness": "string — 'thin' (0.5px) | 'normal' (1px) | 'thick' (2px)"
+      }
+    ],
+    "icons": ["string | null — z.B. 'checkmark', 'heart', 'leaf', 'shield', 'clock'"],
+    "shapes": [
+      {
+        "type": "string | null — 'circle' | 'rectangle' | 'blob' | 'wave'",
+        "color": "string | null — Hex",
+        "opacity": "float | null",
+        "position": "string | null — z.B. 'top_right_corner'",
+        "purpose": "string | null — 'decorative' | 'text_container' | 'product_frame'"
+      }
+    ]
+  },
+
+  "brand_elements": {
+    "logo": {
+      "visible": "boolean",
+      "position": "string — 'top_left' | 'top_center' | 'top_right' | 'bottom_center' | 'bottom_right'",
+      "size": "string — 'small' | 'medium' | 'large'",
+      "color_mode": "string — 'dark' | 'light' | 'original'"
+    },
+    "brand_colors_usage": "string — Beschreibung wie Brand-Farben eingesetzt werden",
+    "trust_signals": ["string | null — z.B. '30 Tage Zufriedenheitsgarantie', 'Dermatest geprüft'"]
+  },
+
+  "generation_instructions": {
+    "style_reference": "string — Gesamtstil-Beschreibung für das Modell (z.B. 'Clean, editorial beauty ad in the style of premium German skincare brands')",
+    "must_include": ["string — Elemente die zwingend im Bild sein müssen"],
+    "must_avoid": ["string — Elemente die vermieden werden müssen"],
+    "quality_notes": "string — Zusätzliche Qualitätshinweise (z.B. 'No watermarks, no AI artifacts, photorealistic product rendering')",
+    "text_rendering_notes": "string — Hinweise zur Textdarstellung (z.B. 'All German text must be correctly spelled, clean typography, no overlapping')"
+  }
+}
