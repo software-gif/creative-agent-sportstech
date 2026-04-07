@@ -395,6 +395,103 @@
       }
     },
 
+    "scross": {
+      "name": "sCross Crosstrainer",
+      "is_hero_product": false,
+      "product_category": "crosstrainer",
+      "supabase_product_id": "a9701475-ceae-417c-a9e2-4ce32823a335",
+
+      "appearance": {
+        "summary": "Premium Crosstrainer in Schwarz-Silber. Großes, robustes Gerät mit elliptischer Bewegungsbahn. Silberne Schwungscheibe seitlich sichtbar. LCD-Display in der Mitte. Zwei Griffarten: bewegliche Armstangen und feste Griffe.",
+        "key_features": "Schwarzer Stahlrahmen, silberne/chromfarbene Schwungscheibe (23kg, seitlich sichtbar), LCD-Display mit Tablet-Halter in der Mitte, bewegliche Armstangen (oben, für Ganzkörpertraining) + feste Griffe (unten, für reines Beintraining), große Anti-Rutsch Pedale, stabiler Standfuß vorne und hinten, Transportrollen",
+        "colors_available": ["black-silver"],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Auf dem Hauptrahmen",
+          "style": "Sportstech Branding auf schwarzem Rahmen"
+        }
+      },
+
+      "specs": {
+        "resistance_levels": 32,
+        "incline_settings": 3,
+        "flywheel_kg": 23,
+        "stride_length_cm": 48,
+        "max_user_weight_kg": 150,
+        "dimensions_mm": "1570 x 580 x 1690",
+        "weight_kg": 85,
+        "noise_db": 30,
+        "resistance_type": "magnetic",
+        "no_power_needed": true,
+        "price_eur": 1019.15
+      },
+
+      "how_it_works": {
+        "principle": "Person steht auf den Pedalen und macht eine elliptische Gleitbewegung — eine Kombination aus Laufen, Radfahren und Treppensteigen. Gelenkschonend weil die Füße nie den Boden verlassen.",
+        "position": "Person STEHT aufrecht auf den Pedalen, Hände greifen die beweglichen Armstangen ODER die festen Griffe",
+        "motion": "Elliptische Vorwärts-Bewegung: Beine gleiten in ovaler Bahn, Arme bewegen sich synchron mit — Push/Pull-Bewegung. 48cm Schrittlänge für natürlichen Gang.",
+        "grip_options": "Bewegliche Armstangen oben = Ganzkörpertraining (Arme + Beine). Feste Griffe unten = nur Beintraining, stabiler Stand."
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Standard Crosstraining",
+          "position": "STEHEND auf den Pedalen, aufrecht, Hände greifen die BEWEGLICHEN Armstangen, Beine in elliptischer Gleitbewegung",
+          "camera_angle": "3/4 oder seitlich für volle Bewegungsdarstellung"
+        },
+        {
+          "name": "Bein-fokussiert",
+          "position": "STEHEND auf den Pedalen, Hände an den FESTEN unteren Griffen, Fokus auf Beinbewegung",
+          "camera_angle": "Frontal oder 3/4"
+        },
+        {
+          "name": "Intense Workout",
+          "position": "STEHEND, dynamische Pose mit Schwung, leicht nach vorne gebeugt, intensive elliptische Bewegung",
+          "camera_angle": "Seitlich oder leicht von unten für dynamischen Effekt"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "sCross muss EXAKTE Nachbildung der Referenzbilder sein — schwarzer Rahmen, silberne Schwungscheibe",
+          "Person STEHT auf den Pedalen — NICHT sitzend",
+          "Elliptische Beinbewegung — Füße auf den Pedalen, Beine in ovaler Bewegungsbahn",
+          "Silberne/chromfarbene Schwungscheibe deutlich sichtbar an der Seite",
+          "Zwei verschiedene Grifftypen sichtbar: bewegliche Armstangen oben + feste Griffe unten",
+          "LCD-Display in der Mitte des Geräts",
+          "Aufrechte Körperhaltung — natürliche, entspannte Trainingsposition"
+        ],
+        "must_avoid": [
+          "Person SITZT auf dem Crosstrainer — man STEHT auf den Pedalen",
+          "Verwechslung mit Fahrrad/Ergometer — Crosstrainer hat KEINE Sitzposition",
+          "Falsche Armbewegung — Arme bewegen sich SYNCHRON mit den Beinen über die Armstangen",
+          "Generischer Crosstrainer statt exakter Nachbildung",
+          "Fehlende silberne Schwungscheibe",
+          "Unrealistische Körperhaltung oder Verrenkungen — die Bewegung ist FLIESSEND und NATÜRLICH",
+          "Verwechslung der Griffe — bewegliche Armstangen sind OBEN (lang), feste Griffe sind UNTEN (kurz)"
+        ]
+      },
+
+      "reference_images": {
+        "storage_prefix": "products/scross/",
+        "count": 12,
+        "key_angles": [
+          "0.png — 3/4 Ansicht von vorne-links, Display sichtbar",
+          "1.png — 3/4 Ansicht von vorne-rechts, Schwungscheibe sichtbar",
+          "2.png — 3/4 Ansicht von vorne-links, andere Perspektive",
+          "3.png — Seitenansicht kompakt",
+          "4.png — Seitenansicht klein",
+          "5.png — Display/Lenker Nahaufnahme von vorne",
+          "6.png — Pedale/Basis Detail von hinten",
+          "7.png — Rahmen/Schwungscheibe Detail",
+          "8.png — Display Nahaufnahme mit Workout-Anzeige",
+          "9.png — 3/4 Ansicht komplett schwarz",
+          "10.png — Display Detail mit Workout-Übersicht",
+          "11.png — Seitenansicht komplett"
+        ]
+      }
+    },
+
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
