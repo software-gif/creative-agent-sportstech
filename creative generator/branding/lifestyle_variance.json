@@ -1,13 +1,161 @@
 {
-  "_description": "Varianz-Pool für Lifestyle-Creatives. Der Creative Producer wählt zufällig aus diesen Optionen um diverse Bilder zu generieren.",
+  "_description": "Varianz-Pool für Lifestyle-Creatives. Volle Diversität bei Models — jedes Alter, Geschlecht, Körperform. Environments basieren auf Weavy Mood Board Stilen.",
 
-  "models": [],
+  "models": [
+    {
+      "id": "m1",
+      "description": "Frau, 30, athletic soft build, dunkle Haut, racially ambiguous, glatte Haare im Pferdeschwanz",
+      "prompt_snippet": "A woman aged 30 with darkish skin, racially ambiguous, straightened natural shoulder-length hair in a tight back ponytail, soft medium build, slight smile, wearing athletic training clothes"
+    },
+    {
+      "id": "m2",
+      "description": "Mann, 35, sportlich-schlank, helle Haut, kurze braune Haare",
+      "prompt_snippet": "A man aged 35 with fair skin, short brown hair, lean athletic build, focused expression, wearing dark athletic shorts and fitted t-shirt"
+    },
+    {
+      "id": "m3",
+      "description": "Frau, 45, approachable sporty, hellbraune Haare hochgebunden, determined smile",
+      "prompt_snippet": "A woman aged 45 with light-brown hair tied back casually, approachable sporty physique — athletic, strong, and real with natural muscle definition, determined focused smile, wearing sports bra and high-waisted leggings"
+    },
+    {
+      "id": "m4",
+      "description": "Mann, 50, kräftig, graue kurze Haare, dunkle Haut",
+      "prompt_snippet": "A man aged 50 with short gray hair, dark brown skin, strong stocky build, calm confident expression, wearing loose athletic tank top and shorts"
+    },
+    {
+      "id": "m5",
+      "description": "Frau, 25, schlank, asiatisch, schwarze lange Haare, energisch",
+      "prompt_snippet": "A woman aged 25 with long straight black hair in a high ponytail, East Asian appearance, slim athletic build, energetic bright expression, wearing colorful sports outfit"
+    },
+    {
+      "id": "m6",
+      "description": "Mann, 40, mittlere Statur, mediterran, dunkle lockige Haare",
+      "prompt_snippet": "A man aged 40 with dark curly hair, Mediterranean appearance, olive skin tone, medium athletic build, warm relaxed expression, wearing fitted workout clothes"
+    },
+    {
+      "id": "m7",
+      "description": "Frau, 55, elegant-fit, silbergraue kurze Haare, helle Haut",
+      "prompt_snippet": "A woman aged 55 with short silver-gray hair, fair skin, elegant fit build, serene confident expression, wearing premium black athletic set"
+    },
+    {
+      "id": "m8",
+      "description": "Mann, 28, groß und schlank, afrikanisch, kurze Haare, breit lächelnd",
+      "prompt_snippet": "A man aged 28 with very short black hair, dark African skin, tall lean athletic build, broad genuine smile, wearing gray athletic shorts and black compression shirt"
+    }
+  ],
 
-  "poses": {},
+  "environments": {
+    "scandinavian": {
+      "name": "Scandinavian Interior",
+      "description": "Hell, luftig, Holz, weiße Wände, große Fenster, Pflanzen. Hygge-Atmosphäre.",
+      "prompt_snippet": "bright Scandinavian-style living room with white walls, light oak hardwood flooring, large windows with sheer curtains letting in warm natural light, green houseplants, minimal furniture in light neutral tones. Airy, spacious atmosphere.",
+      "furniture": "light oak furniture, white linen sofa, minimal decor",
+      "lighting": "warm natural window light, soft and even"
+    },
+    "loft_industrial": {
+      "name": "Loft / Industrial",
+      "description": "Exposed brick, hohe Decken, Metallakzente, dunklere Töne. Urban, maskulin.",
+      "prompt_snippet": "spacious loft apartment with exposed red brick walls, high ceilings with industrial metal beams, large factory-style windows, polished concrete floor, warm Edison bulb lighting. Urban, moody atmosphere.",
+      "furniture": "leather sofa, metal shelving, industrial pendant lights",
+      "lighting": "warm Edison bulbs mixed with large window light, dramatic but not harsh"
+    },
+    "german_modern": {
+      "name": "Modern German Interior",
+      "description": "Clean, weiß, minimalistisch. Hohe Qualität, klare Linien. Premium Wohnung.",
+      "prompt_snippet": "modern German apartment with clean white walls, floor-to-ceiling windows overlooking a city skyline, polished light gray stone flooring, sleek minimalist furniture. Bright, airy, premium atmosphere.",
+      "furniture": "designer sofa in gray, glass coffee table, built-in shelving",
+      "lighting": "bright natural daylight, clean and even"
+    },
+    "japandi_wellness": {
+      "name": "Japandi / Wellness Room",
+      "description": "Japandi-Ästhetik. Venetian Plaster, Mikrozement, Holzbalken, bodentiefe Fenster zum Wald. Zen, ruhig, premium.",
+      "prompt_snippet": "serene high-end minimalist wellness room with warm matte-finish Venetian plaster walls in light beige, polished large-format micro-cement flooring, exposed light oak ceiling with subtle slope. Massive floor-to-ceiling windows looking out onto a tranquil misty forest. A sculptural ceramic pot with an olive tree, a curved cream bouclé lounge chair. Japandi interior design, architectural photography.",
+      "furniture": "cream bouclé lounge chair, sculptural ceramic pots, olive tree",
+      "lighting": "warm diffused morning light, soft long shadows"
+    },
+    "home_office": {
+      "name": "Homeoffice / Standing Desk",
+      "description": "Modernes Homeoffice mit Stehschreibtisch. Ideal für Walking Pad Szenen.",
+      "prompt_snippet": "modern home office with a height-adjustable standing desk, large monitor, organized workspace. Large window with natural light. Clean, productive atmosphere. The walking pad is positioned under the standing desk.",
+      "furniture": "standing desk, ergonomic chair, monitor, desk lamp",
+      "lighting": "bright natural office light"
+    },
+    "dark_evening": {
+      "name": "Abend / Dunkle Stimmung",
+      "description": "Spätnachmittag/Abend, warmes indirektes Licht, gemütliche Atmosphäre.",
+      "prompt_snippet": "living room in the late afternoon with warm golden light streaming through windows at sunset angle, creating dramatic long shadows. Cozy evening atmosphere with ambient indirect lighting from floor lamps.",
+      "furniture": "comfortable sofa, floor lamp, warm throws",
+      "lighting": "golden hour sunset light mixed with warm ambient lamps"
+    }
+  },
 
-  "settings": {},
+  "camera_presets": {
+    "three_quarter": {
+      "name": "3/4 Shot (Standard)",
+      "prompt_snippet": "shot from a three-quarter angle, medium-wide framing showing the full product and model in the room context",
+      "shot_size": "Wide",
+      "camera_angle": "Slightly above",
+      "character_angle": "3/4 angle",
+      "lens": "35mm",
+      "depth_of_field": "f/4"
+    },
+    "over_shoulder": {
+      "name": "Over-the-Shoulder View",
+      "prompt_snippet": "over-the-shoulder perspective looking past the model toward the product display/controls",
+      "shot_size": "Medium Shot",
+      "camera_angle": "Eye level",
+      "character_angle": "Over the shoulder",
+      "lens": "50mm",
+      "depth_of_field": "f/2.8"
+    },
+    "front_view": {
+      "name": "Front View (leicht seitlich)",
+      "prompt_snippet": "front-facing view with the camera slightly off-center, showing the model using the equipment from the front",
+      "shot_size": "Medium Shot",
+      "camera_angle": "Eye level",
+      "character_angle": "Front facing",
+      "lens": "50mm",
+      "depth_of_field": "f/4"
+    },
+    "ground_level": {
+      "name": "Ground Floor / Low Angle",
+      "prompt_snippet": "low-angle shot from floor level looking upward at the model and equipment, emphasizing power and scale",
+      "shot_size": "Wide",
+      "camera_angle": "Ground level",
+      "character_angle": "Front facing",
+      "lens": "24mm",
+      "depth_of_field": "f/5.6"
+    },
+    "birds_eye": {
+      "name": "Bird's Eye / Top Down",
+      "prompt_snippet": "top-down bird's eye view looking directly down on the model and equipment, showcasing the room layout",
+      "shot_size": "Bird's Eye",
+      "camera_angle": "High angle",
+      "character_angle": "Top View",
+      "lens": "24mm",
+      "depth_of_field": "f/8"
+    },
+    "close_up_detail": {
+      "name": "Close Up Detail",
+      "prompt_snippet": "extreme close-up focusing on the interaction between hands and product controls/display",
+      "shot_size": "Extreme Close Up",
+      "camera_angle": "Slightly above",
+      "character_angle": "Profile",
+      "lens": "85mm",
+      "depth_of_field": "f/1.8"
+    }
+  },
 
-  "outfits_summer": [],
+  "outfits": [
+    "black cropped top and tight form-fitting short shorts, athletic sneakers",
+    "coordinating fitness outfit with supportive sports bra and high-waisted leggings",
+    "loose gray tank top and black athletic shorts",
+    "fitted dark athletic t-shirt and compression leggings",
+    "colorful sports bra and matching high-waisted leggings",
+    "premium black athletic set — fitted top and joggers",
+    "simple white t-shirt and comfortable training shorts",
+    "dark compression shirt and gray athletic shorts"
+  ],
 
-  "_outfit_rules": "TODO: Outfit-Regeln für Sportstech Zielgruppe definieren"
+  "_outfit_rules": "Training-Kleidung passend zum Fitnessgerät. Muss sportlich und realistisch sein. Keine Alltagskleidung (Jeans, Blusen). Schuhe: Sneakers oder barfuß auf Walking Pad."
 }

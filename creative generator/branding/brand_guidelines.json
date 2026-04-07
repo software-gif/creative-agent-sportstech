@@ -1,115 +1,86 @@
 {
   "typography": {
-    "primary_font": "TODO: Headline Font",
+    "primary_font": "Sohne",
     "primary_weight": "Bold",
-    "secondary_font": "TODO: Body Font",
-    "secondary_weight": "Medium",
-    "heading_style": "TODO",
-    "notes": "TODO: Typografie-Details"
+    "secondary_font": "Sohne",
+    "secondary_weight": "Regular",
+    "heading_style": "Modern, clean, sporty — kein Serifen-Font",
+    "notes": "Sportstech nutzt die Sohne Font-Family. Modernes, cleanes Design. Headlines Bold, Body Regular."
   },
   "colors": {
-    "primary": "TODO: #hex",
-    "secondary": "TODO: #hex",
-    "accent": "TODO: #hex",
+    "primary": "#E4002B",
+    "secondary": "#0B0C10",
+    "accent": "#E08104",
     "success": "#2E9E7B",
-    "text_dark": "TODO: #hex",
+    "text_dark": "#0B0C10",
     "text_light": "#FFFFFF",
-    "background_light": "TODO: #hex",
-    "background_dark": "TODO: #hex",
-    "palette_notes": "TODO: Farbbeschreibung"
+    "background_light": "#F8F8F8",
+    "background_dark": "#0B0C10",
+    "palette_notes": "Sportliches Rot als Hauptfarbe, Near-Black als Dark Theme, Orange als Produkt-Akzent. Minimalistisch, premium, dunkel-orientiertes Design."
   },
   "sales_event_colors": {
-    "valentinstag": { "primary": "#E91E63", "secondary": "#FCE4EC", "accent": "TODO" },
-    "ostern": { "primary": "#8BC34A", "secondary": "#FAF5F0", "accent": "TODO" },
-    "muttertag": { "primary": "#E91E63", "secondary": "#FFF0F5", "accent": "TODO" },
-    "vatertag": { "primary": "#1565C0", "secondary": "#E3F2FD", "accent": "TODO" },
-    "black_friday": { "primary": "#000000", "secondary": "TODO", "accent": "TODO" },
-    "weihnachten": { "primary": "#C62828", "secondary": "#1B5E20", "accent": "TODO" }
+    "valentinstag": { "primary": "#E91E63", "secondary": "#FCE4EC", "accent": "#E4002B" },
+    "ostern": { "primary": "#8BC34A", "secondary": "#F1F8E9", "accent": "#E4002B" },
+    "muttertag": { "primary": "#E91E63", "secondary": "#FFF0F5", "accent": "#E4002B" },
+    "vatertag": { "primary": "#1565C0", "secondary": "#E3F2FD", "accent": "#E4002B" },
+    "black_friday": { "primary": "#000000", "secondary": "#E4002B", "accent": "#FFD700" },
+    "weihnachten": { "primary": "#C62828", "secondary": "#1B5E20", "accent": "#FFD700" }
   },
   "visual_style": {
-    "overall": "TODO: Visueller Stil beschreiben",
+    "overall": "Minimalistisch, dark, premium-feeling. Video-heavy mit Landscape Workout Footage. Lifestyle Shots zeigen Interior-Szenen mit Menschen, Produkt und weichem Licht.",
     "backgrounds": [
-      "TODO"
+      "Scandinavian Interior (hell, Holz, Pflanzen)",
+      "Loft / Industrial (Backstein, Metall, dunkel)",
+      "Modern German Interior (clean, weiß, minimalistisch)",
+      "Japandi / Wabi-Sabi (Holz, Beton, Natur)",
+      "Wellness Room (Fenster zum Wald, Beton/Holzboden)"
     ],
-    "product_presentation": "TODO",
-    "photography_style": "TODO"
+    "product_presentation": "Produkt in realistischem Interior-Setting, weiche natürliche Beleuchtung, genug Platz um das Produkt herum",
+    "photography_style": "Soft lighting, kein High Contrast. Goldene Stunde / Morgenlight bevorzugt. Professionelle Kamera-Ästhetik (Hasselblad, 50mm, f/2.8)."
   },
   "ad_layout": {
-    "format": "9:16 (1080x1920) mit 1:1 Safe Zone",
-    "safe_zone": {
-      "description": "Wichtige Infos (Produkt, Headline, Benefits) im mittleren 1:1 Bereich (1080x1080). Logo oben, Social Proof unten.",
-      "content_area": { "y_start_percent": 23, "y_end_percent": 77 },
-      "logo_area": { "position": "top_center", "y_percent": 5 },
-      "social_proof_area": { "position": "bottom_center", "y_percent": 85 }
-    },
-    "elements_order": [
-      "Logo (oben)",
-      "Headline (oberer Rand der Safe Zone)",
-      "Produkt (Mitte)",
-      "Benefits mit Icons (unter dem Produkt)",
-      "CTA Button (unterer Rand der Safe Zone)",
-      "Social Proof / Payment Icons (unten)"
-    ]
+    "formats": ["9:16", "16:9", "1:1"],
+    "primary_format": "9:16",
+    "resolution": "2K",
+    "notes": "9:16 priorisiert (Stories/Reels), 1:1 für Feed, 16:9 für Landscape. Kein 4K nötig, 1K zu wenig."
   },
   "compositor_elements": {
     "logo": {
       "files": ["branding/logo_dark.png", "branding/logo_white.png"],
       "default_position": "top_center",
-      "notes": "Logo immer im oberen Bereich. Dunkel auf hellem BG, weiß auf dunklem BG."
+      "notes": "Sportstech Logo — Rot auf Hell, Weiß auf Dunkel. Product branding (z.B. 'Sportstech' Logo auf Geräten) muss korrekt dargestellt werden."
     },
     "social_proof": {
-      "file": "branding/social_proof.png",
-      "text_fallback": "TODO: Social Proof Text",
+      "text_fallback": "3 Mio. Kunden | Deutschlands Nr. 1 | 30 Tage Rückgaberecht",
       "position": "bottom_center"
-    },
-    "payment_icons": {
-      "file": "branding/payment_icons.png",
-      "position": "bottom_center",
-      "notes": "TODO"
-    },
-    "scarcity": {
-      "elements": ["TODO"],
-      "position": "above_cta",
-      "color": "TODO"
     }
   },
   "creative_styles": {
-    "on_brand": {
-      "name": "On-Brand / High Polish",
-      "description": "Brand-konforme, hochwertige Ads mit CI-Farben und Fonts.",
-      "fonts": {
-        "headline": "TODO",
-        "body": "TODO"
-      },
-      "colors": "Brand-Palette",
-      "layout": "Strukturiert mit klaren Zonen, professionelle Typografie",
-      "backgrounds": ["TODO"],
-      "use_case": "Offizieller Ad Account, Brand Building, Retargeting"
+    "lifestyle": {
+      "name": "Lifestyle Interior Shots",
+      "description": "Interior-Szenen mit Menschen und Beleuchtung. Person benutzt das Fitnessgerät in einem realistischen Wohnraum. Weiches Licht, natürliche Atmosphäre. DAS ist der Hauptfokus dieses Creative Agents.",
+      "lighting": "Soft, natürlich, kein High Contrast",
+      "environments": ["Scandinavian", "Loft", "German Interior", "Japandi", "Wellness Room"],
+      "use_case": "Meta Ads — Lifestyle Creatives"
     },
-    "off_brand": {
-      "name": "Off-Brand / Ugly Ads / Native-Look",
-      "description": "Bewusst unpoliert, wie ein organischer Social Media Post. Sieht aus wie User-Generated Content. Konvertiert auf Meta oft besser als polierte Ads.",
-      "fonts": {
-        "headline": "System-Fonts, handschriftliche Fonts, oder einfache Sans-Serif",
-        "body": "Einfache, ungestylte Fonts"
-      },
-      "colors": "Keine Brand-Farben — freie Farbwahl, kontrastreich",
-      "layout": "Weniger strukturiert, asymmetrisch, organisch",
-      "backgrounds": ["Handy-Foto Look", "Screenshot-Ästhetik", "Simple einfarbige Hintergründe"],
-      "elements": [
-        "Handschriftliche Markierungen/Pfeile",
-        "Gelbe/rote Highlights wie Textmarker",
-        "Emojis im Text",
-        "Einfache Icons"
-      ],
-      "use_case": "Frontend Prospecting, Cold Audience, Meta Andromeda Diversification"
+    "studio": {
+      "name": "Studio Shots",
+      "description": "Farbiger oder grauer Hintergrund, monochrom. Separates Projekt für die Zukunft — NICHT Teil des aktuellen Creative Agents.",
+      "use_case": "Zukunft — nicht implementiert"
     }
   },
+  "camera_presets": {
+    "shot_sizes": ["Extreme Wide", "Wide", "Medium Shot", "Close Up", "Extreme Close Up", "Bird's Eye"],
+    "camera_angles": ["Eye level", "Slightly above", "High angle", "Slightly below", "Low angle", "Ground level"],
+    "character_angles": ["Front facing", "3/4 angle", "Profile", "Over the shoulder", "Back view", "Top View"],
+    "lenses": ["14mm", "24mm", "35mm", "50mm", "85mm", "135mm", "200mm"],
+    "depth_of_field": ["f/1.2", "f/1.8", "f/2.8", "f/4", "f/5.6", "f/8", "f/16"],
+    "notes": "Aus den bestehenden Weavy Workflows übernommen. 'Keep the Same' ist eine Option bei Multishots."
+  },
   "text_overlay_elements": {
-    "headline": { "required": true },
+    "headline": { "required": false, "note": "Lifestyle Shots haben in der Regel KEINE Text-Overlays — reiner Bild-Fokus" },
     "sub_headline": { "required": false },
-    "icons_with_benefits": { "required": false, "source": "reviews" },
     "cta": { "required": false },
-    "logo": { "required": false }
+    "logo": { "required": false, "note": "Optional — Produkt-Logo ist auf dem Gerät selbst sichtbar" }
   }
 }

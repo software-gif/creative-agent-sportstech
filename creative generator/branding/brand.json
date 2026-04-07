@@ -1,58 +1,184 @@
 {
   "name": "Sportstech",
-  "shop_url": "TODO: Sportstech Shop URL",
-  "facebook_page_id": "TODO: Facebook Page ID",
-  "shop_platform": "shopify",
-  "tagline": "TODO: Sportstech Tagline",
+  "shop_url": "https://www.sportstech.de",
+  "facebook_page_id": "TODO",
+  "shop_platform": "shopware",
+  "tagline": "Engineered in Germany",
   "category": "Fitnessgeräte / Home Fitness / Sport Equipment",
   "target_market": "DACH",
   "language": "de",
   "currency": "EUR",
   "brand_values": [
-    "TODO: Brand Values hier eintragen"
+    "Engineered in Germany",
+    "3 Millionen zufriedene Kunden",
+    "30 Tage Rückgaberecht mit kostenlosem Rückversand",
+    "Innovative Fitnessgeräte für Zuhause",
+    "Breites Sortiment von Walking Pads bis Kraftstationen"
   ],
-  "products": [],
+  "products": [
+    {
+      "handle": "walking-pad",
+      "name": "Walking Pad",
+      "type": "Walking Pads",
+      "category": "walking_pad",
+      "price_from": null,
+      "url": "https://www.sportstech.de/walking-pad",
+      "colors": ["gray", "black", "wood"],
+      "benefits": [
+        "Kompakt und faltbar für jede Wohnung",
+        "Ideal unter dem Stehschreibtisch",
+        "Leise für den Homeoffice-Alltag",
+        "Einfache Steuerung per Fernbedienung"
+      ]
+    },
+    {
+      "handle": "treadmill-f75",
+      "name": "sTread Pro F75",
+      "type": "Laufbänder",
+      "category": "treadmill",
+      "price_from": null,
+      "url": "https://www.sportstech.de/laufbaender",
+      "colors": ["black", "silver"],
+      "benefits": [
+        "Professionelles Laufband für Zuhause",
+        "Großes Display mit Trainingssteuerung",
+        "Dämpfungssystem für gelenkschonendes Laufen",
+        "Sportstech Live App Integration"
+      ]
+    },
+    {
+      "handle": "rowing-machine",
+      "name": "Rudergerät",
+      "type": "Rudergeräte",
+      "category": "rowing_machine",
+      "price_from": null,
+      "url": "https://www.sportstech.de/rudergeraete",
+      "colors": ["wood-natural", "wood-black", "black"],
+      "benefits": [
+        "Ganzkörpertraining in einer Übung",
+        "Echte Holzoptik — premium Wohnzimmer-Design",
+        "Wasser- oder Magnetwiderstand",
+        "Leise und platzsparend faltbar"
+      ]
+    },
+    {
+      "handle": "crosstrainer",
+      "name": "Crosstrainer",
+      "type": "Crosstrainer",
+      "category": "crosstrainer",
+      "price_from": null,
+      "url": "https://www.sportstech.de/crosstrainer",
+      "colors": ["black", "silver"],
+      "benefits": [
+        "Gelenkschonendes Ausdauertraining",
+        "Ganzkörpertraining Arme + Beine",
+        "Verschiedene Widerstandsstufen",
+        "Integriertes Display mit Trainingsübersicht"
+      ]
+    },
+    {
+      "handle": "smith-machine-sxm",
+      "name": "SXM Smith Machine",
+      "type": "Kraftstationen",
+      "category": "smith_machine",
+      "price_from": null,
+      "url": "https://www.sportstech.de/krafttraining",
+      "colors": ["black", "black-red"],
+      "benefits": [
+        "Professionelles Krafttraining Zuhause",
+        "Geführte Langhantelstange für sichere Übungen",
+        "Vielseitig: Squats, Bench Press, Deadlifts",
+        "Kompaktes Design für Home Gym"
+      ]
+    },
+    {
+      "handle": "hgx-100",
+      "name": "HGX 100 Kraftstation",
+      "type": "Kraftstationen",
+      "category": "power_station",
+      "price_from": null,
+      "url": "https://www.sportstech.de/krafttraining",
+      "colors": ["black", "black-red"],
+      "benefits": [
+        "Multifunktionale Kraftstation",
+        "Über 45 verschiedene Übungen möglich",
+        "Seilzug-System für sanften Widerstand",
+        "Kompakt trotz vieler Funktionen"
+      ]
+    }
+  ],
   "trust_signals": [
-    "TODO: Trust Signals hier eintragen"
+    "3 Mio. zufriedene Kunden",
+    "Deutschlands Nr. 1 Laufband-Marke",
+    "30 Tage Rückgaberecht",
+    "Focus Testsieger",
+    "Trustpilot & TrustedShops verifiziert"
   ],
   "social_proof": {
     "trustpilot_rating": null,
-    "shop_rating": null,
+    "shop_rating": 4.8,
     "total_reviews": null,
-    "review_source": "TODO"
+    "review_source": "trustpilot, trustedshops, reviews.io"
   },
   "target_audience": {
-    "gender": "TODO",
-    "age_range": "TODO",
-    "description": "TODO: Zielgruppenbeschreibung",
-    "lifestyle": "TODO",
+    "gender": "all",
+    "age_range": "all",
+    "description": "Volle Diversität: Jedes Alter, jede Körpergröße, jedes Geschlecht, jede Körperform. 'Any body size, any body height, any gender — really nothing specific.' Home Fitness Enthusiasten mit mittlerem bis Premium-Budget.",
+    "lifestyle": "Home Fitness, kompakte/faltbare Geräte für Wohnungen, Homeoffice-Integration",
     "pain_points": [
-      "TODO"
+      "Kein Platz für große Fitnessgeräte",
+      "Fitnessstudio zu teuer oder zu weit weg",
+      "Motivation für regelmäßiges Training Zuhause",
+      "Geräte sollen gut aussehen im Wohnzimmer"
     ],
     "values": [
-      "TODO"
+      "Design & Ästhetik (Geräte sollen ins Wohnzimmer passen)",
+      "Qualität & Langlebigkeit",
+      "Vielseitigkeit & Platzersparnis",
+      "Smarte Features & App-Integration"
     ],
     "settings_for_images": [
-      "TODO: Wo sollen Lifestyle-Bilder spielen?"
+      "Wohnzimmer — Scandinavian Style",
+      "Wohnzimmer — Loft / Industrial",
+      "Wohnzimmer — Modern German Interior",
+      "Home Gym / Keller",
+      "Schlafzimmer / Wellness Room",
+      "Homeoffice (Walking Pad)",
+      "Terrasse / Garten (bei gutem Wetter)"
     ]
   },
   "winning_angles": {
-    "primary": "TODO",
-    "sub_themes": [],
-    "note": ""
+    "primary": "Home Fitness — trainiere wo du lebst",
+    "sub_themes": [
+      "Fitnessgeräte die ins Wohnzimmer passen",
+      "Platzsparend und faltbar — passt in jede Wohnung",
+      "Walking Pad unter dem Stehschreibtisch — Fitness im Homeoffice",
+      "Premium Design trifft Funktionalität"
+    ]
   },
   "dos_and_donts": {
     "dos": [
-      "TODO"
+      "Lifestyle Interior-Szenen mit Menschen und Beleuchtung",
+      "Weiches Licht (soft lighting), natürliche Atmosphäre",
+      "Genug Platz im Environment für das Produkt",
+      "Korrekte Körperhaltung/Pose bei der Benutzung des Geräts",
+      "Verschiedene Farben/Materialien des gleichen Produkts zeigen",
+      "Volle Diversität bei Models (Alter, Geschlecht, Körpertyp, Hautfarbe)",
+      "Verschiedene Raumstile: Scandinavian, Loft, German Interior, Japandi"
     ],
     "donts": [
-      "TODO"
+      "KEIN High Contrast bei Beleuchtung",
+      "KEINE falschen Posen/Körperhaltungen auf den Geräten",
+      "KEINE unnötigen Requisiten die nicht zum Produkt passen (z.B. keine Hanteln neben Walking Pad)",
+      "Studio Shots NICHT mit Lifestyle Shots vermischen",
+      "KEINE generischen/vereinfachten Produktdarstellungen — exakte Nachbildung der Referenzbilder",
+      "KEINE Heilversprechen oder medizinische Claims"
     ]
   },
   "product_details": {},
   "priority_products": {
-    "hero": "TODO",
-    "sets": [],
+    "hero": "walking-pad",
+    "main_categories": ["walking-pad", "treadmill-f75", "rowing-machine", "crosstrainer", "smith-machine-sxm", "hgx-100"],
     "test_category": [],
     "lower_priority": []
   }

@@ -1,7 +1,167 @@
 {
-  "_description": "Produktwissen für AI-Bildgenerierung. Wird automatisch in jeden Gemini-Prompt injiziert. QUELLE DER WAHRHEIT für Produktaussehen, Größe, Funktion und Anwendung.",
+  "_description": "Produktwissen für AI-Bildgenerierung. Wird automatisch in jeden Gemini-Prompt injiziert. QUELLE DER WAHRHEIT für Produktaussehen und korrekte Nutzung.",
   "_last_updated": "2026-04-07",
-  "_source": "TODO: Sportstech Website + Produktbilder",
+  "_source": "https://www.sportstech.de + Kick-Off Transcripts + Weavy Workflows",
 
-  "products": {}
+  "products": {
+    "walking-pad": {
+      "name": "Walking Pad",
+      "is_hero_product": true,
+      "product_category": "walking_pad",
+
+      "appearance": {
+        "summary": "Ein flaches, kompaktes Laufband ohne hohe Handläufe. Schlankes, modernes Design das unter einen Stehschreibtisch passt. Verfügbar in verschiedenen Farben.",
+        "colors_available": ["gray", "black", "wood-finish"],
+        "dimensions": "Flach, ca. 140cm lang, ca. 50cm breit",
+        "display": "Kleines LED-Display oder App-Steuerung",
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Seitlich auf dem Gerät",
+          "style": "Sportstech Logo in Markenrot oder Schwarz"
+        }
+      },
+
+      "how_it_works": {
+        "principle": "Person geht/walkt auf dem flachen Laufband. Keine Handläufe nötig — freies Gehen.",
+        "position": "Person STEHT auf dem Walking Pad und geht in normalem Schritttempo",
+        "typical_use": "Unter dem Stehschreibtisch im Homeoffice, oder frei im Wohnzimmer"
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Homeoffice Walking",
+          "position": "STEHEND auf dem Walking Pad, unter einem Stehschreibtisch. Person arbeitet am Computer während sie geht.",
+          "camera_angle": "3/4 oder seitlich"
+        },
+        {
+          "name": "Wohnzimmer Walking",
+          "position": "STEHEND auf dem Walking Pad im Wohnzimmer. Entspanntes Gehen, evtl. mit Handy oder Buch.",
+          "camera_angle": "Frontal oder 3/4"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "Walking Pad muss eine EXAKTE Nachbildung der Referenzbilder sein — NICHT vereinfachen oder generisch darstellen",
+          "Flaches, kompaktes Design OHNE hohe Handläufe",
+          "SPORTSTECH Branding sichtbar auf dem Gerät",
+          "Person STEHT und GEHT — nicht laufend/rennend",
+          "Korrekte Farbe wie im Prompt angegeben (gray, black, wood)"
+        ],
+        "must_avoid": [
+          "Generisches/vereinfachtes Laufband — muss exakt wie Referenzbild aussehen",
+          "Hohe Handläufe oder Konsole — Walking Pad ist FLACH",
+          "Person rennt — Walking Pad ist zum GEHEN",
+          "Unnötige Requisiten im Raum (Hanteln, Gewichte) wenn nicht explizit gewünscht",
+          "Falsches Sportstech Logo oder falsche Platzierung"
+        ]
+      }
+    },
+
+    "treadmill-f75": {
+      "name": "sTread Pro F75",
+      "is_hero_product": false,
+      "product_category": "treadmill",
+
+      "appearance": {
+        "summary": "Professionelles Laufband mit großer Konsole, breitem Display, stabilen Handläufen. Silberne/schwarze Metall-Pfosten mit rotem SPORTSTECH Logo.",
+        "key_features": "Wide black running belt, silver/gray textured side rails, thick angled metallic silver pillars, massive black console with widescreen monitor, thick black handrests with cup holders, red accent buttons",
+        "colors_available": ["black-silver"],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Auf den silbernen Pfosten",
+          "style": "Rotes SPORTSTECH Logo auf silbernem Metall"
+        }
+      },
+
+      "how_it_works": {
+        "principle": "Person läuft/joggt auf dem Laufband. Hände können Handläufe greifen oder frei schwingen.",
+        "position": "Person STEHT/LÄUFT auf dem Laufband, aufrechte Haltung",
+        "interaction": "Model kann das Display/die Konsole berühren zur Steuerung"
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Running",
+          "position": "LAUFEND auf dem Laufband, dynamische Pose, Arme schwingen natürlich",
+          "camera_angle": "3/4, seitlich, oder frontal"
+        },
+        {
+          "name": "Display Interaction",
+          "position": "STEHEND oder langsam gehend, berührt das Display/die Konsole",
+          "camera_angle": "Over-the-shoulder für Display-Fokus"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "Laufband muss EXAKTE Nachbildung der Referenzbilder sein",
+          "Breites schwarzes Laufband, silberne Seitenleisten",
+          "Massive Konsole mit Bildschirm oben",
+          "Rotes SPORTSTECH Logo auf silbernen Pfosten",
+          "Korrekte Laufhaltung — aufrecht, natürliche Armbewegung"
+        ],
+        "must_avoid": [
+          "Vereinfachtes generisches Laufband",
+          "Falsche Proportionen der Konsole",
+          "Person hält sich am Handlauf fest WÄHREND des Laufens (nur beim Stehenbleiben)",
+          "Falsches oder fehlendes SPORTSTECH Branding"
+        ]
+      }
+    },
+
+    "rowing-machine": {
+      "name": "Rudergerät",
+      "is_hero_product": false,
+      "product_category": "rowing_machine",
+
+      "appearance": {
+        "summary": "Elegantes Rudergerät mit echtem Holz. Premium-Design das ins Wohnzimmer passt. Verfügbar in Natur-Holz und Schwarz.",
+        "key_features": "Echte Holzmaserung (Esche oder Eiche), Sportstech Branding, Seilzug-Mechanismus, gepolsterter Sitz auf Schiene",
+        "colors_available": ["wood-natural", "wood-black", "black"],
+        "branding": {
+          "text": "SPORTSTECH",
+          "style": "Logo in schwarz-metallic auf Holz-Variante"
+        }
+      },
+
+      "how_it_works": {
+        "principle": "Person sitzt auf dem gepolsterten Sitz und zieht den Griff mit beiden Händen zum Körper. Beine drücken gleichzeitig nach vorne.",
+        "position": "SITZEND auf dem Rudergerät, aufrechte Haltung beim Ziehen",
+        "motion": "Zug-Bewegung: Beine strecken → Arme ziehen → zurückgleiten"
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Catch Position (Start)",
+          "position": "Knie gebeugt, Arme ausgestreckt zum Griff, Oberkörper leicht nach vorne geneigt",
+          "camera_angle": "Seitlich für volle Pose-Sichtbarkeit"
+        },
+        {
+          "name": "Drive Position (Zug)",
+          "position": "Beine gestreckt, Arme zum Körper gezogen, Oberkörper leicht nach hinten geneigt",
+          "camera_angle": "3/4 oder seitlich"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "Rudergerät muss EXAKTE Nachbildung der Referenzbilder sein",
+          "Echte, sichtbare Holzmaserung — lebendig, ausgeprägt, tiefe Muster",
+          "SPORTSTECH Logo in schwarz-metallic",
+          "Korrekte Ruderhaltung — Sitzen, Griff mit beiden Händen"
+        ],
+        "must_avoid": [
+          "Vereinfachte Holzmaserung — muss VIVID und PRONOUNCED sein",
+          "Falsche Ruderpose (z.B. stehend, nur eine Hand)",
+          "Generisches Rudergerät statt exakter Nachbildung",
+          "Falsches Logo-Material (muss schwarz-metallic sein)"
+        ],
+        "color_variant_rules": {
+          "wood_to_black": "Farbe ändern zu rich royal black, ABER: Die echte Holzmaserung MUSS sichtbar bleiben. Holztextur muss vivid und pronounced sein mit tiefen, detaillierten Mustern. Kontrast und Tiefe der Maserung verstärken, aber authentisch und naturgetreu halten.",
+          "logo_on_black": "Sportstech Logo muss schwarz-metallic sein auf schwarzer Variante"
+        }
+      }
+    }
+  }
 }

@@ -1,24 +1,27 @@
 {
-  "$schema": "JSON Prompt Schema for Static Ad Generation via Gemini 3.1 Flash",
-  "$version": "1.0",
-  "$description": "Jedes Feld beschreibt exakt einen Aspekt der zu generierenden Static Ad. Claude füllt dieses Schema pro Ad aus und übergibt es zusammen mit dem Produktbild an Gemini.",
+  "$schema": "JSON Prompt Schema for Lifestyle Creative Generation via Gemini",
+  "$version": "2.0",
+  "$description": "Sportstech Creative Agent — Schema für Lifestyle Shots. Jedes Feld beschreibt einen Aspekt des zu generierenden Bildes. Unterstützt Character Builder, Room Builder, Multishot und Color Variant Workflows.",
 
   "meta": {
-    "angle": "string — Name des Angles (z.B. 'Problem/Pain')",
-    "sub_angle": "string — Name des Sub-Angles (z.B. 'Kaputte Pumpspender')",
-    "variant": "integer — Varianten-Nummer (1, 2 oder 3)",
-    "scene_type": "string — 'negative' | 'neutral' | 'positive'. PFLICHT. 'negative' = Szene zeigt Problem/Pain/Konkurrenz-Kritik → Produktbild wird NICHT an Gemini gesendet, generisches Produkt wird erzwungen. 'positive'/'neutral' = Produkt darf gezeigt werden.",
-    "creative_style": "string — 'on_brand' | 'off_brand'. PFLICHT. 'on_brand' = CI-konforme Ads (New Spirit Bold + Assistant Medium, Brand-Farben). 'off_brand' = Ugly Ads / Native-Look (freie Fonts, keine CI-Farben, organisch wie UGC). Off-Brand konvertiert besser auf Meta. Andre sagt: 60% On-Brand, 40% Off-Brand.",
-    "creative_type": "string — 'lifestyle' | 'product_static'. PFLICHT. 'lifestyle' = Frau 45+ nutzt Produkt in echtem Setting (Sofa, Garten, Bett). Nur Headline + Subheadline. 'product_static' = Produkt-Hero-Shot mit Text-Overlays, Icons, Benefits, CTA.",
-    "season": "string — 'evergreen' | 'sommer' | 'frühling' | 'herbst' | 'winter' | 'valentinstag' | 'ostern' | 'muttertag' | 'black_friday' | 'black_week' | 'weihnachten'. Default: 'evergreen'. Bestimmt Umgebung, Farben, Kleidung der Person.",
-    "environment": "string | null — 'wohnzimmer' | 'garten' | 'schlafzimmer' | 'studio' | null. Für Lifestyle-Bilder: wo die Szene spielt. Null für Product Statics ohne Umgebung.",
-    "product_category": "string | null — Produkt-Kategorie passend zum Handle aus brand.json. Wird dynamisch aus den Produktdaten gelesen.",
-    "generation_mode": "string — 'raw' | 'composited' | 'both'. 'raw' = nur Lifestyle/Produkt-Bild ohne Text-Overlay. 'composited' = mit Text + Compositor. 'both' = Raw + Composited werden beide gespeichert. Default: 'both'.",
-    "format": "string — '4:5' oder '9:16'",
-    "resolution": {
-      "width": "integer — Pixelbreite (4:5 = 1536, 9:16 = 2160)",
-      "height": "integer — Pixelhöhe (4:5 = 1920, 9:16 = 3840)"
-    }
+    "creative_type": "string — 'lifestyle' | 'key_visual' | 'multishot' | 'color_variant' | 'product_static'. PFLICHT.",
+    "product_category": "string — Produkt-Kategorie aus brand.json (z.B. 'walking_pad', 'treadmill', 'rowing_machine', 'crosstrainer', 'smith_machine', 'power_station').",
+    "product_color": "string | null — Produktfarbe (z.B. 'black', 'gray', 'wood-natural'). Null = Standardfarbe.",
+    "character_id": "string | null — UUID eines Character Builder Characters für Identitäts-Konsistenz.",
+    "environment_id": "string | null — UUID eines Room Builder Environments.",
+    "environment_style": "string | null — 'scandinavian' | 'loft_industrial' | 'german_modern' | 'japandi_wellness' | 'home_office' | 'dark_evening' | null (freestyle).",
+    "season": "string — 'evergreen' | 'sommer' | 'frühling' | 'herbst' | 'winter'. Default: 'evergreen'.",
+    "generation_mode": "string — 'raw'. Default: 'raw'. Sportstech Lifestyle Shots haben keine Text-Overlays.",
+    "format": "string — '9:16' | '16:9' | '1:1'",
+    "resolution": "string — '2K'. Output-Auflösung."
+  },
+
+  "camera": {
+    "shot_size": "string — 'Extreme Wide' | 'Wide' | 'Medium Shot' | 'Close Up' | 'Extreme Close Up' | 'Bird's Eye'",
+    "camera_angle": "string — 'Eye level' | 'Slightly above' | 'High angle' | 'Slightly below' | 'Low angle' | 'Ground level' | 'Keep the Same'",
+    "character_angle": "string — 'Front facing' | '3/4 angle' | 'Profile' | 'Over the shoulder' | 'Back view' | 'Top View' | 'Keep the Same'",
+    "lens": "string — '14mm' | '24mm' | '35mm' | '50mm' | '85mm' | '135mm' | '200mm' | 'Keep the Same'",
+    "depth_of_field": "string — 'f/1.2' | 'f/1.8' | 'f/2.8' | 'f/4' | 'f/5.6' | 'f/8' | 'f/16' | 'Keep the Same'"
   },
 
   "canvas": {
