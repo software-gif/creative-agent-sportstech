@@ -47,17 +47,51 @@
   "environments": {
     "scandinavian": {
       "name": "Scandinavian Interior",
-      "description": "Hell, luftig, Holz, weiße Wände, große Fenster, Pflanzen. Hygge-Atmosphäre.",
+      "tagline": "A luminous, light-drenched sanctuary of functional simplicity, where organic textures and soft neutrals breathe a sense of quiet, grounded 'Hygge' into an uncluttered, modern landscape.",
+      "description": "Serene, Hygge-inspired mood that balances functional minimalism with organic warmth.",
+      "look_and_feel": {
+        "aesthetic": "Airy, uncluttered, and meticulously organized. 'Less is more' — every object has a purpose.",
+        "palette": "Neutral and monochromatic: crisp whites, soft greys, muted earth tones to maximize light.",
+        "materials": "Natural wood (light oak or ash), tactile textiles (wool, linen), smooth stone or polished concrete.",
+        "light": "The 'hero' of the design. Massive windows with sheer curtains for abundant natural light, supplemented by warm designer lighting.",
+        "mood": "Peaceful, grounded sanctuary — sophisticated and deeply comfortable. 'Effortlessly cool', encourages stillness and clarity."
+      },
       "prompt_snippet": "bright Scandinavian-style living room with white walls, light oak hardwood flooring, large windows with sheer curtains letting in warm natural light, green houseplants, minimal furniture in light neutral tones. Airy, spacious atmosphere.",
-      "furniture": "light oak furniture, white linen sofa, minimal decor",
-      "lighting": "warm natural window light, soft and even"
+      "furniture": "light oak furniture, white linen sofa, minimal decor, wool throws, ceramic vases",
+      "lighting": "warm natural window light, soft and even",
+      "reference_images": "references/environments/scandinavian/"
     },
     "loft_industrial": {
-      "name": "Loft / Industrial",
-      "description": "Exposed brick, hohe Decken, Metallakzente, dunklere Töne. Urban, maskulin.",
+      "name": "Industrial Loft",
+      "tagline": "A bold, architectural symphony of raw grit and refined comfort, where exposed structural bones and weathered textures create a high-contrast, urban sanctuary of unfiltered authenticity.",
+      "description": "Raw, edgy, high-contrast mood that celebrates the 'unfinished' beauty of architectural history.",
+      "look_and_feel": {
+        "aesthetic": "Bold, expansive, and utilitarian. 'Warehouse-turned-residence' vibe where structural elements are the main decor.",
+        "palette": "Deep and moody: slate greys, iron blacks, earthy rust tones, balanced by natural wood or exposed red brick.",
+        "materials": "Hard + soft mix: exposed steel beams, distressed leather, concrete floors, reclaimed wood paired with oversized comfortable textiles.",
+        "light": "Large factory-style black-grid windows for daylight. Evening: metal pendants, Edison bulbs, track lighting.",
+        "mood": "Unfiltered authenticity and creative freedom. Urban, grounded, unapologetically cool — a living space with history."
+      },
       "prompt_snippet": "spacious loft apartment with exposed red brick walls, high ceilings with industrial metal beams, large factory-style windows, polished concrete floor, warm Edison bulb lighting. Urban, moody atmosphere.",
-      "furniture": "leather sofa, metal shelving, industrial pendant lights",
-      "lighting": "warm Edison bulbs mixed with large window light, dramatic but not harsh"
+      "furniture": "leather sofa, metal shelving, industrial pendant lights, reclaimed wood table",
+      "lighting": "warm Edison bulbs mixed with large window light, dramatic but not harsh",
+      "reference_images": "references/environments/industrial/"
+    },
+    "contemporary_traditional": {
+      "name": "Contemporary Traditional",
+      "tagline": "A harmonious, everyday sanctuary of soft neutrals and timeless comfort, where clean modern lines meet the warm, familiar soul of a classic family home.",
+      "description": "Clean lines of modern design mixed with cozy, familiar comforts of a traditional home.",
+      "look_and_feel": {
+        "aesthetic": "Balanced and 'livable.' Not too cold (minimalism) and not too cluttered (traditional). Updated but relaxed.",
+        "palette": "Approachable: creams, beiges, soft greys, accented by navy blue, sage green, or soft gold.",
+        "materials": "Durable and tactile: shaker-style cabinetry, large comfortable fabric sofas, mixed metals (brushed nickel, black iron), warm wood floors.",
+        "light": "Mix of large windows with functional blinds/drapes, paired with 'homey' lighting — shaded table lamps, recessed ceiling lights.",
+        "mood": "Warm, family-friendly retreat. Put your feet up on the coffee table — high-quality but not 'precious.'"
+      },
+      "prompt_snippet": "warm contemporary traditional living room with cream walls, comfortable fabric sofa, mixed metals, warm oak wood floors, functional drapes on large windows, shaded table lamps, family-friendly but high-quality atmosphere.",
+      "furniture": "large fabric sofa, shaker cabinetry, mixed metal accents, warm wood tables",
+      "lighting": "mix of natural daylight and warm table/floor lamps",
+      "reference_images": "references/environments/contemporary_traditional/"
     },
     "german_modern": {
       "name": "Modern German Interior",
@@ -90,41 +124,25 @@
   },
 
   "camera_presets": {
-    "three_quarter": {
-      "name": "3/4 Shot (Standard)",
-      "prompt_snippet": "shot from a three-quarter angle, medium-wide framing showing the full product and model in the room context",
-      "shot_size": "Wide",
+    "close_up": {
+      "name": "Close-Up",
+      "prompt_snippet": "extreme close-up focusing on the interaction between hands and product controls/display",
+      "shot_size": "Extreme Close Up",
       "camera_angle": "Slightly above",
-      "character_angle": "3/4 angle",
-      "lens": "35mm",
-      "depth_of_field": "f/4"
+      "character_angle": "Profile",
+      "lens": "85mm",
+      "depth_of_field": "f/1.8",
+      "reference_images": "references/camera_angles/close_up/"
     },
     "over_shoulder": {
-      "name": "Over-the-Shoulder View",
+      "name": "Over-the-Shoulder",
       "prompt_snippet": "over-the-shoulder perspective looking past the model toward the product display/controls",
       "shot_size": "Medium Shot",
       "camera_angle": "Eye level",
       "character_angle": "Over the shoulder",
       "lens": "50mm",
-      "depth_of_field": "f/2.8"
-    },
-    "front_view": {
-      "name": "Front View (leicht seitlich)",
-      "prompt_snippet": "front-facing view with the camera slightly off-center, showing the model using the equipment from the front",
-      "shot_size": "Medium Shot",
-      "camera_angle": "Eye level",
-      "character_angle": "Front facing",
-      "lens": "50mm",
-      "depth_of_field": "f/4"
-    },
-    "ground_level": {
-      "name": "Ground Floor / Low Angle",
-      "prompt_snippet": "low-angle shot from floor level looking upward at the model and equipment, emphasizing power and scale",
-      "shot_size": "Wide",
-      "camera_angle": "Ground level",
-      "character_angle": "Front facing",
-      "lens": "24mm",
-      "depth_of_field": "f/5.6"
+      "depth_of_field": "f/2.8",
+      "reference_images": "references/camera_angles/over_the_shoulder/"
     },
     "birds_eye": {
       "name": "Bird's Eye / Top Down",
@@ -133,16 +151,66 @@
       "camera_angle": "High angle",
       "character_angle": "Top View",
       "lens": "24mm",
-      "depth_of_field": "f/8"
+      "depth_of_field": "f/8",
+      "reference_images": "references/camera_angles/birds_eye/"
     },
-    "close_up_detail": {
-      "name": "Close Up Detail",
-      "prompt_snippet": "extreme close-up focusing on the interaction between hands and product controls/display",
-      "shot_size": "Extreme Close Up",
-      "camera_angle": "Slightly above",
-      "character_angle": "Profile",
-      "lens": "85mm",
-      "depth_of_field": "f/1.8"
+    "eye_level": {
+      "name": "Eye-Level",
+      "prompt_snippet": "eye-level shot straight on, natural perspective as if standing in the room watching the person train",
+      "shot_size": "Medium Shot",
+      "camera_angle": "Eye level",
+      "character_angle": "Front facing",
+      "lens": "50mm",
+      "depth_of_field": "f/4",
+      "reference_images": "references/camera_angles/eye_level/"
+    },
+    "wide_angle": {
+      "name": "Wide Angle",
+      "prompt_snippet": "wide-angle shot capturing the full room environment with the model and equipment in context, emphasizing space",
+      "shot_size": "Extreme Wide",
+      "camera_angle": "Eye level",
+      "character_angle": "3/4 angle",
+      "lens": "24mm",
+      "depth_of_field": "f/5.6",
+      "reference_images": "references/camera_angles/wide_angle/"
+    },
+    "worms_eye": {
+      "name": "Worm's Eye / Ground Floor",
+      "prompt_snippet": "low-angle shot from floor level looking upward at the model and equipment, emphasizing power and scale",
+      "shot_size": "Wide",
+      "camera_angle": "Ground level",
+      "character_angle": "Front facing",
+      "lens": "14mm",
+      "depth_of_field": "f/5.6",
+      "reference_images": "references/camera_angles/worms_eye/"
+    }
+  },
+
+  "character_positions": {
+    "front": {
+      "name": "Front",
+      "description": "Model faces the camera directly, full frontal view",
+      "reference_images": "references/positions/front/"
+    },
+    "profile": {
+      "name": "Profile",
+      "description": "Model viewed from the side, 90° to camera",
+      "reference_images": "references/positions/profile/"
+    },
+    "three_quarter_front": {
+      "name": "3/4 Front",
+      "description": "Model at 45° angle facing toward camera — most natural and dynamic angle",
+      "reference_images": "references/positions/three_quarter_front/"
+    },
+    "three_quarter_back": {
+      "name": "3/4 Back",
+      "description": "Model at 45° angle facing away from camera, showing back and partial profile",
+      "reference_images": "references/positions/three_quarter_back/"
+    },
+    "back": {
+      "name": "Back",
+      "description": "Model faces away from camera, full back view",
+      "reference_images": "references/positions/back/"
     }
   },
 
