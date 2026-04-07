@@ -307,6 +307,94 @@
       }
     },
 
+    "x150": {
+      "name": "X150 Ergometer 3in1",
+      "is_hero_product": false,
+      "product_category": "ergometer",
+      "supabase_product_id": "31d0aee0-23fc-45c4-9b64-dc0b0d8a3769",
+
+      "appearance": {
+        "summary": "Kompaktes, klappbares X-Frame Ergometer in Schwarz-Rot. Schlankes Design mit X-förmigem Rahmen. Ergonomischer Sattel mit Rückenlehne. Integrierte Power Ropes an den Seiten. Kleines LCD-Display mit Tablet-Halter.",
+        "key_features": "X-förmiger Klapp-Rahmen in Schwarz, rote Akzente am Sattel und Pedalen, ergonomischer Sattel mit großer gepolsterter Rückenlehne, gebogene Lenkergriffe vorne, integrierte Power Ropes (Widerstandsbänder), 3.5-Zoll LCD Display, Tablet-Halter, Transportrollen, Getränkehalter",
+        "colors_available": ["black-red"],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Auf dem Rahmen",
+          "style": "Rotes Sportstech Logo/Akzente auf schwarzem Rahmen"
+        }
+      },
+
+      "specs": {
+        "resistance_levels": 8,
+        "resistance_type": "magnetic",
+        "flywheel_kg": 1.5,
+        "max_user_weight_kg": 120,
+        "dimensions_cm": "104.5 x 53.5 x 112",
+        "folded_cm": "55.5 x 53.5 x 140",
+        "weight_kg": 20.8,
+        "user_height_range": "1.50 - 1.80m",
+        "price_eur": 152.15,
+        "foldable": true
+      },
+
+      "how_it_works": {
+        "principle": "3-in-1 Trainingsgerät: Aufrechtes Radfahren, Recumbent (liegende Position), und Oberkörper-Training mit integrierten Power Ropes. Magnetischer Widerstand, flüsterleise.",
+        "positions": {
+          "upright": "Person sitzt aufrecht auf dem Sattel und tritt in die Pedale — klassisches Fahrradtraining",
+          "recumbent": "Person lehnt sich gegen die Rückenlehne, Beine nach vorne, entspanntes Radfahren — schont den Rücken",
+          "ropes": "Während des Tretens werden die integrierten Power Ropes mit den Händen gezogen — Ganzkörper-Workout"
+        }
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Aufrechtes Radfahren",
+          "position": "SITZEND auf dem Sattel, aufrechter Oberkörper, Hände an den vorderen Lenkergriffen, Füße in den Pedalen",
+          "camera_angle": "3/4 oder seitlich"
+        },
+        {
+          "name": "Recumbent / Liegend",
+          "position": "SITZEND zurückgelehnt gegen die Rückenlehne, Beine nach vorne gestreckt in die Pedale tretend, Hände an seitlichen Griffen",
+          "camera_angle": "Seitlich für Liegeposition"
+        },
+        {
+          "name": "Power Rope Training",
+          "position": "SITZEND auf dem Sattel, Füße treten in die Pedale, HÄNDE ziehen die integrierten Widerstandsbänder — gleichzeitiges Ober-/Unterkörpertraining",
+          "camera_angle": "3/4 frontal für Ganzkörper-Sichtbarkeit"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "X150 muss EXAKTE Nachbildung der Referenzbilder sein — X-förmiger schwarzer Klapprahmen mit roten Akzenten",
+          "Ergonomischer Sattel mit RÜCKENLEHNE — das ist ein Unterscheidungsmerkmal",
+          "Integrierte Power Ropes sichtbar an den Seiten",
+          "Rote Akzentfarbe an Sattel, Pedalen und Details",
+          "Kompaktes, schlankes Design — das Gerät ist KLEIN und KLAPPBAR",
+          "Korrekte Sitz-/Trittposition"
+        ],
+        "must_avoid": [
+          "Verwechslung mit großem Speedbike oder Ergometer — X150 ist KOMPAKT und KLAPPBAR",
+          "Fehlende Rückenlehne am Sattel",
+          "Fehlende Power Ropes",
+          "Falsche Größenproportionen — das Gerät ist kleiner als ein normales Fahrrad",
+          "Generisches Ergometer statt dem spezifischen X-Frame Design"
+        ]
+      },
+
+      "reference_images": {
+        "storage_prefix": "products/x150/",
+        "count": 5,
+        "key_angles": [
+          "0.png — 3/4 Ansicht von hinten-rechts",
+          "1.png — 3/4 Ansicht von vorne-rechts",
+          "2.png — 3/4 Ansicht von hinten-links, Rückenlehne sichtbar",
+          "3.png — 3/4 Ansicht von vorne-links",
+          "4.png — 3/4 Ansicht von oben-rechts, Display sichtbar"
+        ]
+      }
+    },
+
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
