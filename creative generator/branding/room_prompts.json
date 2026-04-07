@@ -1,0 +1,134 @@
+{
+  "_description": "Raum-Prompts für den Room Builder. Von Clemente erstellt als Basis für Lifestyle-Shot Environments. Jeder Prompt beschreibt einen vollständigen Raum mit Architektur, Möbeln, Beleuchtung und Atmosphäre.",
+  "_source": "Weavy Workflows / Clemente Pesce (Creative Lead)",
+  "_usage": "Der Room Builder nutzt diese Prompts als Ausgangspunkt und generiert dann Multi-Angle Coverage davon.",
+
+  "rooms": [
+    {
+      "id": "luxury_penthouse",
+      "name": "Luxury Penthouse — Urban Skyline",
+      "style": "ultra-modern",
+      "mood": "airy, spacious, sophisticated",
+      "prompt": "A spectacular, ultra-modern luxury penthouse with a wrap-around view of an urban skyline and greenery. The room is characterized by expansive, floor-to-ceiling glass walls with slim black frames, draped in elegant, translucent white floor-to-ceiling curtains that soften the bright, natural daylight. The interior features wide-plank honey-toned hardwood floors with a soft satin finish, reflecting long shadows and sunlight. The furniture is minimalist and high-end, including a cream-colored sectional sofa and a matching loveseat, centered around a low-profile mid-century walnut coffee table resting on a large, plush off-white area rug. Lush indoor greenery, including a large Fiddle Leaf Fig and a smaller potted plant, adds a vibrant natural touch to the corners. The overall atmosphere is incredibly airy, spacious, and sophisticated."
+    },
+    {
+      "id": "urban_loft_eclectic",
+      "name": "Urban Loft — Eclectic Brick",
+      "style": "loft_industrial",
+      "mood": "warm, eclectic, airy",
+      "prompt": "A bright and eclectic urban loft living room with a spacious, airy feel. The space is grounded by a large, seamless cream-colored wall-to-wall carpet that transitions into a textured brown area rug in the background. The walls are finished in a light grey exposed brick texture, adding an industrial touch to the soft interior. Large windows are draped with sheer, floor-to-ceiling gold curtains that filter a warm, glowing light across the room. A sleek, minimalist white sideboard sits beneath one window, while a tall Bird of Paradise plant in a hammered bronze pot serves as a lush focal point. In the corner, a mid-century modern wooden bookshelf is filled with books and topped with a small potted plant, adding a homey, lived-in character. Abstract art in cool blue and white tones hangs on the brick wall, balancing the room's warm palette."
+    },
+    {
+      "id": "indoor_outdoor_modern",
+      "name": "Modern Open-Concept — Garden View",
+      "style": "german_modern",
+      "mood": "sun-drenched, tranquil, connected to nature",
+      "prompt": "A bright, modern open-concept living area with a focus on indoor-outdoor connectivity. The room features wide-plank natural oak hardwood floors that reflect the brilliant, direct sunlight. A massive black-framed sliding glass door spans the wall, opening onto a lush green backyard with mature trees. The windows are dressed with a combination of sheer white curtains for light diffusion and heavy, floor-to-ceiling taupe pleated drapes. In the corner, a large, healthy Monstera Deliciosa plant in a dark pot adds a vibrant organic touch. A portion of a minimalist charcoal grey velvet sofa is visible to the right, suggesting a high-end, contemporary aesthetic. The overall atmosphere is spacious, sun-drenched, and tranquil."
+    },
+    {
+      "id": "scandi_minimal",
+      "name": "Scandi-Minimalist — French Doors",
+      "style": "scandinavian",
+      "mood": "crisp, peaceful, airy",
+      "prompt": "A bright, modern Scandi-minimalist living area characterized by an open layout and abundant natural light. The room features wide-plank natural oak hardwood floors that catch long, rhythmic shadows from a large set of white-framed glass French doors. A sheer white curtain hangs to the side, softening the architectural lines. Against a clean white wall sits a low-profile, slate-grey double bookshelf curated with minimalist ceramics, books, and a cascading indoor plant. To the right, a tall, healthy Fiddle Leaf Fig in a light grey stone pot adds a vibrant organic element. A large, textured jute area rug in a sandy neutral tone anchors the center of the room. The lighting is crisp and natural, highlighting the uncluttered, peaceful, and airy aesthetic."
+    },
+    {
+      "id": "golden_hour_cozy",
+      "name": "Cozy Contemporary — Golden Hour",
+      "style": "scandinavian",
+      "mood": "warm, cozy, golden-hour glow",
+      "prompt": "A warm and cozy contemporary living room that radiates a soft, golden-hour glow. The space is anchored by rich, honey-toned oak hardwood floors and a large, plush cream-colored area rug in the center. The back wall features a large window draped with a combination of translucent white sheers and heavy, floor-to-ceiling beige curtains that diffuse the natural light. On the left, a minimalist beige fabric sofa is adorned with patterned throw pillows and a soft grey knit blanket. A petite white tripod side table with a wooden top sits nearby. The background is thoughtfully decorated with integrated white shelving containing framed art, small potted succulents, and a warm wooden table lamp. A woven rattan pendant light hangs from the ceiling, enhancing the room's inviting, Scandi-boho aesthetic."
+    },
+    {
+      "id": "villa_panorama",
+      "name": "Luxury Villa — Panoramic Garden",
+      "style": "ultra-modern",
+      "mood": "clean, energizing, luxurious",
+      "prompt": "A luxurious, ultra-modern open-plan villa featuring a seamless transition between indoor and outdoor spaces. The room is anchored by wide-plank pale oak hardwood flooring and crisp white architectural walls. Massive floor-to-ceiling glass walls with slim black frames offer a panoramic view of a manicured garden with sculpted hedges and bright green lawns. Soft, translucent floor-to-ceiling drapes in a champagne hue hang neatly to the side, softening the clean lines of the architecture. The space is flooded with bright, natural daylight, creating a clean and energizing atmosphere. In the background, a minimalist hallway with subtle decorative accents maintains the home's high-end, uncluttered aesthetic."
+    },
+    {
+      "id": "japandi_sideboard",
+      "name": "Japandi — Mid-Century Sideboard",
+      "style": "japandi_wellness",
+      "mood": "serene, spacious, uncluttered",
+      "prompt": "A bright and airy minimalist living room with a modern Japandi aesthetic. The space features light-toned hardwood floors and soft off-white walls. In the center, a large window is draped with floor-to-ceiling sheer beige curtains that diffuse soft, natural sunlight throughout the room. Along one wall sits a mid-century modern wooden sideboard with a natural grain, adorned with a few minimalist ceramic vases and a small potted plant. To the side, a simple armchair with a wooden frame and grey fabric upholstery is partially visible. The overall atmosphere is serene, spacious, and uncluttered, emphasizing clean lines and a neutral color palette."
+    },
+    {
+      "id": "japandi_media",
+      "name": "Japandi — Media Room with Courtyard",
+      "style": "japandi_wellness",
+      "mood": "tranquil, high-end, serene",
+      "prompt": "An expansive, ultra-modern minimalist room with a serene Japandi influence. The space features seamless, polished micro-cement flooring in a warm sand tone that reflects the bright natural light. The architecture is defined by large, floor-to-ceiling glass walls that look out onto a minimalist courtyard with dry grasses and concrete planters. A central feature wall in a soft beige lime-wash finish holds a large, flush-mounted screen, sitting above a long, low-profile oak floating media console. To the right, a wall clad in vertical light-wood paneling adds architectural warmth. Minimalist furniture includes a black-framed console table with a simple ceramic lamp and a tall, lush palm in a stone-textured floor vase. The overall atmosphere is spacious, tranquil, and high-end."
+    },
+    {
+      "id": "japandi_bookcase",
+      "name": "Japandi — Bookcase & Monstera",
+      "style": "japandi_wellness",
+      "mood": "serene, sun-drenched, tranquil",
+      "prompt": "A bright and spacious modern minimalist living room with an open-plan layout and a clean Japandi aesthetic. The room is grounded by wide-plank natural oak hardwood floors that reflect soft, diffused daylight. A large floor-to-ceiling window is draped with sheer white curtains, filling the space with an airy and tranquil glow. The furniture features two mid-century modern armchairs with light grey upholstery and tapered wooden legs, resting near a large, textured jute area rug. To the right, a tall, open-shelf wooden bookcase is curated with books and small decorative items. A large, healthy Monstera Deliciosa plant in a white ceramic pot adds a vibrant organic touch. The overall atmosphere is serene, uncluttered, and sun-drenched."
+    },
+    {
+      "id": "urban_loft_golden",
+      "name": "Urban Loft — Golden Hour Pampas",
+      "style": "loft_industrial",
+      "mood": "warm, airy, contemporary",
+      "prompt": "A vast and sun-drenched urban loft featuring a spacious, open-concept floor plan. The room is grounded by light-toned ash hardwood flooring that catches long, golden-hour shadows from large, black-framed industrial windows overlooking a city courtyard. To the right, a low-profile modular grey sectional sofa is styled with a bright yellow ochre pillow and a deep rust-colored throw, resting on a plush, high-pile cream area rug. In the background, a mid-century modern wooden cabinet stands against a crisp white wall, topped with a vase of dried pampas grass and a minimalist orb lamp. A sleek, black tripod floor lamp with a metallic copper interior adds a sophisticated architectural touch. The overall vibe is warm, airy, and contemporary."
+    },
+    {
+      "id": "eclectic_lounge",
+      "name": "Eclectic Lounge — Cozy Twilight",
+      "style": "dark_evening",
+      "mood": "warm, cozy, tranquil sanctuary",
+      "prompt": "A warm and inviting contemporary lounge with a cozy, eclectic atmosphere. The room features rich medium-toned oak flooring almost entirely covered by a large, high-pile plush cream area rug. In the background, a wide window is dressed with a combination of delicate white sheer curtains and heavy, dark charcoal drapes. The furniture includes a charcoal grey tufted swivel armchair with a light grey throw pillow, flanked by a minimalist tripod side table holding a vase of dried pampas grass. To the left, a large monstera plant spills out of a woven seagrass basket. To the right, a wooden stepped shelving unit serves as a decorative focal point, featuring an Edison-style filament bulb lamp and small grey storage boxes. The lighting is soft and golden, creating a tranquil, homey sanctuary."
+    },
+    {
+      "id": "penthouse_balcony",
+      "name": "Penthouse — Balcony Garden Evening",
+      "style": "ultra-modern",
+      "mood": "harmonious, golden afternoon, luxurious",
+      "prompt": "A spacious, sun-drenched modern penthouse or open-concept living area with an emphasis on indoor-outdoor flow. The room features expansive floor-to-ceiling glass sliding doors that reveal a lush balcony garden with green foliage. Warm honey-toned hardwood floors reflect the soft glow from recessed ceiling lights and a slender floor lamp. The walls are a creamy off-white, accented by integrated floating wooden shelves with built-in LED warm lighting. A long, minimalist oak sideboard sits against the wall, decorated with geometric wire art and stoneware vases. To the sides, heavy, floor-to-ceiling beige curtains add texture and a sense of luxury. The overall atmosphere is a harmonious blend of a professional home office and a high-end residential lounge, bathed in the golden light of late afternoon."
+    },
+    {
+      "id": "terracotta_traditional",
+      "name": "Modern Traditional — Terracotta Wainscoting",
+      "style": "german_modern",
+      "mood": "intimate, homey, curated",
+      "prompt": "A cozy and sophisticated modern traditional living room featuring a unique two-tone wall design. The upper half of the wall is painted in a warm, muted terracotta or clay hue, while the lower half features sage-grey wainscoting with clean-lined molding. The room is grounded by medium-toned warm oak hardwood floors that catch dramatic, linear shadows from afternoon sunlight. On the left, a portion of a cream-colored fabric sofa with a terracotta-striped accent pillow is visible, flanked by a lush green indoor plant. The wall is decorated with small, minimalist framed botanical prints. To the right, a glass-paned door offers a view of green trees outside, further enhancing the room's natural and earthy color palette. The overall vibe is intimate, homey, and thoughtfully curated."
+    },
+    {
+      "id": "industrial_home_gym",
+      "name": "Industrial Home Gym — Wood Paneling",
+      "style": "loft_industrial",
+      "mood": "sophisticated, wellness-focused, natural light",
+      "prompt": "A high-end, contemporary industrial-chic home gym with a spacious and open layout. The room features polished micro-cement or smooth concrete flooring with a satin finish that reflects ambient light. Large, black-framed industrial windows and a matching glass-paneled partition wall provide a view into a lush outdoor terrace, flooding the space with natural light. The interior wall is clad in vertical light-oak wood paneling, adding warmth and texture to the space. Minimalist decor includes a large potted tropical plant in a stone-colored planter and a sleek, black metal console table holding a modern orb lamp. The architecture combines raw, grey structural pillars with clean, modern lines to create a sophisticated, wellness-focused environment."
+    },
+    {
+      "id": "moody_lounge",
+      "name": "Moody Lounge — Charcoal Twilight",
+      "style": "dark_evening",
+      "mood": "moody, sophisticated, cozy upscale",
+      "prompt": "A moody and sophisticated modern lounge at twilight, featuring a deep charcoal grey accent wall and rich medium-toned oak hardwood floors. The space is anchored by a minimalist, boxy leather sofa in a taupe-grey finish, resting on a dark, low-pile area rug. Dramatic lighting is provided by two sleek tripod floor lamps with black drum shades, casting warm, golden pools of light. In the center sits a low-profile walnut coffee table with a geometric wire base. Large windows in the background are layered with translucent white sheers and heavy, floor-to-ceiling chocolate brown drapes, creating a cozy yet upscale atmosphere. Small potted indoor plants add a subtle organic touch to the corners."
+    },
+    {
+      "id": "sunlit_walnut",
+      "name": "Sunlit Walnut — Garden Lens Flare",
+      "style": "german_modern",
+      "mood": "elegant, tranquil, sun-drenched",
+      "prompt": "A sun-drenched high-end modern living space featuring a stunning polished walnut or dark cherry hardwood floor with a high-gloss finish that creates brilliant light reflections. The room is defined by clean, ivory-colored architectural walls and white baseboards. Large floor-to-ceiling windows frame a view of a lush green garden, allowing golden afternoon sunlight to pour in and create dramatic lens flares. The decor is minimalist and elegant, featuring a cluster of white and metallic ceramic floor vases tucked into a corner. Lush indoor greenery, including a Snake plant and a parlor palm in stone-textured pots, adds a vibrant natural element. A small, framed piece of abstract line art hangs on a slim wall pillar, completing the sophisticated, tranquil atmosphere."
+    },
+    {
+      "id": "walnut_accent_study",
+      "name": "Walnut Accent Wall — Modern Study",
+      "style": "japandi_wellness",
+      "mood": "clean, warm, high-end",
+      "prompt": "A sophisticated modern minimalist study or living area characterized by a bold contrast between light and dark elements. The room features wide-plank bleached oak flooring that glows under bright, direct sunlight streaming from a large floor-to-ceiling glass window. The focal point is a walnut wood accent wall with a deep, rich grain, featuring integrated floating shelves and a built-in low-profile sideboard. The shelves are tastefully curated with small potted greenery, minimalist white ceramics, and framed monochromatic photography. Adjoining the wood is a smooth, segmented off-white feature wall, adding architectural depth. The overall aesthetic is clean, warm, and high-end, blending organic textures with contemporary sharp lines."
+    },
+    {
+      "id": "scandi_sunlit",
+      "name": "Scandinavian — Sunlit Bookcase",
+      "style": "scandinavian",
+      "mood": "tranquil, airy, organized",
+      "prompt": "A serene and sunlit minimalist living room with a strong Scandinavian influence. The space is defined by polished, light-honey hardwood floors and crisp white walls that enhance the abundant natural light. A large floor-to-ceiling window is dressed with sheer white curtains, casting soft shadows across the expansive, open floor area. The furniture includes two mid-century modern armchairs with light grey textured upholstery and tapered wooden legs. A tall, open-shelf wooden bookcase filled with books and trailing greenery adds a vertical element of warmth. Decorative touches include a large monstera plant in a white ceramic pot, a minimalist framed abstract art piece, and a low-profile light wood coffee table resting on a plush off-white area rug. The overall aesthetic is tranquil, airy, and meticulously organized."
+    }
+  ]
+}
