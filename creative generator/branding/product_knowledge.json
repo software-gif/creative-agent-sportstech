@@ -669,6 +669,169 @@
       }
     },
 
+    "hgx50": {
+      "name": "HGX50 Kraftstation",
+      "is_hero_product": false,
+      "product_category": "power_station",
+      "supabase_product_id": "51596356-e530-4a5b-92a5-ca2600b083f6",
+
+      "appearance": {
+        "summary": "Klassische Multi-Gym Kraftstation in Schwarz-Rot. Kompaktes Design unter 2m² Grundfläche. Gewichtsblock mit 12 Platten (60kg). Lat-Pulldown, Butterfly-Arme, Bein-Curl, Bizeps-Pad.",
+        "key_features": "Q195 Stahlrahmen in Matt-Schwarz mit roten Akzenten, 12-Platten Gewichtsblock (60kg), Lat-Pulldown-Stange mit Gummi-Griffen, Butterfly-Arme (verstellbarer Winkel), Bizeps-Curl-Pad (EVA + Kunstleder), Beinstrecker/-beuger, verstellbare Sitzhöhe, EVA + Kunstleder Polsterung",
+        "colors_available": ["black-red"],
+        "branding": { "text": "SPORTSTECH", "position": "Auf dem Rahmen", "style": "Rot auf Schwarz" }
+      },
+
+      "how_it_works": {
+        "principle": "Klassische Kraftstation mit Seilzug-System und Gewichtsblock. Person sitzt auf der Bank oder steht und nutzt verschiedene Attachments für verschiedene Muskelgruppen.",
+        "exercises": "Lat Pulldown, Butterfly, Bench Press, Bicep Curl, Tricep Extension, Leg Extension, Leg Curl, Rowing — 40+ Varianten"
+      },
+
+      "correct_usage_poses": [
+        { "name": "Lat Pulldown", "position": "SITZEND auf der Bank, Knie unter Polster, Lat-Stange nach unten ziehen", "camera_angle": "Frontal oder 3/4" },
+        { "name": "Butterfly", "position": "SITZEND, Arme an den Butterfly-Polstern, zusammendrücken vor der Brust", "camera_angle": "Frontal" },
+        { "name": "Leg Extension", "position": "SITZEND, Beine unter Polster, nach oben strecken", "camera_angle": "Seitlich" }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": ["EXAKTE Nachbildung — schwarzer Stahlrahmen mit roten Akzenten", "Sichtbarer Gewichtsblock", "Korrekte Übungsausführung"],
+        "must_avoid": ["Verwechslung mit sGym Pro (schlanker Turm) — HGX50 ist eine KLASSISCHE Kraftstation mit Bank", "Generische Multi-Gym"]
+      },
+
+      "reference_images": { "storage_prefix": "products/hgx50/", "count": 5 }
+    },
+
+    "svibe": {
+      "name": "sVibe Vibrationsplatte",
+      "is_hero_product": false,
+      "product_category": "vibration_plate",
+      "supabase_product_id": "b7797e0d-3c25-42d7-96fe-e83aed43811d",
+
+      "appearance": {
+        "summary": "Hexagonale (sechseckige) Vibrationsplatte in Schwarz. Kompakt, flach, mit 7 LED-Farben. Modernes Premium-Design. Anti-Rutsch Oberfläche.",
+        "key_features": "Hexagonale Form (sechseckig — NICHT rechteckig), matt-schwarze Oberfläche, Anti-Rutsch Trittfläche, 7 LED-Farboptionen (leuchten um die Platte), Dual-Motor System, Transportrollen, kompakt (78x42x14cm)",
+        "colors_available": ["black"],
+        "branding": { "text": "SPORTSTECH / sVibe", "position": "Auf der Oberfläche", "style": "Dezentes Branding" }
+      },
+
+      "specs": {
+        "vibration_type": "4D-Oscillation",
+        "dual_motors": true,
+        "intensity_levels": 99,
+        "frequency_hz": 12.5,
+        "noise_db": 55,
+        "max_user_weight_kg": 120,
+        "dimensions_cm": "78 x 42 x 14",
+        "weight_kg": 15,
+        "led_colors": 7
+      },
+
+      "how_it_works": {
+        "principle": "Person steht auf der vibrierenden Platte. Die 4D-Oszillation aktiviert Muskeln im ganzen Körper. 99 Intensitätsstufen. Kann auch für Dehnübungen, Planks, Push-Ups genutzt werden.",
+        "position": "STEHEND auf der Platte (Standardpose), KNIEND für Planks, SITZEND für Oberkörperübungen"
+      },
+
+      "correct_usage_poses": [
+        { "name": "Standing", "position": "STEHEND auf der Platte, leicht gebeugte Knie, aufrechter Oberkörper", "camera_angle": "Frontal oder 3/4" },
+        { "name": "Squat Hold", "position": "In Squat-Position auf der Platte, Knie gebeugt, Oberkörper aufrecht", "camera_angle": "3/4 oder seitlich" },
+        { "name": "Plank", "position": "Hände auf der Platte, Plank-Position, Körper gerade", "camera_angle": "Seitlich" }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": ["HEXAGONALE Form — sechseckig, NICHT rechteckig oder quadratisch", "Schwarze, flache Platte am Boden", "Person STEHT auf der Platte", "LED-Beleuchtung um die Kanten"],
+        "must_avoid": ["Rechteckige Form — sVibe ist HEXAGONAL", "Platte zu groß oder zu dick dargestellt — sie ist kompakt und flach (14cm hoch)", "Person liegt auf der Platte"]
+      },
+
+      "reference_images": { "storage_prefix": "products/svibe/", "count": 3 }
+    },
+
+    "woodpad-pro": {
+      "name": "WoodPad Pro",
+      "is_hero_product": true,
+      "product_category": "walking_pad",
+      "supabase_product_id": "5ae31fc9-70b1-4ae9-9590-1a1623cb13da",
+
+      "appearance": {
+        "summary": "Elegantes Walking Pad aus echtem Holz. Ultra-flaches Design (13.8cm hoch). Edles Holz-Finish in Hellbraun/Dunkelbraun/Grau. Kein Handlauf — schlankes, minimalistisches Laufband zum Gehen.",
+        "key_features": "Echtes Holz-Finish (Eiche), ultra-flach (13.8cm), LCD-Display, klappbar auf unter 0.5m², Transportrollen, sofort einsatzbereit (kein Aufbau), 4 Trainingsprogramme, Bluetooth für App-Verbindung",
+        "colors_available": ["light-brown", "dark-brown", "gray"],
+        "branding": { "text": "SPORTSTECH / WoodPad Pro", "position": "Auf dem Holzrahmen seitlich", "style": "Dezentes Branding auf Holz" }
+      },
+
+      "specs": {
+        "max_speed_kmh": 8,
+        "running_surface_cm": "100 x 40",
+        "max_user_weight_kg": 120,
+        "dimensions_cm": "125.3 x 54.5 x 13.8",
+        "folded_cm": "75.3 x 54.5 x 17.2",
+        "weight_kg": 25.2,
+        "motor_ps": 1,
+        "foldable": true,
+        "programs": 4,
+        "price_eur": 499
+      },
+
+      "how_it_works": {
+        "principle": "Person geht (max 8 km/h) auf dem flachen Holz-Walking-Pad. Perfekt für unter den Stehschreibtisch. Kein Aufbau nötig — auspacken und loslegen.",
+        "position": "STEHEND und GEHEND auf dem Pad. Kein Handlauf — freies Gehen.",
+        "typical_use": "Homeoffice unter dem Stehschreibtisch, oder frei im Wohnzimmer zum gemütlichen Gehen"
+      },
+
+      "correct_usage_poses": [
+        { "name": "Office Walking", "position": "GEHEND auf dem WoodPad unter einem Stehschreibtisch, arbeitet am Computer", "camera_angle": "3/4 oder seitlich" },
+        { "name": "Free Walking", "position": "GEHEND auf dem WoodPad im Wohnzimmer, entspannt, evtl. mit Handy", "camera_angle": "Frontal oder 3/4" }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": ["EXAKTE Nachbildung — echtes Holz-Finish, ultra-flaches Design", "KEIN Handlauf — WoodPad Pro ist FLACH wie ein Brett", "Person GEHT, nicht rennt (max 8km/h)", "Holz-Ästhetik muss premium und wohnzimmertauglich aussehen", "Korrekte Holzfarbe wie angegeben (hell/dunkel/grau)"],
+        "must_avoid": ["Handläufe oder Konsole — WoodPad Pro ist KOMPLETT FLACH", "Lauf-Pose — nur GEHEN", "Plastik-Look — muss echtes HOLZ aussehen", "Verwechslung mit normalem Laufband — WoodPad ist ein WALKING PAD aus Holz"]
+      },
+
+      "reference_images": { "storage_prefix": "products/woodpad-pro/", "count": 4 }
+    },
+
+    "sxm200": {
+      "name": "SXM200 Smith Machine",
+      "is_hero_product": false,
+      "product_category": "smith_machine",
+      "supabase_product_id": "d3e2c720-4785-44db-9061-50607b875a15",
+
+      "appearance": {
+        "summary": "Große Smith Machine / Power Rack in Schwarz. Geführte Langhantelstange, zwei Seilzug-Türme mit je 70kg Gewichtsstack. Klimmzugstange oben. Massives Stahlgestell.",
+        "key_features": "Schwarzer Stahlrahmen (Power Rack Struktur), geführte Smith-Langhantelstange (vertikal gleitend), zwei separate Kabel-Türme mit je 70kg Gewichtsblock (140kg total), Klimmzugstange oben, Gewichtsplatten-Aufbewahrung, Schwere-Sack-Halterung",
+        "colors_available": ["black"],
+        "branding": { "text": "SPORTSTECH", "position": "Auf dem Rahmen", "style": "Sportstech Logo auf schwarzem Stahl" }
+      },
+
+      "specs": {
+        "dual_weight_stacks_kg": 70,
+        "total_training_weight_kg": 140,
+        "exercises": "100+",
+        "dimensions_mm": "1640 x 2130 x 2300",
+        "pullup_bar": true,
+        "price_eur": 2400
+      },
+
+      "how_it_works": {
+        "principle": "Smith Machine mit geführter Langhantel + freie Kabelzüge. Person steht im Rack und nutzt die geführte Stange für Squats, Bench Press, etc. Oder nutzt die Kabelzüge für isolierte Übungen.",
+        "exercises": "Squats, Bench Press, Overhead Press, Deadlifts (geführt), Cable Flys, Lat Pulldown, Rows, Pull-Ups — 100+ Varianten"
+      },
+
+      "correct_usage_poses": [
+        { "name": "Squat", "position": "STEHEND im Rack, Langhantel auf den Schultern, Knie beugen in Squat-Position", "camera_angle": "Seitlich oder 3/4" },
+        { "name": "Bench Press", "position": "LIEGEND auf Bank (separat), Langhantel drücken", "camera_angle": "Seitlich" },
+        { "name": "Cable Fly", "position": "STEHEND zwischen den Türmen, Kabel nach vorne/zusammen ziehen", "camera_angle": "Frontal" },
+        { "name": "Pull-Up", "position": "HÄNGEND an der Klimmzugstange oben", "camera_angle": "Frontal" }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": ["EXAKTE Nachbildung — massives schwarzes Power Rack mit geführter Langhantel", "Zwei separate Kabel-Türme mit sichtbaren Gewichtsblöcken", "Klimmzugstange oben", "Korrekte Übungsausführung"],
+        "must_avoid": ["Verwechslung mit einfachem Kabelzug — SXM200 ist ein GROSSES RACK", "Falsche Proportionen — das Gerät ist 2.3m HOCH", "Generisches Power Rack statt exakter Nachbildung"]
+      },
+
+      "reference_images": { "storage_prefix": "products/sxm200/", "count": 5 }
+    },
+
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
