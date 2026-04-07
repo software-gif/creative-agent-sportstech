@@ -215,6 +215,98 @@
       }
     },
 
+    "sbike": {
+      "name": "sBike - Indoor Cycling Bike",
+      "is_hero_product": false,
+      "product_category": "speedbike",
+      "supabase_product_id": "aeee9b22-5fff-4c2e-9c72-7c7665a8523b",
+
+      "appearance": {
+        "summary": "Premium Indoor Cycling Bike in Matt-Schwarz mit auffälligem blauen LED-Ring um das Schwungrad. Großes 21.5-Zoll Touchscreen-Display oben. Peloton-ähnliches Design, aber mit Sportstech Branding. Rennrad-Lenker (Multi-Grip), roter Widerstandsknopf, verstellbarer Sattel.",
+        "key_features": "Matt-schwarzes Gehäuse, blauer LED-Leuchtring um Schwungrad (hinten), 21.5-Zoll Touchscreen-Display auf Ständer, Multi-Grip Rennrad-Lenker (Drop-Bar Style), roter Widerstandsknopf (Not-Stopp), SPORTSTECH vertikal auf dem Rahmen, Wasserflasche-Halter, verstellbarer Sattel und Lenker, kompakte Standfüße mit Transportrollen",
+        "colors_available": ["black"],
+        "led_accent": "Blauer LED-Ring um das Schwungrad (hinten am Bike). Auch blauer LED-Punkt unter dem Display (Sportstech S-Logo). LED-Farbe kann auch orange sein je nach Trainingsintensität.",
+        "display": {
+          "size": "21.5 Zoll Touchscreen",
+          "position": "Oben auf einem Ständer über dem Lenker",
+          "content": "Streaming (Netflix, YouTube, Hulu, Prime Video), Sportstech Live Workouts, Outdoor-Cycling Simulation, Leistungsdaten",
+          "sportstech_logo": "Blaues leuchtendes S-Logo unter dem Display"
+        },
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Vertikal auf dem Hauptrahmen (links sichtbar bei 3/4 Ansicht)",
+          "style": "Weißer/silberner SPORTSTECH Schriftzug auf matt-schwarzem Rahmen"
+        }
+      },
+
+      "how_it_works": {
+        "principle": "Person sitzt auf dem Sattel und tritt in die Pedale. Widerstand wird über den roten Knopf eingestellt. Hände greifen den Multi-Grip Lenker.",
+        "position": "SITZEND auf dem Sattel, Füße in den Pedalen (mit Klick-Pedalen oder normalen Pedalen), Hände am Lenker",
+        "interaction": "Model kann das 21.5-Zoll Display berühren, verschiedene Griffpositionen am Lenker einnehmen (oben, unten, Drop-Position)"
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Standard Cycling",
+          "position": "SITZEND auf dem Sattel, aufrechter Oberkörper, Hände oben am Lenker, Füße treten in die Pedale",
+          "camera_angle": "3/4, seitlich, oder frontal"
+        },
+        {
+          "name": "Intense Cycling / Drop Position",
+          "position": "SITZEND, nach vorne gebeugt, Hände an den unteren Lenker-Griffen (Drop-Bar), intensive Trittfrequenz",
+          "camera_angle": "Seitlich oder 3/4 für dynamische Pose"
+        },
+        {
+          "name": "Standing Sprint",
+          "position": "AUS DEM SATTEL stehend, Gewicht über den Pedalen, Hände fest am Lenker, Sprint-Position",
+          "camera_angle": "Seitlich oder frontal für Power-Pose"
+        },
+        {
+          "name": "Display Interaction",
+          "position": "SITZEND, eine Hand am Display/Touchscreen, langsames Treten",
+          "camera_angle": "Over-the-shoulder für Display-Fokus"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "sBike muss EXAKTE Nachbildung der Referenzbilder sein — matt-schwarzes Premium-Design",
+          "Blauer LED-Leuchtring um das Schwungrad (hinten)",
+          "21.5-Zoll Touchscreen-Display oben auf Ständer über dem Lenker",
+          "SPORTSTECH Schriftzug vertikal auf dem Rahmen",
+          "Multi-Grip Rennrad-Lenker (Drop-Bar Style) — NICHT gerade Lenker",
+          "Roter Widerstandsknopf / Not-Stopp sichtbar",
+          "Blaues leuchtendes S-Logo unter dem Display",
+          "Korrekte Sitzposition — Person sitzt auf Sattel, Füße in Pedalen, Hände am Lenker"
+        ],
+        "must_avoid": [
+          "Generisches/vereinfachtes Spinning Bike — muss exakt wie Referenzbilder aussehen",
+          "Gerade Lenker statt Drop-Bar/Multi-Grip Rennrad-Lenker",
+          "Fehlendes oder falsches Display — das 21.5-Zoll Display ist DAS Hauptmerkmal",
+          "Fehlender blauer LED-Ring am Schwungrad",
+          "Person steht neben dem Bike statt darauf zu sitzen/fahren",
+          "Falsche Fußposition — Füße müssen IN den Pedalen sein, nicht daneben",
+          "Verwechslung mit normalem Heimtrainer/Ergometer — sBike ist ein SPEEDBIKE mit Rennrad-Ästhetik"
+        ]
+      },
+
+      "reference_images": {
+        "storage_prefix": "products/sbike/",
+        "count": 9,
+        "key_angles": [
+          "0.jpg — Display Nahaufnahme mit Streaming-Apps (Netflix, Hulu, YouTube, Prime)",
+          "1.png — Sattel-Detail von hinten, blauer Akzent",
+          "2.jpg — 3/4 Ansicht von vorne-oben mit Lenker und Display",
+          "3.jpg — Seitenansicht komplett mit blauem LED-Ring am Schwungrad",
+          "4.jpg — Detail Rückseite mit Sattel und Schwungrad-Ausschnitt",
+          "5.jpg — Display Nahaufnahme mit Outdoor-Cycling Simulation",
+          "6.jpg — 3/4 Ansicht von rechts-hinten, SPORTSTECH Branding sichtbar",
+          "7.jpg — Seitenansicht komplett mit orangem LED-Ring",
+          "8.jpg — Seitenansicht von links-hinten, blauer LED-Ring, Display Rückseite"
+        ]
+      }
+    },
+
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
