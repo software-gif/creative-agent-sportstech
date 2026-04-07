@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
@@ -17,15 +16,9 @@ export default function Header() {
       <nav className="flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/logo_dark.png"
-              alt="Sportstech"
-              width={120}
-              height={32}
-              className="h-7 w-auto"
-            />
+            <span className="text-lg font-bold text-primary tracking-tight">SPORTSTECH</span>
             <div className="border-l border-border pl-3">
-              <span className="text-[10px] font-semibold text-primary uppercase tracking-widest">
+              <span className="text-[10px] font-semibold text-muted uppercase tracking-widest">
                 Creative Board
               </span>
             </div>
@@ -44,7 +37,7 @@ export default function Header() {
                   className={`flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-md transition-all ${
                     isActive
                       ? "bg-surface text-primary shadow-sm"
-                      : "text-muted hover:text-accent"
+                      : "text-muted hover:text-foreground"
                   }`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5">
@@ -59,7 +52,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-muted">
-            Creative Agent
+            Lifestyle Generator
           </span>
         </div>
       </nav>

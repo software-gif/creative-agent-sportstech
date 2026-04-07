@@ -5,7 +5,6 @@ import { supabase } from "@/lib/supabase";
 import { useBrand } from "@/lib/brand-context";
 import CreativeCard, {
   Creative,
-  ANGLE_EMOJI,
   getImageUrl,
   downloadCreative,
 } from "@/components/CreativeCard";
@@ -13,18 +12,51 @@ import ImageOverlay from "@/components/ImageOverlay";
 import SaveButton from "@/components/SaveButton";
 import ClearBoardButton from "@/components/ClearBoardButton";
 
+const PRODUCTS = [
+  { value: "walking_pad", label: "WoodPad Pro" },
+  { value: "treadmill", label: "F37s Pro" },
+  { value: "speedbike", label: "sBike" },
+  { value: "ergometer", label: "X150" },
+  { value: "crosstrainer", label: "sCross" },
+  { value: "rowing_machine", label: "AquaElite" },
+  { value: "power_station", label: "sGym Pro / HGX50" },
+  { value: "smith_machine", label: "SXM200" },
+  { value: "vibration_plate", label: "sVibe" },
+];
+
+const ENVIRONMENTS = [
+  { value: "scandinavian", label: "Scandinavian" },
+  { value: "loft_industrial", label: "Industrial" },
+  { value: "contemporary_traditional", label: "Traditional" },
+  { value: "german_modern", label: "Modern" },
+  { value: "japandi_wellness", label: "Japandi" },
+  { value: "home_office", label: "Home Office" },
+  { value: "dark_evening", label: "Evening" },
+];
+
+const CAMERA_ANGLES = [
+  "Eye level", "Slightly above", "High angle", "Low angle", "Ground level",
+];
+
+const FORMATS = [
+  { value: "9:16", label: "9:16 Story" },
+  { value: "1:1", label: "1:1 Feed" },
+  { value: "16:9", label: "16:9 Wide" },
+];
+
 export default function Board() {
   const { brandId, loading: brandLoading } = useBrand();
   const [creatives, setCreatives] = useState<Creative[]>([]);
-  const [filter, setFilter] = useState("all");
-  const [styleFilter, setStyleFilter] = useState("all");
-  const [typeFilter, setTypeFilter] = useState("all");
-  const [seasonFilter, setSeasonFilter] = useState("all");
-  const [envFilter, setEnvFilter] = useState("all");
-  const [productCatFilter, setProductCatFilter] = useState("all");
-  const [formatFilter, setFormatFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<Creative | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  // Filters
+  const [productFilter, setProductFilter] = useState("all");
+  const [envFilter, setEnvFilter] = useState("all");
+  const [cameraFilter, setCameraFilter] = useState("all");
+  const [formatFilter, setFormatFilter] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
 
   useEffect(() => {
     if (!brandId) return;
@@ -51,7 +83,6 @@ export default function Board() {
           } else if (payload.eventType === "UPDATE") {
             const c = payload.new as Creative;
             if (c.is_saved) {
-              // Saved → remove from board
               setCreatives((prev) => prev.filter((x) => x.id !== c.id));
             } else {
               setCreatives((prev) =>
@@ -86,17 +117,14 @@ export default function Board() {
     setLoading(false);
   }
 
-  const angles = [...new Set(creatives.map((c) => c.angle))];
-  const seasons = [...new Set(creatives.map((c) => c.season).filter(Boolean))];
   const filtered = creatives
-    .filter((c) => filter === "all" || c.angle === filter)
-    .filter((c) => styleFilter === "all" || c.creative_style === styleFilter)
-    .filter((c) => typeFilter === "all" || c.creative_type === typeFilter)
-    .filter((c) => seasonFilter === "all" || c.season === seasonFilter)
-    .filter((c) => envFilter === "all" || c.environment === envFilter)
-    .filter((c) => productCatFilter === "all" || c.product_category === productCatFilter)
-    .filter((c) => formatFilter === "all" || c.format === formatFilter);
-  const doneCount = creatives.filter((c) => c.status === "done").length;
+    .filter((c) => productFilter === "all" || c.product_category === productFilter)
+    .filter((c) => envFilter === "all" || c.environment_style === envFilter || c.environment === envFilter)
+    .filter((c) => cameraFilter === "all" || c.camera_angle === cameraFilter)
+    .filter((c) => formatFilter === "all" || c.format === formatFilter)
+    .filter((c) => typeFilter === "all" || c.creative_type === typeFilter);
+
+  const doneCount = creatives.filter((c) => c.status === "done" || c.status === "generated").length;
   const generatingCount = creatives.filter((c) => c.status === "generating").length;
 
   if (brandLoading) {
@@ -111,9 +139,7 @@ export default function Board() {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-muted">
         <p className="text-lg font-medium">Keine Brand konfiguriert</p>
-        <p className="text-sm mt-1">
-          Lege zuerst eine Brand in der Datenbank an.
-        </p>
+        <p className="text-sm mt-1">Lege zuerst eine Brand in der Datenbank an.</p>
       </div>
     );
   }
@@ -121,98 +147,133 @@ export default function Board() {
   return (
     <div className="min-h-screen bg-background">
       {/* Filter Bar */}
-      <div className="sticky top-[57px] z-40 bg-surface/95 backdrop-blur-sm border-b border-border px-6 py-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold text-accent tabular-nums">
+      <div className="sticky top-[57px] z-40 bg-surface/95 backdrop-blur-sm border-b border-border px-6 py-2.5">
+        <div className="flex items-center justify-between gap-4">
+          {/* Left: Count + Status */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <span className="text-sm font-bold text-foreground tabular-nums">
               {filtered.length}
-              <span className="text-muted font-normal"> / {doneCount}</span>
+              <span className="text-muted font-normal text-xs ml-1">/ {doneCount}</span>
             </span>
             {generatingCount > 0 && (
-              <span className="flex items-center gap-1.5 text-xs text-primary">
+              <span className="flex items-center gap-1.5 text-xs text-primary font-medium">
                 <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
-                {generatingCount} generiert...
+                {generatingCount}
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2 flex-wrap justify-end">
-            {/* Format toggle */}
-            <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5">
-              {(["all", "4:5", "9:16"] as const).map((fmt) => (
-                <button
-                  key={fmt}
-                  onClick={() => setFormatFilter(fmt)}
-                  className={`text-[11px] font-medium px-2 py-1 rounded-md transition-all ${
-                    formatFilter === fmt ? "bg-surface text-primary shadow-sm" : "text-muted hover:text-accent"
-                  }`}
-                >
-                  {fmt === "all" ? "Alle" : fmt === "4:5" ? "Feed" : "Story"}
-                </button>
-              ))}
-            </div>
-            {/* Type toggle */}
-            <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5">
-              {(["all", "lifestyle", "product_static"] as const).map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setTypeFilter(type)}
-                  className={`text-[11px] font-medium px-2 py-1 rounded-md transition-all ${
-                    typeFilter === type ? "bg-surface text-primary shadow-sm" : "text-muted hover:text-accent"
-                  }`}
-                >
-                  {type === "all" ? "Alle" : type === "lifestyle" ? "Lifestyle" : "Product"}
-                </button>
-              ))}
-            </div>
-            {/* Style toggle */}
-            <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5">
-              {(["all", "on_brand", "off_brand"] as const).map((style) => (
-                <button
-                  key={style}
-                  onClick={() => setStyleFilter(style)}
-                  className={`text-[11px] font-medium px-2 py-1 rounded-md transition-all ${
-                    styleFilter === style ? "bg-surface text-primary shadow-sm" : "text-muted hover:text-accent"
-                  }`}
-                >
-                  {style === "all" ? "Alle" : style === "on_brand" ? "On" : "Off"}
-                </button>
-              ))}
-            </div>
-            {/* Dropdowns */}
-            <select value={productCatFilter} onChange={(e) => setProductCatFilter(e.target.value)} className="text-[11px] border border-border rounded-lg px-2 py-1.5 text-accent bg-surface focus:outline-none focus:border-primary">
+
+          {/* Center: Filters */}
+          <div className="flex items-center gap-2 flex-wrap justify-center flex-1">
+            {/* Product */}
+            <select
+              value={productFilter}
+              onChange={(e) => setProductFilter(e.target.value)}
+              className="text-xs border border-border rounded-lg px-2.5 py-1.5 bg-surface text-foreground focus:outline-none focus:border-primary"
+            >
               <option value="all">Alle Produkte</option>
-              {/* TODO: Sportstech Produkte hier eintragen */}
-            </select>
-            <select value={envFilter} onChange={(e) => setEnvFilter(e.target.value)} className="text-[11px] border border-border rounded-lg px-2 py-1.5 text-accent bg-surface focus:outline-none focus:border-primary">
-              <option value="all">Alle Environments</option>
-              <option value="wohnzimmer">Wohnzimmer</option>
-              <option value="garten">Garten</option>
-              <option value="schlafzimmer">Schlafzimmer</option>
-              <option value="studio">Studio</option>
-            </select>
-            <select value={seasonFilter} onChange={(e) => setSeasonFilter(e.target.value)} className="text-[11px] border border-border rounded-lg px-2 py-1.5 text-accent bg-surface focus:outline-none focus:border-primary">
-              <option value="all">Season</option>
-              <option value="evergreen">Evergreen</option>
-              <option value="sommer">Sommer</option>
-              <option value="frühling">Frühling</option>
-              <option value="herbst">Herbst</option>
-              <option value="winter">Winter</option>
-            </select>
-            <select value={filter} onChange={(e) => setFilter(e.target.value)} className="text-[11px] border border-border rounded-lg px-2 py-1.5 text-accent bg-surface focus:outline-none focus:border-primary">
-              <option value="all">Angle</option>
-              {angles.map((a) => (
-                <option key={a} value={a}>{ANGLE_EMOJI[a] || ""} {a} ({creatives.filter((c) => c.angle === a).length})</option>
+              {PRODUCTS.map((p) => (
+                <option key={p.value} value={p.value}>{p.label}</option>
               ))}
             </select>
+
+            {/* Environment */}
+            <select
+              value={envFilter}
+              onChange={(e) => setEnvFilter(e.target.value)}
+              className="text-xs border border-border rounded-lg px-2.5 py-1.5 bg-surface text-foreground focus:outline-none focus:border-primary"
+            >
+              <option value="all">Alle Environments</option>
+              {ENVIRONMENTS.map((e) => (
+                <option key={e.value} value={e.value}>{e.label}</option>
+              ))}
+            </select>
+
+            {/* Camera Angle */}
+            <select
+              value={cameraFilter}
+              onChange={(e) => setCameraFilter(e.target.value)}
+              className="text-xs border border-border rounded-lg px-2.5 py-1.5 bg-surface text-foreground focus:outline-none focus:border-primary"
+            >
+              <option value="all">Alle Winkel</option>
+              {CAMERA_ANGLES.map((a) => (
+                <option key={a} value={a}>{a}</option>
+              ))}
+            </select>
+
+            {/* Format */}
+            <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5">
+              {[{ value: "all", label: "Alle" }, ...FORMATS].map((fmt) => (
+                <button
+                  key={fmt.value}
+                  onClick={() => setFormatFilter(fmt.value)}
+                  className={`text-[11px] font-medium px-2.5 py-1 rounded-md transition-all ${
+                    formatFilter === fmt.value
+                      ? "bg-surface text-primary shadow-sm"
+                      : "text-muted hover:text-foreground"
+                  }`}
+                >
+                  {fmt.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Type */}
+            <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5">
+              {[
+                { value: "all", label: "Alle" },
+                { value: "lifestyle", label: "Lifestyle" },
+                { value: "multishot", label: "Multishot" },
+                { value: "color_variant", label: "Variante" },
+              ].map((t) => (
+                <button
+                  key={t.value}
+                  onClick={() => setTypeFilter(t.value)}
+                  className={`text-[11px] font-medium px-2.5 py-1 rounded-md transition-all ${
+                    typeFilter === t.value
+                      ? "bg-surface text-primary shadow-sm"
+                      : "text-muted hover:text-foreground"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: View Toggle */}
+          <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5 flex-shrink-0">
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`p-1.5 rounded-md transition-all ${
+                viewMode === "grid" ? "bg-surface text-primary shadow-sm" : "text-muted hover:text-foreground"
+              }`}
+              title="Grid"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setViewMode("list")}
+              className={`p-1.5 rounded-md transition-all ${
+                viewMode === "list" ? "bg-surface text-primary shadow-sm" : "text-muted hover:text-foreground"
+              }`}
+              title="List"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Content */}
       <main className="p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64 text-muted">
-            Laden...
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-80 text-muted">
@@ -221,26 +282,53 @@ export default function Board() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
               </svg>
             </div>
-            <p className="text-lg font-semibold text-accent">Noch keine Creatives</p>
-            <p className="text-sm mt-1 max-w-xs text-center">
-              Generiere Ads per Claude Code — sie erscheinen hier live in Echtzeit.
+            <p className="text-lg font-semibold text-foreground">Noch keine Lifestyle-Bilder</p>
+            <p className="text-sm mt-1 max-w-sm text-center">
+              Generiere Lifestyle-Shots per Claude Code Agent — sie erscheinen hier live in Echtzeit.
             </p>
           </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
+        ) : viewMode === "grid" ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
             {filtered.map((creative) => (
               <CreativeCard
                 key={creative.id}
                 creative={creative}
+                viewMode="grid"
                 onImageClick={setSelectedImage}
                 actions={
-                  creative.status === "done" && (
+                  (creative.status === "done" || creative.status === "generated") && (
                     <>
                       <SaveButton creative={creative} />
                       {getImageUrl(creative) && (
                         <button
                           onClick={() => downloadCreative(creative)}
-                          className="flex-1 text-center text-xs font-semibold bg-primary text-white py-1.5 rounded-lg hover:bg-primary/80 transition-colors"
+                          className="flex-1 text-center text-xs font-semibold bg-primary text-white py-1.5 rounded-lg hover:bg-primary-light transition-colors"
+                        >
+                          Download
+                        </button>
+                      )}
+                    </>
+                  )
+                }
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {filtered.map((creative) => (
+              <CreativeCard
+                key={creative.id}
+                creative={creative}
+                viewMode="list"
+                onImageClick={setSelectedImage}
+                actions={
+                  (creative.status === "done" || creative.status === "generated") && (
+                    <>
+                      <SaveButton creative={creative} />
+                      {getImageUrl(creative) && (
+                        <button
+                          onClick={() => downloadCreative(creative)}
+                          className="text-xs font-semibold bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary-light transition-colors"
                         >
                           Download
                         </button>
