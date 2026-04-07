@@ -62,11 +62,13 @@ def get_brand_id():
 def get_product_images(product_handle, max_images=6):
     """Fetch product reference images from Supabase Storage."""
     key = SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY
-    resp = requests.get(
-        f"{SUPABASE_URL}/storage/v1/object/list/creatives/products/{product_handle}",
-        headers={"apikey": key, "Authorization": f"Bearer {key}"},
+    resp = requests.post(
+        f"{SUPABASE_URL}/storage/v1/object/list/creatives",
+        headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        json={"prefix": f"products/{product_handle}/", "limit": max_images},
     )
     if resp.status_code != 200:
+        print(f"  Storage list error: {resp.status_code} {resp.text[:100]}")
         return []
 
     files = sorted(resp.json(), key=lambda f: f.get("name", ""))[:max_images]
