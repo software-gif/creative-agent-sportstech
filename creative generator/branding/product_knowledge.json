@@ -110,6 +110,111 @@
       }
     },
 
+    "f37s-pro": {
+      "name": "F37s Pro - Smart Bundle",
+      "is_hero_product": false,
+      "product_category": "treadmill",
+      "supabase_product_id": "78a0e803-2a83-4e46-b1fc-8e090b818a22",
+
+      "appearance": {
+        "summary": "Professionelles Home-Laufband in Schwarz mit LED-Akzentlinien (blau/türkis/lila je nach Variante). 10.1-Zoll Touchscreen-Display oben. Klappbares Design mit Transportrollen. Schwarze Handläufe mit integrierten Bedienelementen (grüne/rote Tasten). Modernes, schlankes Design.",
+        "key_features": "Schwarzes Gehäuse mit farbigen LED-Akzentlinien an den Seiten, 10.1-Zoll Touchscreen oben, klappbare Handläufe, breites schwarzes Laufband (1300x500mm), Transportrollen, Sicherheitsschlüssel",
+        "colors_available": ["black"],
+        "led_accent_colors": ["blue", "cyan", "purple", "teal"],
+        "dimensions": {
+          "running_surface": "1300 x 500 mm",
+          "foldable": true
+        },
+        "display": {
+          "size": "10.1 Zoll Touchscreen",
+          "position": "Oben an der Konsole, zwischen den Handläufen",
+          "features": "Touchbedienung, Echtzeit-Leistungsdaten, Netflix/YouTube kompatibel"
+        },
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Oben an der Konsole, über dem Display",
+          "style": "Weißes/rotes SPORTSTECH Logo auf schwarzem Gehäuse"
+        }
+      },
+
+      "specs": {
+        "max_speed_kmh": 20,
+        "incline_levels": 15,
+        "max_user_weight_kg": 150,
+        "motor_noise_db": 75,
+        "shock_absorption": "8-Zonen Dämpfungssystem, 5-Schicht Laufband",
+        "self_lubricating": true,
+        "price_eur": 1299,
+        "bundle_includes": ["F37s Pro Laufband", "12 Monate Sportstech Live Premium"]
+      },
+
+      "how_it_works": {
+        "principle": "Person läuft oder joggt auf dem Laufband. Geschwindigkeit bis 20 km/h, 15 Steigungsstufen. Touchscreen zur Steuerung.",
+        "position": "Person STEHT/LÄUFT auf dem Laufband, aufrechte Haltung. Hände können frei schwingen oder kurz die Handläufe berühren.",
+        "interaction": "Model kann den 10.1-Zoll Touchscreen berühren zur Steuerung. Sportstech Live App für geführte Workouts.",
+        "folding": "Laufband lässt sich nach oben klappen für platzsparende Aufbewahrung."
+      },
+
+      "correct_usage_poses": [
+        {
+          "name": "Running / Jogging",
+          "position": "LAUFEND auf dem Laufband, dynamische Pose, Arme schwingen natürlich, aufrechte Haltung",
+          "camera_angle": "3/4, seitlich, oder frontal"
+        },
+        {
+          "name": "Walking / Light Cardio",
+          "position": "GEHEND in entspanntem Tempo, aufrechte Haltung, evtl. leicht an Handläufen",
+          "camera_angle": "3/4 oder frontal"
+        },
+        {
+          "name": "Display Interaction",
+          "position": "STEHEND oder langsam gehend, berührt den 10.1-Zoll Touchscreen mit einer Hand",
+          "camera_angle": "Over-the-shoulder für Display-Fokus, oder Close Up auf Display"
+        },
+        {
+          "name": "Incline Training",
+          "position": "LAUFEND mit sichtbarer Steigung des Laufbands, leicht nach vorne geneigt",
+          "camera_angle": "Seitlich für Steigungseffekt"
+        }
+      ],
+
+      "ai_generation_rules": {
+        "must_match": [
+          "Laufband muss EXAKTE Nachbildung der 8 Referenzbilder sein — schwarzes Gehäuse mit farbigen LED-Akzentlinien",
+          "10.1-Zoll Touchscreen-Display oben an der Konsole — MUSS sichtbar sein",
+          "SPORTSTECH Logo oben an der Konsole",
+          "Schwarze Handläufe mit grünen/roten Bedienelementen",
+          "Breites schwarzes Laufband",
+          "Korrekte Lauf- oder Gehhaltung — aufrecht, natürliche Armbewegung",
+          "LED-Akzentlinien an den Seiten des Geräts"
+        ],
+        "must_avoid": [
+          "Generisches/vereinfachtes Laufband — muss exakt wie Referenzbilder aussehen",
+          "Silberne Pfosten oder falsche Farben — F37s Pro ist KOMPLETT SCHWARZ mit LED-Akzenten",
+          "Falsche Display-Position oder -Größe",
+          "Person hält sich während des Laufens an beiden Handläufen fest (nur kurzes Berühren OK)",
+          "Fehlende LED-Akzentlinien",
+          "Falsche Proportionen — das Gerät ist schlank und modern, nicht klobig",
+          "Verwechslung mit F75 (der hat silberne Pfosten, der F37s Pro ist komplett schwarz)"
+        ]
+      },
+
+      "reference_images": {
+        "storage_prefix": "products/f37s-pro/",
+        "count": 8,
+        "key_angles": [
+          "0.png — Konsole/Display Nahaufnahme von vorne",
+          "1.png — 3/4 Ansicht schräg von hinten, blau LED",
+          "2.png — 3/4 Ansicht schräg von vorne, türkis LED",
+          "3.png — 3/4 Ansicht schräg von hinten, lila LED",
+          "4.png — 3/4 Ansicht, blaue LED-Linie",
+          "5.png — Seitenansicht, türkise LED",
+          "6.png — Zusammengeklappt, Transport-Position",
+          "7.png — 3/4 Ansicht von vorne, türkise LED"
+        ]
+      }
+    },
+
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
