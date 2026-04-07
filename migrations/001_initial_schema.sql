@@ -109,6 +109,10 @@ CREATE TABLE creatives (
   season TEXT DEFAULT 'evergreen',
   environment_style TEXT,
 
+  -- Filtering
+  product_category TEXT,
+  environment TEXT,
+
   -- Status
   status TEXT DEFAULT 'generated',
   is_saved BOOLEAN DEFAULT FALSE,

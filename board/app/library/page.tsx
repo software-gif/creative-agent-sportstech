@@ -141,7 +141,7 @@ export default function Library() {
                     )}
                     <button
                       onClick={() => removeFromLibrary(asset.creative_id)}
-                      className="p-1.5 rounded-lg text-muted hover:text-red-500 hover:bg-red-50 transition-colors"
+                      className="p-1.5 rounded-lg text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors"
                       title="Aus Library entfernen"
                     >
                       <svg

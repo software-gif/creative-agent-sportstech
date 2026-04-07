@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
+import { PRODUCT_LABELS, ENV_LABELS } from "@/lib/constants";
 
 export type Creative = {
   id: string;
@@ -43,27 +44,6 @@ export type Creative = {
   environment?: string | null;
 };
 
-const PRODUCT_LABELS: Record<string, string> = {
-  walking_pad: "WoodPad Pro",
-  treadmill: "F37s Pro",
-  speedbike: "sBike",
-  ergometer: "X150",
-  crosstrainer: "sCross",
-  rowing_machine: "AquaElite",
-  power_station: "sGym Pro",
-  smith_machine: "SXM200",
-  vibration_plate: "sVibe",
-};
-
-const ENV_LABELS: Record<string, string> = {
-  scandinavian: "Scandinavian",
-  loft_industrial: "Industrial",
-  contemporary_traditional: "Traditional",
-  german_modern: "Modern",
-  japandi_wellness: "Japandi",
-  home_office: "Home Office",
-  dark_evening: "Evening",
-};
 
 export function getImageUrl(creative: Creative): string | null {
   if (creative.image_url) return creative.image_url;

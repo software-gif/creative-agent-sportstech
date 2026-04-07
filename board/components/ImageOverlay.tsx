@@ -1,18 +1,7 @@
 "use client";
 
 import { Creative, getImageUrl, downloadCreative } from "./CreativeCard";
-
-const PRODUCT_LABELS: Record<string, string> = {
-  walking_pad: "WoodPad Pro",
-  treadmill: "F37s Pro",
-  speedbike: "sBike",
-  ergometer: "X150",
-  crosstrainer: "sCross",
-  rowing_machine: "AquaElite",
-  power_station: "sGym Pro",
-  smith_machine: "SXM200",
-  vibration_plate: "sVibe",
-};
+import { PRODUCT_LABELS } from "@/lib/constants";
 
 type ImageOverlayProps = {
   creative: Creative | null;

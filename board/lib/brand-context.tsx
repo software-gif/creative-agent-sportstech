@@ -40,9 +40,8 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
     if (!error && data && data.length > 0) {
       setBrands(data);
       // Restore from localStorage or URL param, or use first brand
-      const stored = localStorage.getItem("selectedBrandId");
-      const url = new URL(window.location.href);
-      const urlBrand = url.searchParams.get("brand");
+      const stored = typeof window !== "undefined" ? localStorage.getItem("selectedBrandId") : null;
+      const urlBrand = typeof window !== "undefined" ? new URL(window.location.href).searchParams.get("brand") : null;
 
       const targetId = urlBrand || stored || data[0].id;
       const valid = data.find((b) => b.id === targetId);

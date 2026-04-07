@@ -19,9 +19,8 @@ export default function ClearBoardButton() {
       .eq("brand_id", brandId)
       .eq("is_saved", false);
 
-    if (!error) {
-      // Force reload — bulk deletes don't always trigger realtime events
-      window.location.reload();
+    if (error) {
+      console.error("Clear board error:", error);
     }
 
     setClearing(false);
