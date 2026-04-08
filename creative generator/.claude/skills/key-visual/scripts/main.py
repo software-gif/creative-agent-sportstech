@@ -145,49 +145,16 @@ def get_character_images(character_id):
     return images
 
 
-def describe_product_from_images(product_images, product_name):
-    """Step 1: Use Gemini TEXT to analyze product images and generate ultra-detailed description."""
-    print("  Running Image Describer on product references...")
-
-    parts = []
-    for img in product_images[:4]:
-        parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-    parts.append({
-        "text": f"""Analyze these reference images of the {product_name} fitness equipment in extreme detail.
-
-Describe EVERY visual detail you can see:
-1. EXACT shape and silhouette from every visible angle
-2. EXACT colors — primary body color, accent colors, LED colors, screen colors
-3. Materials — metal, plastic, rubber, fabric. Matte or glossy finish?
-4. Display/screen — size, position, what's shown on it, border color
-5. Branding — EXACT text, font style, position, color of logos/text
-6. Buttons/controls — colors, positions, shapes
-7. Unique design features — LED strips, accent lines, specific curves
-8. Proportions — relative sizes of parts (e.g., "the display is about 1/4 the width of the machine")
-9. Structural details — how parts connect, visible joints, cables, rails
-
-Output a single dense paragraph with ALL details. This description will be used to recreate this EXACT product in an AI-generated image. Be obsessively precise."""
-    })
-
-    # Use text model for analysis (not image generation)
-    text_model = "gemini-2.5-flash"
-    text_endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{text_model}:generateContent?key={GEMINI_API_KEY}"
-
-    try:
-        resp = requests.post(text_endpoint, json={
-            "contents": [{"parts": parts}],
-            "generationConfig": {"temperature": 0.1, "maxOutputTokens": 4000},
-        }, timeout=60)
-        resp.raise_for_status()
-        result = resp.json()
-        text = result.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-        if text:
-            print(f"  Image Describer: {len(text)} chars generated")
+def load_cached_product_description(product_handle):
+    """Load pre-generated product description from Image Describer cache."""
+    cache_path = os.path.join(PROJECT_ROOT, "branding", "product_descriptions", f"{product_handle}.txt")
+    if os.path.exists(cache_path):
+        with open(cache_path) as f:
+            text = f.read()
+        if len(text) > 200:
+            print(f"  Product description: {len(text)} chars (cached)")
             return text
-    except Exception as e:
-        print(f"  Image Describer failed: {e}")
-
+    print(f"  WARNING: No cached description for {product_handle}. Run: python3 .claude/skills/image-describer/scripts/main.py --product {product_handle}")
     return ""
 
 
@@ -356,8 +323,8 @@ def main():
     renders = [img for img in product_images if img.get("type") == "render"]
     lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle_example"]
 
-    # === STEP 1: IMAGE DESCRIBER — analyze product before generating ===
-    product_description_ai = describe_product_from_images(freisteller, product_name)
+    # === STEP 1: LOAD CACHED PRODUCT DESCRIPTION (from Image Describer skill) ===
+    product_description_ai = load_cached_product_description(args.product)
 
     # === MODEL ROTATION — pick different models for batch generation ===
     models_pool = load_models_pool()
