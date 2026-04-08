@@ -11,7 +11,7 @@ import CreativeCard, {
 import ImageOverlay from "@/components/ImageOverlay";
 import SaveButton from "@/components/SaveButton";
 import ClearBoardButton from "@/components/ClearBoardButton";
-import { PRODUCTS, ENVIRONMENTS, CAMERA_ANGLES, FORMATS, CREATIVE_TYPES } from "@/lib/constants";
+import { PRODUCTS, ENVIRONMENTS, CAMERA_ANGLES, FORMATS, CREATIVE_TYPES, PRESET_TO_ENV } from "@/lib/constants";
 
 export default function Board() {
   const { brandId, loading: brandLoading } = useBrand();
@@ -88,7 +88,12 @@ export default function Board() {
 
   const filtered = creatives
     .filter((c) => productFilter === "all" || c.product_category === productFilter)
-    .filter((c) => envFilter === "all" || c.environment_style === envFilter || c.environment === envFilter)
+    .filter((c) => {
+      if (envFilter === "all") return true;
+      const envStyle = c.environment_style || c.environment || "";
+      // Match directly or via preset→category mapping
+      return envStyle === envFilter || PRESET_TO_ENV[envStyle] === envFilter;
+    })
     .filter((c) => cameraFilter === "all" || c.camera_angle === cameraFilter)
     .filter((c) => formatFilter === "all" || c.format === formatFilter)
     .filter((c) => typeFilter === "all" || c.creative_type === typeFilter);

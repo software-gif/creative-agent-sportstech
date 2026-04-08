@@ -1,7 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
-import { PRODUCT_LABELS, ENV_LABELS } from "@/lib/constants";
+import { PRODUCT_LABELS, ENV_LABELS, PRESET_TO_ENV } from "@/lib/constants";
 
 export type Creative = {
   id: string;
@@ -36,6 +36,7 @@ export type Creative = {
   rating: number | null;
   notes: string | null;
   created_at: string;
+  tags: string[] | null;
   // Legacy fields for compatibility
   image_url?: string | null;
   angle?: string;
@@ -117,7 +118,9 @@ export default function CreativeCard({
 }: CreativeCardProps) {
   const imageUrl = getImageUrl(creative);
   const productLabel = PRODUCT_LABELS[creative.product_category || ""] || creative.product_category;
-  const envLabel = ENV_LABELS[creative.environment_style || creative.environment || ""] || creative.environment_style || creative.environment;
+  const envStyle = creative.environment_style || creative.environment || "";
+  const envCategory = PRESET_TO_ENV[envStyle] || envStyle;
+  const envLabel = ENV_LABELS[envCategory] || ENV_LABELS[envStyle] || envStyle;
 
   if (viewMode === "list") {
     return (

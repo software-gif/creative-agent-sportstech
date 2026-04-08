@@ -14,15 +14,25 @@ export const PRODUCT_LABELS: Record<string, string> = Object.fromEntries(
   PRODUCTS.map((p) => [p.value, p.label])
 );
 
+// Map room_preset IDs to display-friendly environment categories
 export const ENVIRONMENTS = [
-  { value: "scandinavian", label: "Scandinavian" },
-  { value: "loft_industrial", label: "Industrial" },
-  { value: "contemporary_traditional", label: "Traditional" },
-  { value: "german_modern", label: "Modern" },
-  { value: "japandi_wellness", label: "Japandi" },
-  { value: "home_office", label: "Home Office" },
-  { value: "dark_evening", label: "Evening" },
+  { value: "scandinavian", label: "Scandinavian", presets: ["scandinavian", "scandi_minimal", "scandi_sunlit", "golden_hour_cozy"] },
+  { value: "loft_industrial", label: "Industrial", presets: ["loft_industrial", "urban_loft_eclectic", "urban_loft_golden", "industrial_home_gym"] },
+  { value: "contemporary_traditional", label: "Traditional", presets: ["contemporary_traditional", "terracotta_traditional"] },
+  { value: "german_modern", label: "Modern", presets: ["german_modern", "indoor_outdoor_modern", "sunlit_walnut"] },
+  { value: "japandi_wellness", label: "Japandi", presets: ["japandi_wellness", "japandi_sideboard", "japandi_media", "japandi_bookcase", "walnut_accent_study"] },
+  { value: "home_office", label: "Home Office", presets: ["home_office"] },
+  { value: "dark_evening", label: "Evening", presets: ["dark_evening", "moody_lounge", "eclectic_lounge"] },
+  { value: "luxury", label: "Luxury", presets: ["luxury_penthouse", "villa_panorama", "penthouse_balcony"] },
 ] as const;
+
+// Build a reverse map: preset_id → category value
+export const PRESET_TO_ENV: Record<string, string> = {};
+ENVIRONMENTS.forEach((env) => {
+  env.presets.forEach((preset) => {
+    PRESET_TO_ENV[preset] = env.value;
+  });
+});
 
 export const ENV_LABELS: Record<string, string> = Object.fromEntries(
   ENVIRONMENTS.map((e) => [e.value, e.label])
