@@ -44,7 +44,7 @@ export default function SaveButton({ creative, onSaved }: SaveButtonProps) {
           ? "text-primary bg-primary/10"
           : "text-muted hover:text-primary hover:bg-primary/10"
       }`}
-      title={creative.is_saved ? "Gespeichert" : "Speichern"}
+      title={creative.is_saved ? "Saved" : "Save"}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

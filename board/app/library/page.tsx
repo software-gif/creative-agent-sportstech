@@ -85,7 +85,7 @@ export default function Library() {
   if (brandLoading) {
     return (
       <div className="flex items-center justify-center h-64 text-muted">
-        Laden...
+        Loading...
       </div>
     );
   }
@@ -93,7 +93,7 @@ export default function Library() {
   if (!brandId) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-muted">
-        <p className="text-lg font-medium">Keine Brand konfiguriert</p>
+        <p className="text-lg font-medium">No brand configured</p>
       </div>
     );
   }
@@ -109,15 +109,15 @@ export default function Library() {
       <main className="flex-1 p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64 text-muted">
-            Laden...
+            Loading...
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-muted">
             <p className="text-lg font-medium">
-              {selectedFolder ? "Keine Assets in diesem Ordner" : "Noch keine gespeicherten Assets"}
+              {selectedFolder ? "No assets in this folder" : "No saved assets yet"}
             </p>
             <p className="text-sm mt-1">
-              Speichere Creatives vom Board, um sie hier zu organisieren.
+              Save creatives from the board to organize them here.
             </p>
           </div>
         ) : (
@@ -142,7 +142,7 @@ export default function Library() {
                     <button
                       onClick={() => removeFromLibrary(asset.creative_id)}
                       className="p-1.5 rounded-lg text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors"
-                      title="Aus Library entfernen"
+                      title="Remove from library"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

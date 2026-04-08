@@ -46,5 +46,5 @@ export const FORMATS = [
 export const CREATIVE_TYPES = [
   { value: "lifestyle", label: "Lifestyle" },
   { value: "multishot", label: "Multishot" },
-  { value: "color_variant", label: "Variante" },
+  { value: "color_variant", label: "Variant" },
 ] as const;

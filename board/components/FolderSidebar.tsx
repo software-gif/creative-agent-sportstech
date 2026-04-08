@@ -83,7 +83,7 @@ export default function FolderSidebar({
   return (
     <div className="w-56 border-r border-border bg-surface p-4 flex flex-col gap-1">
       <h2 className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
-        Ordner
+        Folders
       </h2>
 
       {/* All Assets */}
@@ -95,7 +95,7 @@ export default function FolderSidebar({
             : "text-accent hover:bg-background"
         }`}
       >
-        Alle Assets
+        All Assets
       </button>
 
       {/* Folders */}
@@ -126,7 +126,7 @@ export default function FolderSidebar({
           <button
             onClick={() => deleteFolder(folder.id)}
             className="hidden group-hover:block text-muted hover:text-red-400 pr-2 text-xs"
-            title="Ordner löschen"
+            title="Delete folder"
           >
             ×
           </button>
@@ -141,7 +141,7 @@ export default function FolderSidebar({
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && createFolder()}
-            placeholder="Ordnername"
+            placeholder="Folder name"
             className="flex-1 text-sm border border-border rounded-lg px-2 py-1 focus:outline-none focus:border-primary"
             autoFocus
           />
@@ -157,7 +157,7 @@ export default function FolderSidebar({
           onClick={() => setCreating(true)}
           className="mt-2 text-left text-sm text-muted hover:text-primary px-3 py-2"
         >
-          + Neuer Ordner
+          + New Folder
         </button>
       )}
     </div>

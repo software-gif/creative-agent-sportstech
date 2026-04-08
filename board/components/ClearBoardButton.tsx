@@ -31,7 +31,7 @@ export default function ClearBoardButton() {
     return (
       <div className="fixed bottom-6 right-6 z-50 bg-surface rounded-xl shadow-lg border border-border p-4 flex flex-col gap-3">
         <p className="text-sm text-accent font-medium">
-          Alle ungespeicherten Creatives löschen?
+          Delete all unsaved creatives?
         </p>
         <div className="flex gap-2">
           <button
@@ -39,13 +39,13 @@ export default function ClearBoardButton() {
             disabled={clearing}
             className="flex-1 text-sm font-semibold bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50"
           >
-            {clearing ? "Lösche..." : "Ja, löschen"}
+            {clearing ? "Deleting..." : "Yes, delete"}
           </button>
           <button
             onClick={() => setConfirming(false)}
             className="flex-1 text-sm font-semibold bg-background text-accent py-2 rounded-lg hover:bg-border transition-colors"
           >
-            Abbrechen
+            Cancel
           </button>
         </div>
       </div>
@@ -56,7 +56,7 @@ export default function ClearBoardButton() {
     <button
       onClick={() => setConfirming(true)}
       className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-surface rounded-full shadow-lg border border-border flex items-center justify-center text-muted hover:text-red-500 hover:border-red-200 transition-colors"
-      title="Board leeren"
+      title="Clear board"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
