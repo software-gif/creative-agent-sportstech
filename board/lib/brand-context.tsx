@@ -28,6 +28,7 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // useEffect only runs client-side, so window/localStorage are safe here
     loadBrands();
   }, []);
 
@@ -39,9 +40,10 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
 
     if (!error && data && data.length > 0) {
       setBrands(data);
-      // Restore from localStorage or URL param, or use first brand
-      const stored = typeof window !== "undefined" ? localStorage.getItem("selectedBrandId") : null;
-      const urlBrand = typeof window !== "undefined" ? new URL(window.location.href).searchParams.get("brand") : null;
+
+      const params = new URLSearchParams(window.location.search);
+      const urlBrand = params.get("brand");
+      const stored = localStorage.getItem("selectedBrandId");
 
       const targetId = urlBrand || stored || data[0].id;
       const valid = data.find((b) => b.id === targetId);
@@ -53,7 +55,6 @@ export function BrandProvider({ children }: { children: React.ReactNode }) {
   function setBrandId(id: string) {
     setBrandIdState(id);
     localStorage.setItem("selectedBrandId", id);
-    // Update URL param without navigation
     const url = new URL(window.location.href);
     url.searchParams.set("brand", id);
     window.history.replaceState({}, "", url.toString());
