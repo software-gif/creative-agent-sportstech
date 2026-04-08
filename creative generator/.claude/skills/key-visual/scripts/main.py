@@ -376,11 +376,8 @@ def main():
             character_desc = model["prompt_snippet"]
             print(f"  Auto-model: {model['description']}")
 
-        # === NEW LOGIC: Lifestyle first → Product details → Person ===
-        # Priority order:
-        # 1. Lifestyle examples (show product + human interaction + room = the TARGET)
-        # 2. Product cutouts (for exact product details)
-        # 3. Character references (if available)
+        # === PROVEN APPROACH (CR-005 to CR-007 worked well) ===
+        # Product cutouts FIRST → Lifestyle for style → Character → Compositing prompt
         parts = []
 
         must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
@@ -391,69 +388,70 @@ def main():
         if not pose and pk.get("correct_usage_poses"):
             pose = pk["correct_usage_poses"][0].get("position", "")
 
-        # STEP A: Lifestyle examples FIRST — these show the COMPLETE picture
-        # (correct product in room with person using it correctly)
-        best_lifestyle = lifestyle_refs[:3]
+        # Get direction info if available
+        direction = how_it_works.get("direction", "")
+
+        # GROUP 1: Product cutouts (ground truth for product accuracy)
+        best_freisteller = freisteller[:5]
+        for img in best_freisteller:
+            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+        n_product = len(best_freisteller)
+        product_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
+
+        parts.append({
+            "text": f"[{product_refs}] = PRODUCT REFERENCE. The {product_name} must be a literal recreation of these images; do not simplify or genericize its design.\n\n"
+        })
+
+        # GROUP 2: Lifestyle examples (show how product + person look in room)
+        best_lifestyle = lifestyle_refs[:2]
         for img in best_lifestyle:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
         n_lifestyle = len(best_lifestyle)
         if n_lifestyle > 0:
-            lifestyle_refs_str = ", ".join([f"Image {j+1}" for j in range(n_lifestyle)])
+            lifestyle_refs_str = ", ".join([f"Image {n_product+j+1}" for j in range(n_lifestyle)])
             parts.append({
-                "text": f"[{lifestyle_refs_str}] These are REAL LIFESTYLE PHOTOGRAPHS of the {product_name} in use. Study these carefully — they show:\n- The CORRECT appearance of the product in a room setting\n- How a REAL PERSON interacts with this equipment (correct body position, posture, foot placement)\n- The correct SCALE and PROPORTIONS of the product relative to a human\n- The style and quality level your output must match\n\n"
+                "text": f"[{lifestyle_refs_str}] = STYLE & INTERACTION REFERENCE. These show the correct way a person uses this product and the photographic quality to match.\n\n"
             })
 
-        # STEP B: Product cutouts — for exact product details
-        best_freisteller = freisteller[:4]
-        for img in best_freisteller:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        n_product = len(best_freisteller)
-        if n_product > 0:
-            product_refs_str = ", ".join([f"Image {n_lifestyle+j+1}" for j in range(n_product)])
-            parts.append({
-                "text": f"[{product_refs_str}] These are PRODUCT CUTOUTS showing the exact {product_name} design details on a white background. The product in your generated image must be a LITERAL RECREATION of these — every color, LED strip, display, button, and branding element must match EXACTLY.\n\n"
-            })
-
-        # STEP C: Character references (if available)
+        # GROUP 3: Character references
         for img in character_images:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
         n_character = len(character_images)
-        if n_character > 0:
-            char_refs_str = ", ".join([f"Image {n_lifestyle+n_product+j+1}" for j in range(n_character)])
-            parts.append({
-                "text": f"[{char_refs_str}] CHARACTER REFERENCE — preserve this person's identity exactly.\n\n"
-            })
 
-        # === MAIN PROMPT — structured by priority ===
-        prompt_text = f"""Create a professional lifestyle photograph. You are a precision compositing engine.
+        # === COMPOSITING PROMPT ===
+        prompt_text = f"""You are a precision compositing engine. Synthesize the visual inputs into a single coherent, photorealistic frame.
 
-STEP 1 — PRODUCT IN ROOM:
-Place the {product_name} in this environment: {room_prompt or 'A bright modern living room with warm oak floors, large windows, natural light.'}
-The product must be a LITERAL RECREATION of the reference cutout images. Do not simplify or genericize ANY part of its design.
+Product Accuracy: The {product_name} must be a LITERAL RECREATION of [{product_refs}]; do not simplify or genericize its design.
 
-PRODUCT DETAILS (from AI analysis of reference images):
+DETAILED PRODUCT DESCRIPTION (AI analysis):
 {product_description_ai}
 
-STEP 2 — HUMAN INTERACTION:
-{character_desc or args.character_description or 'An athletic person in dark fitness clothing'} is using the {product_name}.
-{f'How this product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
-{f'Correct body position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
-Specific pose: {pose}
+MANDATORY PRODUCT RULES:
+{chr(10).join('- ' + r for r in must_match)}
 
-CRITICAL — Look at the lifestyle reference images above. The person must interact with the product EXACTLY like the people in those reference photos:
-- Feet must be PHYSICALLY ON the equipment (on the belt, on the pedals, on the seat)
-- Hands must be in a REALISTIC position (on handlebars, swinging naturally, gripping handles)
-- Body weight must be supported by the equipment, not floating or hovering
-- The person must look like they are genuinely USING the equipment mid-workout, captured candidly
-- Study the body angles, foot positions, and hand placements in the lifestyle reference images and REPLICATE that level of realism
+MUST AVOID:
+{chr(10).join('- ' + r for r in must_avoid)}
 
-STEP 3 — CAMERA & QUALITY:
-{args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Shot on Hasselblad.
-Soft natural interior lighting. No harsh contrast. {args.format} aspect ratio. No text or watermarks.
-Output must look like a high-end commercial fitness photograph — not AI-generated."""
+{f'DIRECTION: {direction}' if direction else ''}
+
+ENVIRONMENT:
+{room_prompt or 'A bright modern living room with warm oak floors, large windows, sheer curtains, natural light.'}
+
+PERSON:
+{character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
+
+HOW THIS PERSON USES THE PRODUCT:
+{how_it_works.get('principle', '')}
+{how_it_works.get('position', '')}
+Pose: {pose}
+
+The person must look like they are GENUINELY using the equipment — feet physically on the machine, natural body mechanics, realistic weight distribution. Like a candid photo of someone mid-workout.
+
+CAMERA: {args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Hasselblad.
+Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography quality."""
 
         parts.append({"text": prompt_text})
 

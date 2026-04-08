@@ -117,8 +117,8 @@
       "supabase_product_id": "78a0e803-2a83-4e46-b1fc-8e090b818a22",
 
       "appearance": {
-        "summary": "Professionelles Home-Laufband in Schwarz mit LED-Akzentlinien (blau/türkis/lila je nach Variante). 10.1-Zoll Touchscreen-Display oben. Klappbares Design mit Transportrollen. Schwarze Handläufe mit integrierten Bedienelementen (grüne/rote Tasten). Modernes, schlankes Design.",
-        "key_features": "Schwarzes Gehäuse mit farbigen LED-Akzentlinien an den Seiten, 10.1-Zoll Touchscreen oben, klappbare Handläufe, breites schwarzes Laufband (1300x500mm), Transportrollen, Sicherheitsschlüssel",
+        "summary": "Professional home treadmill in matte black with blue/cyan LED accent strips along the sides of the running deck. A 10.1-inch touchscreen display sits at the TOP of the console, between two thick black handlebars. The console with display is at the FRONT of the machine — the person FACES the console/display while running. Foldable design with transport wheels. Red safety key attached.",
+        "key_features": "Matte black body with blue/cyan LED accent strips on both sides of the running deck, 10.1-inch touchscreen display at the top of the console, two thick black angled handlebars with integrated pulse sensors and speed/incline buttons, wide black running belt (1300x500mm), red+green START/STOP buttons on the console, red safety key on a cord, SPORTSTECH branding in white on the uprights and front base, transport wheels at front",
         "colors_available": ["black"],
         "led_accent_colors": ["blue", "cyan", "purple", "teal"],
         "dimensions": {
@@ -149,53 +149,51 @@
       },
 
       "how_it_works": {
-        "principle": "Person läuft oder joggt auf dem Laufband. Geschwindigkeit bis 20 km/h, 15 Steigungsstufen. Touchscreen zur Steuerung.",
-        "position": "Person STEHT/LÄUFT auf dem Laufband, aufrechte Haltung. Hände können frei schwingen oder kurz die Handläufe berühren.",
-        "interaction": "Model kann den 10.1-Zoll Touchscreen berühren zur Steuerung. Sportstech Live App für geführte Workouts.",
-        "folding": "Laufband lässt sich nach oben klappen für platzsparende Aufbewahrung."
+        "principle": "Person runs or jogs on the treadmill belt. The person FACES the display/console (the tall part with the screen). The display/console is at the FRONT. The person's body faces TOWARD the display while running.",
+        "position": "Person stands ON the running belt, facing the display. Feet move on the belt surface. Hands can swing freely or briefly touch the handlebars.",
+        "direction": "CRITICAL: The person ALWAYS faces the console/display end of the treadmill. The console is the TALL part at the FRONT. The low/flat part is the BACK. The person runs TOWARD the display, NOT away from it.",
+        "interaction": "Person can touch the 10.1-inch touchscreen to control the workout."
       },
 
       "correct_usage_poses": [
         {
           "name": "Running / Jogging",
-          "position": "LAUFEND auf dem Laufband, dynamische Pose, Arme schwingen natürlich, aufrechte Haltung",
-          "camera_angle": "3/4, seitlich, oder frontal"
+          "position": "Person faces the display/console, running on the belt. Natural mid-stride: one foot on the belt pushing off, other knee driving forward. Arms bent ~90 degrees swinging in opposition to legs. Upright torso with slight forward lean. Person looks at the display or straight ahead TOWARD the console.",
+          "camera_angle": "3/4 from behind-side shows both person and display"
         },
         {
           "name": "Walking / Light Cardio",
-          "position": "GEHEND in entspanntem Tempo, aufrechte Haltung, evtl. leicht an Handläufen",
-          "camera_angle": "3/4 oder frontal"
+          "position": "Person faces the display, walking at relaxed pace on the belt. Upright posture, arms swinging gently. May have one hand lightly on a handlebar.",
+          "camera_angle": "3/4 or frontal"
         },
         {
           "name": "Display Interaction",
-          "position": "STEHEND oder langsam gehend, berührt den 10.1-Zoll Touchscreen mit einer Hand",
-          "camera_angle": "Over-the-shoulder für Display-Fokus, oder Close Up auf Display"
-        },
-        {
-          "name": "Incline Training",
-          "position": "LAUFEND mit sichtbarer Steigung des Laufbands, leicht nach vorne geneigt",
-          "camera_angle": "Seitlich für Steigungseffekt"
+          "position": "Person stands or walks slowly, reaching forward to touch the 10.1-inch touchscreen with one hand.",
+          "camera_angle": "Over-the-shoulder showing the display screen"
         }
       ],
 
       "ai_generation_rules": {
         "must_match": [
-          "Laufband muss EXAKTE Nachbildung der 8 Referenzbilder sein — schwarzes Gehäuse mit farbigen LED-Akzentlinien",
-          "10.1-Zoll Touchscreen-Display oben an der Konsole — MUSS sichtbar sein",
-          "SPORTSTECH Logo oben an der Konsole",
-          "Schwarze Handläufe mit grünen/roten Bedienelementen",
-          "Breites schwarzes Laufband",
-          "Korrekte Lauf- oder Gehhaltung — aufrecht, natürliche Armbewegung",
-          "LED-Akzentlinien an den Seiten des Geräts"
+          "Person FACES the display/console — the tall part with the screen is the FRONT of the treadmill",
+          "Treadmill must be a literal recreation of reference images — matte black body with blue/cyan LED strips",
+          "10.1-inch touchscreen display at the TOP of the console between handlebars",
+          "SPORTSTECH branding in white on the frame",
+          "Two thick black angled handlebars connecting to the console",
+          "Blue/cyan LED accent strips along BOTH sides of the running deck",
+          "Red safety key on cord attached to the console",
+          "Green START and red STOP buttons visible on console",
+          "Person's feet are ON the running belt, body facing TOWARD the display"
         ],
         "must_avoid": [
-          "Generisches/vereinfachtes Laufband — muss exakt wie Referenzbilder aussehen",
-          "Silberne Pfosten oder falsche Farben — F37s Pro ist KOMPLETT SCHWARZ mit LED-Akzenten",
-          "Falsche Display-Position oder -Größe",
-          "Person hält sich während des Laufens an beiden Handläufen fest (nur kurzes Berühren OK)",
-          "Fehlende LED-Akzentlinien",
-          "Falsche Proportionen — das Gerät ist schlank und modern, nicht klobig",
-          "Verwechslung mit F75 (der hat silberne Pfosten, der F37s Pro ist komplett schwarz)"
+          "Person running AWAY from the display — person must FACE the display/console",
+          "Person running BACKWARDS or in the wrong direction on the treadmill",
+          "Generic/simplified treadmill — must match reference images exactly",
+          "Silver/chrome uprights — F37s Pro is ENTIRELY matte black",
+          "Multiple displays or wrong display shape — ONE 10.1-inch screen at top",
+          "Person gripping both handlebars tightly while running (hands should swing freely)",
+          "Missing LED accent strips on the sides",
+          "Wrong proportions — the machine is sleek and modern, not bulky"
         ]
       },
 
