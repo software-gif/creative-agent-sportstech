@@ -145,6 +145,52 @@ def get_character_images(character_id):
     return images
 
 
+def describe_product_from_images(product_images, product_name):
+    """Step 1: Use Gemini TEXT to analyze product images and generate ultra-detailed description."""
+    print("  Running Image Describer on product references...")
+
+    parts = []
+    for img in product_images[:4]:
+        parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+    parts.append({
+        "text": f"""Analyze these reference images of the {product_name} fitness equipment in extreme detail.
+
+Describe EVERY visual detail you can see:
+1. EXACT shape and silhouette from every visible angle
+2. EXACT colors — primary body color, accent colors, LED colors, screen colors
+3. Materials — metal, plastic, rubber, fabric. Matte or glossy finish?
+4. Display/screen — size, position, what's shown on it, border color
+5. Branding — EXACT text, font style, position, color of logos/text
+6. Buttons/controls — colors, positions, shapes
+7. Unique design features — LED strips, accent lines, specific curves
+8. Proportions — relative sizes of parts (e.g., "the display is about 1/4 the width of the machine")
+9. Structural details — how parts connect, visible joints, cables, rails
+
+Output a single dense paragraph with ALL details. This description will be used to recreate this EXACT product in an AI-generated image. Be obsessively precise."""
+    })
+
+    # Use text model for analysis (not image generation)
+    text_model = "gemini-2.5-flash"
+    text_endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{text_model}:generateContent?key={GEMINI_API_KEY}"
+
+    try:
+        resp = requests.post(text_endpoint, json={
+            "contents": [{"parts": parts}],
+            "generationConfig": {"temperature": 0.1, "maxOutputTokens": 4000},
+        }, timeout=60)
+        resp.raise_for_status()
+        result = resp.json()
+        text = result.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+        if text:
+            print(f"  Image Describer: {len(text)} chars generated")
+            return text
+    except Exception as e:
+        print(f"  Image Describer failed: {e}")
+
+    return ""
+
+
 def load_room_preset(preset_name):
     """Load room prompt from room_prompts.json."""
     path = os.path.join(PROJECT_ROOT, "branding", "room_prompts.json")
@@ -293,93 +339,74 @@ def main():
     renders = [img for img in product_images if img.get("type") == "render"]
     lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle_example"]
 
+    # === STEP 1: IMAGE DESCRIBER — analyze product before generating ===
+    product_description_ai = describe_product_from_images(freisteller, product_name)
+
     # Generate N images
     for i in range(args.count):
         print(f"\n{'─' * 40}")
         print(f"Image {i + 1}/{args.count}")
 
-        # === WEAVY-STYLE NUMBERED REFERENCES ===
-        # Strategy: Few, focused images with numbered roles — not a dump of everything
+        # === WEAVY COMPOSITING PATTERN ===
+        # Send images in labeled groups, then one clear compositing instruction
         parts = []
-        img_num = 1
 
-        # Select 3-4 best freisteller (not all — too many confuses the model)
-        best_freisteller = freisteller[:4]
+        # GROUP 1: Product reference images (Freisteller — the ground truth)
+        best_freisteller = freisteller[:5]
         for img in best_freisteller:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-            img_num += 1
 
-        # Select 1-2 best lifestyle examples (show target quality)
+        # GROUP 2: Lifestyle examples (show product in room context)
         best_lifestyle = lifestyle_refs[:2]
         for img in best_lifestyle:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-            img_num += 1
 
-        # Character references
+        # GROUP 3: Character references (if available)
         for img in character_images:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-            img_num += 1
 
-        # === CORE INSTRUCTION — WEAVY PATTERN ===
-        # Product knowledge
+        # === SINGLE COMPOSITING INSTRUCTION (Weavy Pattern) ===
         must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
         must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
         how_it_works = pk.get("how_it_works", {})
-        appearance = pk.get("appearance", {})
 
         pose = args.pose
         if not pose and pk.get("correct_usage_poses"):
-            best_pose = pk["correct_usage_poses"][0]
-            pose = best_pose.get("position", "")
+            pose = pk["correct_usage_poses"][0].get("position", "")
 
         n_product = len(best_freisteller)
         n_lifestyle = len(best_lifestyle)
         n_character = len(character_images)
+        product_img_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
+        lifestyle_img_refs = ", ".join([f"Image {n_product+j+1}" for j in range(n_lifestyle)])
+        char_img_refs = ", ".join([f"Image {n_product+n_lifestyle+j+1}" for j in range(n_character)])
 
-        # Build image role labels
-        product_imgs = ", ".join([f"Image {j+1}" for j in range(n_product)])
-        lifestyle_imgs = ", ".join([f"Image {n_product+j+1}" for j in range(n_lifestyle)]) if n_lifestyle > 0 else ""
-        char_imgs = ", ".join([f"Image {n_product+n_lifestyle+j+1}" for j in range(n_character)]) if n_character > 0 else ""
+        prompt_text = f"""You are a precision compositing engine. Your task is to synthesize distinct visual inputs into a single coherent frame.
 
-        prompt_text = f"""Create a photorealistic lifestyle photograph of a person using the {product_name} in a beautiful interior room.
+Product Accuracy: The {product_name} must be a literal recreation of [{product_img_refs}]; do not simplify or genericize its design.
+{f'Style Reference: [{lifestyle_img_refs}] show how this product integrates into a real room.' if lifestyle_img_refs else ''}
+{f'Character Identity: Strictly adhere to the person shown in [{char_img_refs}].' if char_img_refs else ''}
 
-You are a precision compositing engine. Synthesize the visual inputs into a single coherent, photorealistic frame.
+DETAILED PRODUCT DESCRIPTION (from AI image analysis):
+{product_description_ai}
 
-PRODUCT ACCURACY: The {product_name} must be a LITERAL RECREATION of [{product_imgs}]. Do NOT simplify or genericize its design. Study every detail in the reference images — exact shape, proportions, colors, materials, textures, display, buttons, branding, LED accents — and reproduce them EXACTLY.
-
-{f'STYLE REFERENCE: [{lifestyle_imgs}] show how the product looks in a real interior setting. Match this level of photorealism and integration.' if lifestyle_imgs else ''}
-
-{f'CHARACTER: [{char_imgs}] show the person. Preserve their identity exactly.' if char_imgs else ''}
-
-PRODUCT DETAILS (from manufacturer specifications):
-{appearance.get('summary', '')}
-Key features: {appearance.get('key_features', '')}
-
-WHAT MUST BE EXACTLY RIGHT:
+ADDITIONAL PRODUCT RULES:
 {chr(10).join('- ' + r for r in must_match)}
 
-WHAT MUST NEVER HAPPEN:
+MUST AVOID:
 {chr(10).join('- ' + r for r in must_avoid)}
 
-PERSON & POSE:
-{args.character_description or 'An athletic person in fitness clothing'}
-{f'How this product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
-{f'Correct body position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
-Specific pose: {pose}
-The human body must be ANATOMICALLY CORRECT — natural weight distribution, joints bending in realistic directions, physically plausible interaction with the equipment.
+SCENE: {room_prompt or 'A bright modern Scandinavian living room with warm oak floors, large windows, sheer curtains, natural light.'}
 
-ENVIRONMENT:
-{room_prompt or 'A bright, modern Scandinavian living room with warm oak floors, large windows with sheer curtains, natural light.'}
+PERSON: {args.character_description or 'An athletic person in dark fitness clothing'}
+POSE: {pose}
+{f'How product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
+{f'Correct position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
+Body must be anatomically correct with natural weight distribution and physically plausible interaction.
 
-CAMERA: {args.shot_size} shot, {args.camera_angle}, {args.character_angle} view, {args.lens} lens, {args.depth_of_field}. Shot on Hasselblad.
+CAMERA: {args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Hasselblad.
 
-CONSTRAINTS:
-- The product in the final image must be IDENTICAL to [{product_imgs}] — not similar, IDENTICAL
-- Soft natural interior lighting, no harsh contrast
-- No text, watermarks, or overlaid graphics
-- {args.format} aspect ratio
-- Photorealistic 8K quality — must look like a real photograph
-- Do NOT introduce any objects or elements not described above"""
+CONSTRAINT: Do not introduce any elements, furniture, or stylistic flourishes not present in the references. The output should look like a professional photograph taken in that specific room with that specific model and equipment. Soft natural lighting, no harsh contrast. {args.format} aspect ratio. No text or watermarks."""
 
         parts.append({"text": prompt_text})
 
