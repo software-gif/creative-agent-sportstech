@@ -288,125 +288,98 @@ def main():
         if room_prompt:
             print(f"  Using room preset: {args.room_preset}")
 
+    # Pre-select best images by type
+    freisteller = [img for img in product_images if img.get("type") == "freisteller"]
+    renders = [img for img in product_images if img.get("type") == "render"]
+    lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle_example"]
+
     # Generate N images
     for i in range(args.count):
         print(f"\n{'─' * 40}")
         print(f"Image {i + 1}/{args.count}")
 
-        # Build multimodal parts — images FIRST, then text instructions
+        # === WEAVY-STYLE NUMBERED REFERENCES ===
+        # Strategy: Few, focused images with numbered roles — not a dump of everything
         parts = []
+        img_num = 1
 
-        # === PRODUCT REFERENCE IMAGES (most important) ===
-        freisteller = [img for img in product_images if img.get("type") == "freisteller"]
-        renders = [img for img in product_images if img.get("type") == "render"]
-        lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle_example"]
-
-        # Send ALL freisteller (cutout images are the ground truth)
-        for img in freisteller:
+        # Select 3-4 best freisteller (not all — too many confuses the model)
+        best_freisteller = freisteller[:4]
+        for img in best_freisteller:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+            img_num += 1
 
-        parts.append({
-            "text": f"[PRODUCT CUTOUT IMAGES ABOVE] These {len(freisteller)} images show the EXACT {product_name} from every angle on a white/transparent background. Study EVERY detail: the exact shape, proportions, colors, materials, textures, buttons, displays, branding, LED accents. Your generated image MUST recreate this EXACT product — not a similar product, not a simplified version, THIS EXACT product.\n\n"
-        })
-
-        # Send renders (show product in 3D context)
-        for img in renders:
+        # Select 1-2 best lifestyle examples (show target quality)
+        best_lifestyle = lifestyle_refs[:2]
+        for img in best_lifestyle:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+            img_num += 1
 
-        if renders:
-            parts.append({
-                "text": f"[PRODUCT 3D RENDERS ABOVE] These {len(renders)} renders show the {product_name} from additional angles. Use these to understand the 3D shape, depth, and how light interacts with the surfaces.\n\n"
-            })
-
-        # Send lifestyle examples (show how it should look in a room)
-        for img in lifestyle_refs:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        if lifestyle_refs:
-            parts.append({
-                "text": f"[LIFESTYLE EXAMPLES ABOVE] These {len(lifestyle_refs)} images show how the {product_name} looks in real interior settings. Use these as STYLE reference for how the product integrates into a room environment. Match this quality and realism level.\n\n"
-            })
-
-        # === CHARACTER REFERENCES ===
+        # Character references
         for img in character_images:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+            img_num += 1
 
-        if character_images:
-            parts.append({
-                "text": "CHARACTER REFERENCE: Strictly adhere to the facial and physical features of this subject. Preserve identity, skin tone, hair, and build exactly.\n\n"
-            })
+        # === CORE INSTRUCTION — WEAVY PATTERN ===
+        # Product knowledge
+        must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
+        must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
+        how_it_works = pk.get("how_it_works", {})
+        appearance = pk.get("appearance", {})
 
-        # === BUILD THE MAIN PROMPT ===
-        if args.prompt:
-            prompt_text = args.prompt
-        else:
-            must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
-            must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
+        pose = args.pose
+        if not pose and pk.get("correct_usage_poses"):
+            best_pose = pk["correct_usage_poses"][0]
+            pose = best_pose.get("position", "")
 
-            # Get the best pose from product knowledge
-            pose = args.pose
-            if not pose and pk.get("correct_usage_poses"):
-                best_pose = pk["correct_usage_poses"][0]
-                pose = best_pose.get("position", "")
+        n_product = len(best_freisteller)
+        n_lifestyle = len(best_lifestyle)
+        n_character = len(character_images)
 
-            # Get HOW the product works
-            how_it_works = pk.get("how_it_works", {})
-            principle = how_it_works.get("principle", "")
-            position = how_it_works.get("position", "")
-            motion = how_it_works.get("motion", "")
+        # Build image role labels
+        product_imgs = ", ".join([f"Image {j+1}" for j in range(n_product)])
+        lifestyle_imgs = ", ".join([f"Image {n_product+j+1}" for j in range(n_lifestyle)]) if n_lifestyle > 0 else ""
+        char_imgs = ", ".join([f"Image {n_product+n_lifestyle+j+1}" for j in range(n_character)]) if n_character > 0 else ""
 
-            # Get product appearance details
-            appearance = pk.get("appearance", {})
-            product_description = appearance.get("summary", "")
-            key_features = appearance.get("key_features", "")
+        prompt_text = f"""Create a photorealistic lifestyle photograph of a person using the {product_name} in a beautiful interior room.
 
-            prompt_text = f"""You are a precision compositing engine creating a photorealistic lifestyle photograph.
+You are a precision compositing engine. Synthesize the visual inputs into a single coherent, photorealistic frame.
 
-=== SCENE ===
-{room_prompt or 'A bright, modern living room with natural light, Scandinavian design, warm oak floors, large windows with sheer curtains.'}
+PRODUCT ACCURACY: The {product_name} must be a LITERAL RECREATION of [{product_imgs}]. Do NOT simplify or genericize its design. Study every detail in the reference images — exact shape, proportions, colors, materials, textures, display, buttons, branding, LED accents — and reproduce them EXACTLY.
 
-=== PERSON ===
-{args.character_description or 'An athletic person in their 30s wearing dark athletic clothes'}
+{f'STYLE REFERENCE: [{lifestyle_imgs}] show how the product looks in a real interior setting. Match this level of photorealism and integration.' if lifestyle_imgs else ''}
 
-=== PRODUCT INTERACTION (CRITICAL — READ CAREFULLY) ===
-The person is using the {product_name} in the room.
-HOW THE PRODUCT WORKS: {principle}
-CORRECT BODY POSITION: {position}
-{f'MOVEMENT: {motion}' if motion else ''}
-SPECIFIC POSE: {pose}
+{f'CHARACTER: [{char_imgs}] show the person. Preserve their identity exactly.' if char_imgs else ''}
 
-The person's body must be in a NATURAL, ANATOMICALLY CORRECT position. Weight distribution must be realistic. Joints must bend in natural directions. The interaction between human and machine must look PHYSICALLY PLAUSIBLE — as if a real person is actually using this equipment.
+PRODUCT DETAILS (from manufacturer specifications):
+{appearance.get('summary', '')}
+Key features: {appearance.get('key_features', '')}
 
-=== PRODUCT ACCURACY (CRITICAL — DO NOT SIMPLIFY) ===
-Product: {product_name}
-Description: {product_description}
-Key Features: {key_features}
-
-You have {len(freisteller)} cutout reference images, {len(renders)} 3D renders, and {len(lifestyle_refs)} lifestyle examples of this EXACT product above.
-
-MANDATORY PRODUCT RULES:
+WHAT MUST BE EXACTLY RIGHT:
 {chr(10).join('- ' + r for r in must_match)}
 
-ABSOLUTELY FORBIDDEN:
+WHAT MUST NEVER HAPPEN:
 {chr(10).join('- ' + r for r in must_avoid)}
 
-The product in your image must be IDENTICAL to the reference images. Not similar. Not inspired by. IDENTICAL. Every button, every display, every color accent, every logo placement must match exactly.
+PERSON & POSE:
+{args.character_description or 'An athletic person in fitness clothing'}
+{f'How this product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
+{f'Correct body position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
+Specific pose: {pose}
+The human body must be ANATOMICALLY CORRECT — natural weight distribution, joints bending in realistic directions, physically plausible interaction with the equipment.
 
-=== CAMERA ===
-Shot: {args.shot_size}
-Camera angle: {args.camera_angle}
-Character angle: {args.character_angle}
-Lens: {args.lens}
-Aperture: {args.depth_of_field}
-Shot on Hasselblad medium format camera.
+ENVIRONMENT:
+{room_prompt or 'A bright, modern Scandinavian living room with warm oak floors, large windows with sheer curtains, natural light.'}
 
-=== TECHNICAL REQUIREMENTS ===
-- Soft, warm natural interior lighting — NO harsh contrast, NO flash
-- Photorealistic quality — must look like a real photograph, not AI-generated
-- No text, watermarks, logos overlaid on the image
+CAMERA: {args.shot_size} shot, {args.camera_angle}, {args.character_angle} view, {args.lens} lens, {args.depth_of_field}. Shot on Hasselblad.
+
+CONSTRAINTS:
+- The product in the final image must be IDENTICAL to [{product_imgs}] — not similar, IDENTICAL
+- Soft natural interior lighting, no harsh contrast
+- No text, watermarks, or overlaid graphics
 - {args.format} aspect ratio
-- 8K resolution quality
-- The product must be the visual HERO of the image — clearly visible, well-lit, detailed"""
+- Photorealistic 8K quality — must look like a real photograph
+- Do NOT introduce any objects or elements not described above"""
 
         parts.append({"text": prompt_text})
 
