@@ -37,6 +37,7 @@ export type Creative = {
   notes: string | null;
   created_at: string;
   tags: string[] | null;
+  parent_id: string | null;
   // Legacy fields for compatibility
   image_url?: string | null;
   angle?: string;

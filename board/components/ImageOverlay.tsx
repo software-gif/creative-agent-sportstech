@@ -5,10 +5,12 @@ import { PRODUCT_LABELS } from "@/lib/constants";
 
 type ImageOverlayProps = {
   creative: Creative | null;
+  variants?: Creative[];
   onClose: () => void;
+  onSelectVariant?: (creative: Creative) => void;
 };
 
-export default function ImageOverlay({ creative, onClose }: ImageOverlayProps) {
+export default function ImageOverlay({ creative, variants = [], onClose, onSelectVariant }: ImageOverlayProps) {
   if (!creative) return null;
 
   const imageUrl = getImageUrl(creative);
@@ -119,14 +121,43 @@ export default function ImageOverlay({ creative, onClose }: ImageOverlayProps) {
           </div>
         </div>
       </div>
-      {/* Mobile */}
-      <div className="lg:hidden absolute bottom-6 left-6 right-6 text-center text-white">
-        <p className="font-semibold">{product || "Lifestyle"}</p>
-        <p className="text-sm text-white/60">
-          {env && <span className="capitalize">{env.replace(/_/g, " ")} — </span>}
-          {creative.format}
-        </p>
-      </div>
+      {/* Variants strip */}
+      {variants.length > 0 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/60 backdrop-blur-sm rounded-xl p-2">
+          <span className="text-[10px] text-white/40 font-medium px-2">Variants</span>
+          {variants.map((v) => {
+            const vUrl = getImageUrl(v);
+            const isActive = v.id === creative.id;
+            return (
+              <button
+                key={v.id}
+                onClick={() => onSelectVariant?.(v)}
+                className={`w-14 h-14 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
+                  isActive ? "border-primary scale-105" : "border-transparent hover:border-white/30"
+                }`}
+              >
+                {vUrl ? (
+                  <img src={vUrl} alt={v.short_id || ""} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-white/10 flex items-center justify-center text-[8px] text-white/40">
+                    {v.short_id}
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+      {/* Mobile (no variants) */}
+      {variants.length === 0 && (
+        <div className="lg:hidden absolute bottom-6 left-6 right-6 text-center text-white">
+          <p className="font-semibold">{product || "Lifestyle"}</p>
+          <p className="text-sm text-white/60">
+            {env && <span className="capitalize">{env.replace(/_/g, " ")} — </span>}
+            {creative.format}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

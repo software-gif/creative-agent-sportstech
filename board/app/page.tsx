@@ -336,7 +336,20 @@ export default function Board() {
 
       <ImageOverlay
         creative={selectedImage}
+        variants={
+          selectedImage
+            ? creatives.filter(
+                (c) =>
+                  c.id !== selectedImage.id &&
+                  (c.parent_id === selectedImage.id ||
+                    c.parent_id === selectedImage.parent_id ||
+                    (selectedImage.parent_id && c.id === selectedImage.parent_id) ||
+                    (selectedImage.batch_id && c.batch_id === selectedImage.batch_id))
+              )
+            : []
+        }
         onClose={() => setSelectedImage(null)}
+        onSelectVariant={setSelectedImage}
       />
 
       <ClearBoardButton />

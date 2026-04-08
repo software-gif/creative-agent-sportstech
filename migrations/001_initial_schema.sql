@@ -113,9 +113,11 @@ CREATE TABLE creatives (
   season TEXT DEFAULT 'evergreen',
   environment_style TEXT,
 
-  -- Filtering
+  -- Filtering & metadata
   product_category TEXT,
   environment TEXT,
+  tags JSONB DEFAULT '[]',
+  parent_id UUID REFERENCES creatives(id) ON DELETE SET NULL,
 
   -- Status
   status TEXT DEFAULT 'generated',

@@ -1,17 +1,19 @@
 {
-  "_description": "Produktwissen für AI-Bildgenerierung. Wird automatisch in jeden Gemini-Prompt injiziert. QUELLE DER WAHRHEIT für Produktaussehen und korrekte Nutzung.",
-  "_last_updated": "2026-04-07",
-  "_source": "https://www.sportstech.de + Kick-Off Transcripts + Weavy Workflows",
-
+  "_description": "Product knowledge for AI image generation. Injected into every Gemini prompt. SINGLE SOURCE OF TRUTH for product appearance and correct usage.",
+  "_last_updated": "2026-04-08",
+  "_source": "https://www.sportstech.de + Kick-Off Transcripts + Weavy Workflows + Image Describer",
   "products": {
     "walking-pad": {
       "name": "Walking Pad",
       "is_hero_product": true,
       "product_category": "walking_pad",
-
       "appearance": {
-        "summary": "Ein flaches, kompaktes Laufband ohne hohe Handläufe. Schlankes, modernes Design das unter einen Stehschreibtisch passt. Verfügbar in verschiedenen Farben.",
-        "colors_available": ["gray", "black", "wood-finish"],
+        "summary": "A flat, compact walking pad without tall handrails. Slim, modern design that fits under a standing desk. Available in various colors.",
+        "colors_available": [
+          "gray",
+          "black",
+          "wood-finish"
+        ],
         "dimensions": "Flach, ca. 140cm lang, ca. 50cm breit",
         "display": "Kleines LED-Display oder App-Steuerung",
         "branding": {
@@ -20,13 +22,12 @@
           "style": "Sportstech Logo in Markenrot oder Schwarz"
         }
       },
-
       "how_it_works": {
-        "principle": "Person geht/walkt auf dem flachen Laufband. Keine Handläufe nötig — freies Gehen.",
-        "position": "Person STEHT auf dem Walking Pad und geht in normalem Schritttempo",
-        "typical_use": "Unter dem Stehschreibtisch im Homeoffice, oder frei im Wohnzimmer"
+        "principle": "Person walks on the flat walking pad. No handrails needed — free walking. The person faces FORWARD in the walking direction.",
+        "position": "Person STANDS on the Walking Pad and walks at normal walking pace. Feet on the belt surface.",
+        "direction": "Person faces FORWARD in the walking direction. There is no console to face — the pad is flat.",
+        "typical_use": "Under a standing desk in a home office, or freely in the living room."
       },
-
       "correct_usage_poses": [
         {
           "name": "Homeoffice Walking",
@@ -39,7 +40,6 @@
           "camera_angle": "Frontal oder 3/4"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "Walking Pad muss eine EXAKTE Nachbildung der Referenzbilder sein — NICHT vereinfachen oder generisch darstellen",
@@ -57,29 +57,28 @@
         ]
       }
     },
-
     "treadmill-f75": {
       "name": "sTread Pro F75",
       "is_hero_product": false,
       "product_category": "treadmill",
-
       "appearance": {
-        "summary": "Professionelles Laufband mit großer Konsole, breitem Display, stabilen Handläufen. Silberne/schwarze Metall-Pfosten mit rotem SPORTSTECH Logo.",
+        "summary": "Professional treadmill with large console, wide display, stable handrails. Silver/black metal pillars with red SPORTSTECH logo.",
         "key_features": "Wide black running belt, silver/gray textured side rails, thick angled metallic silver pillars, massive black console with widescreen monitor, thick black handrests with cup holders, red accent buttons",
-        "colors_available": ["black-silver"],
+        "colors_available": [
+          "black-silver"
+        ],
         "branding": {
           "text": "SPORTSTECH",
           "position": "Auf den silbernen Pfosten",
           "style": "Rotes SPORTSTECH Logo auf silbernem Metall"
         }
       },
-
       "how_it_works": {
-        "principle": "Person läuft/joggt auf dem Laufband. Hände können Handläufe greifen oder frei schwingen.",
-        "position": "Person STEHT/LÄUFT auf dem Laufband, aufrechte Haltung",
-        "interaction": "Model kann das Display/die Konsole berühren zur Steuerung"
+        "principle": "Person runs or jogs on the treadmill. The person FACES the display/console at the FRONT. Hands can grip handlebars or swing freely.",
+        "position": "Person STANDS/RUNS on the treadmill belt, facing the display. Upright posture.",
+        "direction": "CRITICAL: Person ALWAYS faces the console/display. The console is the TALL part at the FRONT with the silver pillars and wide screen.",
+        "interaction": "Person can touch the display to control the workout."
       },
-
       "correct_usage_poses": [
         {
           "name": "Running",
@@ -92,7 +91,6 @@
           "camera_angle": "Over-the-shoulder für Display-Fokus"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "Laufband muss EXAKTE Nachbildung der Referenzbilder sein",
@@ -109,18 +107,23 @@
         ]
       }
     },
-
     "f37s-pro": {
       "name": "F37s Pro - Smart Bundle",
       "is_hero_product": false,
       "product_category": "treadmill",
       "supabase_product_id": "78a0e803-2a83-4e46-b1fc-8e090b818a22",
-
       "appearance": {
         "summary": "Professional home treadmill in matte black with blue/cyan LED accent strips along the sides of the running deck. A 10.1-inch touchscreen display sits at the TOP of the console, between two thick black handlebars. The console with display is at the FRONT of the machine — the person FACES the console/display while running. Foldable design with transport wheels. Red safety key attached.",
         "key_features": "Matte black body with blue/cyan LED accent strips on both sides of the running deck, 10.1-inch touchscreen display at the top of the console, two thick black angled handlebars with integrated pulse sensors and speed/incline buttons, wide black running belt (1300x500mm), red+green START/STOP buttons on the console, red safety key on a cord, SPORTSTECH branding in white on the uprights and front base, transport wheels at front",
-        "colors_available": ["black"],
-        "led_accent_colors": ["blue", "cyan", "purple", "teal"],
+        "colors_available": [
+          "black"
+        ],
+        "led_accent_colors": [
+          "blue",
+          "cyan",
+          "purple",
+          "teal"
+        ],
         "dimensions": {
           "running_surface": "1300 x 500 mm",
           "foldable": true
@@ -136,7 +139,6 @@
           "style": "Weißes/rotes SPORTSTECH Logo auf schwarzem Gehäuse"
         }
       },
-
       "specs": {
         "max_speed_kmh": 20,
         "incline_levels": 15,
@@ -145,16 +147,17 @@
         "shock_absorption": "8-Zonen Dämpfungssystem, 5-Schicht Laufband",
         "self_lubricating": true,
         "price_eur": 1299,
-        "bundle_includes": ["F37s Pro Laufband", "12 Monate Sportstech Live Premium"]
+        "bundle_includes": [
+          "F37s Pro Laufband",
+          "12 Monate Sportstech Live Premium"
+        ]
       },
-
       "how_it_works": {
         "principle": "Person runs or jogs on the treadmill belt. The person FACES the display/console (the tall part with the screen). The display/console is at the FRONT. The person's body faces TOWARD the display while running.",
         "position": "Person stands ON the running belt, facing the display. Feet move on the belt surface. Hands can swing freely or briefly touch the handlebars.",
         "direction": "CRITICAL: The person ALWAYS faces the console/display end of the treadmill. The console is the TALL part at the FRONT. The low/flat part is the BACK. The person runs TOWARD the display, NOT away from it.",
         "interaction": "Person can touch the 10.1-inch touchscreen to control the workout."
       },
-
       "correct_usage_poses": [
         {
           "name": "Running / Jogging",
@@ -172,7 +175,6 @@
           "camera_angle": "Over-the-shoulder showing the display screen"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "Person FACES the display/console — the tall part with the screen is the FRONT of the treadmill",
@@ -196,7 +198,6 @@
           "Wrong proportions — the machine is sleek and modern, not bulky"
         ]
       },
-
       "reference_images": {
         "storage_prefix": "products/f37s-pro/",
         "count": 8,
@@ -212,17 +213,17 @@
         ]
       }
     },
-
     "sbike": {
       "name": "sBike - Indoor Cycling Bike",
       "is_hero_product": false,
       "product_category": "speedbike",
       "supabase_product_id": "aeee9b22-5fff-4c2e-9c72-7c7665a8523b",
-
       "appearance": {
-        "summary": "Premium Indoor Cycling Bike in Matt-Schwarz mit auffälligem blauen LED-Ring um das Schwungrad. Großes 21.5-Zoll Touchscreen-Display oben. Peloton-ähnliches Design, aber mit Sportstech Branding. Rennrad-Lenker (Multi-Grip), roter Widerstandsknopf, verstellbarer Sattel.",
+        "summary": "Premium Indoor Cycling Bike in matte black with striking blue LED ring around the flywheel. Large 21.5-inch touchscreen display on top. Peloton-style design with Sportstech branding. Drop-bar handlebars (multi-grip), red resistance knob, adjustable saddle.",
         "key_features": "Matt-schwarzes Gehäuse, blauer LED-Leuchtring um Schwungrad (hinten), 21.5-Zoll Touchscreen-Display auf Ständer, Multi-Grip Rennrad-Lenker (Drop-Bar Style), roter Widerstandsknopf (Not-Stopp), SPORTSTECH vertikal auf dem Rahmen, Wasserflasche-Halter, verstellbarer Sattel und Lenker, kompakte Standfüße mit Transportrollen",
-        "colors_available": ["black"],
+        "colors_available": [
+          "black"
+        ],
         "led_accent": "Blauer LED-Ring um das Schwungrad (hinten am Bike). Auch blauer LED-Punkt unter dem Display (Sportstech S-Logo). LED-Farbe kann auch orange sein je nach Trainingsintensität.",
         "display": {
           "size": "21.5 Zoll Touchscreen",
@@ -236,13 +237,12 @@
           "style": "Weißer/silberner SPORTSTECH Schriftzug auf matt-schwarzem Rahmen"
         }
       },
-
       "how_it_works": {
-        "principle": "Person sitzt auf dem Sattel und tritt in die Pedale. Widerstand wird über den roten Knopf eingestellt. Hände greifen den Multi-Grip Lenker.",
-        "position": "SITZEND auf dem Sattel, Füße in den Pedalen (mit Klick-Pedalen oder normalen Pedalen), Hände am Lenker",
-        "interaction": "Model kann das 21.5-Zoll Display berühren, verschiedene Griffpositionen am Lenker einnehmen (oben, unten, Drop-Position)"
+        "principle": "Person sits on the saddle and pedals. Resistance is controlled via the red resistance knob. Hands grip the multi-grip drop-bar handlebars.",
+        "position": "SEATED on the saddle, feet clipped into or resting on pedals, hands on the handlebars. Person FACES the 21.5-inch display at the FRONT.",
+        "direction": "Person FACES the display/handlebars at the FRONT of the bike. The flywheel with blue LED ring is at the BACK.",
+        "interaction": "Person can touch the 21.5-inch display, use different grip positions on the drop-bar handlebars (top, bottom, drops)."
       },
-
       "correct_usage_poses": [
         {
           "name": "Standard Cycling",
@@ -265,7 +265,6 @@
           "camera_angle": "Over-the-shoulder für Display-Fokus"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "sBike muss EXAKTE Nachbildung der Referenzbilder sein — matt-schwarzes Premium-Design",
@@ -287,7 +286,6 @@
           "Verwechslung mit normalem Heimtrainer/Ergometer — sBike ist ein SPEEDBIKE mit Rennrad-Ästhetik"
         ]
       },
-
       "reference_images": {
         "storage_prefix": "products/sbike/",
         "count": 9,
@@ -304,24 +302,23 @@
         ]
       }
     },
-
     "x150": {
       "name": "X150 Ergometer 3in1",
       "is_hero_product": false,
       "product_category": "ergometer",
       "supabase_product_id": "31d0aee0-23fc-45c4-9b64-dc0b0d8a3769",
-
       "appearance": {
-        "summary": "Kompaktes, klappbares X-Frame Ergometer in Schwarz-Rot. Schlankes Design mit X-förmigem Rahmen. Ergonomischer Sattel mit Rückenlehne. Integrierte Power Ropes an den Seiten. Kleines LCD-Display mit Tablet-Halter.",
+        "summary": "Compact, foldable X-frame ergometer in black-red. Slim design with X-shaped frame. Ergonomic saddle with backrest. Integrated power ropes on the sides. Small LCD display with tablet holder.",
         "key_features": "X-förmiger Klapp-Rahmen in Schwarz, rote Akzente am Sattel und Pedalen, ergonomischer Sattel mit großer gepolsterter Rückenlehne, gebogene Lenkergriffe vorne, integrierte Power Ropes (Widerstandsbänder), 3.5-Zoll LCD Display, Tablet-Halter, Transportrollen, Getränkehalter",
-        "colors_available": ["black-red"],
+        "colors_available": [
+          "black-red"
+        ],
         "branding": {
           "text": "SPORTSTECH",
           "position": "Auf dem Rahmen",
           "style": "Rotes Sportstech Logo/Akzente auf schwarzem Rahmen"
         }
       },
-
       "specs": {
         "resistance_levels": 8,
         "resistance_type": "magnetic",
@@ -334,16 +331,11 @@
         "price_eur": 152.15,
         "foldable": true
       },
-
       "how_it_works": {
-        "principle": "3-in-1 Trainingsgerät: Aufrechtes Radfahren, Recumbent (liegende Position), und Oberkörper-Training mit integrierten Power Ropes. Magnetischer Widerstand, flüsterleise.",
-        "positions": {
-          "upright": "Person sitzt aufrecht auf dem Sattel und tritt in die Pedale — klassisches Fahrradtraining",
-          "recumbent": "Person lehnt sich gegen die Rückenlehne, Beine nach vorne, entspanntes Radfahren — schont den Rücken",
-          "ropes": "Während des Tretens werden die integrierten Power Ropes mit den Händen gezogen — Ganzkörper-Workout"
-        }
+        "principle": "3-in-1 training device: upright cycling, recumbent (reclined) position, and upper body training with integrated power ropes. Magnetic resistance, whisper-quiet.",
+        "position": "SEATED on the padded seat with backrest. Feet on pedals. For upright: hands on front handlebars. For recumbent: leaning against backrest. For ropes: pulling the integrated resistance bands while pedaling.",
+        "direction": "Person FACES the front handlebars and small LCD display. The display is at the FRONT top of the X-frame."
       },
-
       "correct_usage_poses": [
         {
           "name": "Aufrechtes Radfahren",
@@ -361,7 +353,6 @@
           "camera_angle": "3/4 frontal für Ganzkörper-Sichtbarkeit"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "X150 muss EXAKTE Nachbildung der Referenzbilder sein — X-förmiger schwarzer Klapprahmen mit roten Akzenten",
@@ -379,7 +370,6 @@
           "Generisches Ergometer statt dem spezifischen X-Frame Design"
         ]
       },
-
       "reference_images": {
         "storage_prefix": "products/x150/",
         "count": 5,
@@ -392,24 +382,23 @@
         ]
       }
     },
-
     "scross": {
       "name": "sCross Crosstrainer",
       "is_hero_product": false,
       "product_category": "crosstrainer",
       "supabase_product_id": "a9701475-ceae-417c-a9e2-4ce32823a335",
-
       "appearance": {
-        "summary": "Premium Crosstrainer in Schwarz-Silber. Großes, robustes Gerät mit elliptischer Bewegungsbahn. Silberne Schwungscheibe seitlich sichtbar. LCD-Display in der Mitte. Zwei Griffarten: bewegliche Armstangen und feste Griffe.",
+        "summary": "Premium crosstrainer in black-silver. Large, robust machine with elliptical motion path. Silver flywheel visible on the side. LCD display in the center. Two grip types: moving arm bars and fixed grips.",
         "key_features": "Schwarzer Stahlrahmen, silberne/chromfarbene Schwungscheibe (23kg, seitlich sichtbar), LCD-Display mit Tablet-Halter in der Mitte, bewegliche Armstangen (oben, für Ganzkörpertraining) + feste Griffe (unten, für reines Beintraining), große Anti-Rutsch Pedale, stabiler Standfuß vorne und hinten, Transportrollen",
-        "colors_available": ["black-silver"],
+        "colors_available": [
+          "black-silver"
+        ],
         "branding": {
           "text": "SPORTSTECH",
           "position": "Auf dem Hauptrahmen",
           "style": "Sportstech Branding auf schwarzem Rahmen"
         }
       },
-
       "specs": {
         "resistance_levels": 32,
         "incline_settings": 3,
@@ -423,14 +412,13 @@
         "no_power_needed": true,
         "price_eur": 1019.15
       },
-
       "how_it_works": {
-        "principle": "Person steht auf den Pedalen und macht eine elliptische Gleitbewegung — eine Kombination aus Laufen, Radfahren und Treppensteigen. Gelenkschonend weil die Füße nie den Boden verlassen.",
-        "position": "Person STEHT aufrecht auf den Pedalen, Hände greifen die beweglichen Armstangen ODER die festen Griffe",
-        "motion": "Elliptische Vorwärts-Bewegung: Beine gleiten in ovaler Bahn, Arme bewegen sich synchron mit — Push/Pull-Bewegung. 48cm Schrittlänge für natürlichen Gang.",
-        "grip_options": "Bewegliche Armstangen oben = Ganzkörpertraining (Arme + Beine). Feste Griffe unten = nur Beintraining, stabiler Stand."
+        "principle": "Person stands on the pedals and performs an elliptical gliding motion — a combination of running, cycling, and stair climbing. Joint-friendly because feet never leave the pedals.",
+        "position": "Person STANDS UPRIGHT on the pedals. Hands grip the moving arm bars (for full body) OR the fixed grips (for legs only).",
+        "direction": "Person FACES the display/console at the FRONT of the crosstrainer. The silver flywheel is visible on the SIDE.",
+        "motion": "Elliptical forward motion: legs glide in an oval path, arms move synchronously — push/pull movement. 48cm stride length.",
+        "grip_options": "Moving arm bars on top = full body training. Fixed grips below = legs only, stable stance."
       },
-
       "correct_usage_poses": [
         {
           "name": "Standard Crosstraining",
@@ -448,7 +436,6 @@
           "camera_angle": "Seitlich oder leicht von unten für dynamischen Effekt"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "sCross muss EXAKTE Nachbildung der Referenzbilder sein — schwarzer Rahmen, silberne Schwungscheibe",
@@ -469,7 +456,6 @@
           "Verwechslung der Griffe — bewegliche Armstangen sind OBEN (lang), feste Griffe sind UNTEN (kurz)"
         ]
       },
-
       "reference_images": {
         "storage_prefix": "products/scross/",
         "count": 12,
@@ -489,24 +475,24 @@
         ]
       }
     },
-
     "aqua-elite": {
       "name": "AquaElite Rudergerät",
       "is_hero_product": false,
       "product_category": "rowing_machine",
       "supabase_product_id": "d5940011-5325-4074-aa88-24c4e51817a4",
-
       "appearance": {
-        "summary": "Premium Wasser-Rudergerät aus hellem Eichenholz mit transparentem Wassertank und LED-Beleuchtung. 21.5-Zoll Touchscreen-Display auf Holz-Ständer. Elegantes Wohnzimmer-Design. SPORTSTECH Logo seitlich auf dem Holzrahmen.",
+        "summary": "Premium water rowing machine in light oak wood with transparent water tank and LED illumination. 21.5-inch touchscreen display on wooden stand. Elegant living room design. SPORTSTECH logo on the side of the wooden frame.",
         "key_features": "Helles Eichenholz-Rahmen (hellbraun/natur), transparenter Wassertank vorne mit LED-Beleuchtung (7 Farben reagieren auf Performance), 21.5-Zoll HD Touchscreen auf Holz-Ständer, schwarze Schiene mit Doppel-Aluminium-Rails, gepolsterter schwarzer Sitz, Fußschlaufen mit verstellbaren Riemen, SPORTSTECH Logo + S-Icon seitlich auf dem Holzrahmen, Transportrollen, klappbar",
-        "colors_available": ["light-brown", "dark-brown"],
+        "colors_available": [
+          "light-brown",
+          "dark-brown"
+        ],
         "branding": {
           "text": "SPORTSTECH",
           "position": "Seitlich auf dem langen Holzrahmen + AquaElite Schriftzug vorne",
           "style": "Schwarzes SPORTSTECH Logo mit S-Icon auf hellem Holz"
         }
       },
-
       "specs": {
         "resistance_type": "water (3-in-1 system)",
         "display": "21.5 inch HD touchscreen",
@@ -520,13 +506,12 @@
         "foldable": true,
         "price_eur": 1649
       },
-
       "how_it_works": {
-        "principle": "Person sitzt auf dem gepolsterten Sitz und zieht den Griff mit beiden Händen zum Körper. Wasserwiderstand — je stärker man zieht, desto mehr Widerstand. Realistisches Ruder-Gefühl durch Wasser.",
-        "position": "SITZEND auf dem schwarzen Sitz, Füße in den Fußschlaufen, Hände greifen die gepolsterte Griffstange",
-        "motion": "Catch → Drive → Finish → Recovery. Beine strecken, Arme ziehen, zurückgleiten."
+        "principle": "Person sits on the padded seat and pulls the handle toward their body with both hands. Water resistance — the harder you pull, the more resistance. Realistic rowing feel through water.",
+        "position": "SEATED on the black padded seat, feet in the foot straps, hands gripping the padded handle bar. Person FACES the water tank and display at the FRONT.",
+        "direction": "Person FACES the water tank and display. The water tank with LED illumination is at the FRONT of the machine (near the display). The seat slides TOWARD it during the pull phase.",
+        "motion": "Catch → Drive → Finish → Recovery. Legs extend, arms pull toward body, then slide back."
       },
-
       "correct_usage_poses": [
         {
           "name": "Catch (Start)",
@@ -539,7 +524,6 @@
           "camera_angle": "3/4 oder seitlich"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "EXAKTE Nachbildung — helles Eichenholz-Rahmen mit schwarzer Schiene",
@@ -559,7 +543,6 @@
           "light_to_dark": "Holzfarbe von Hellbraun zu Dunkelbraun ändern, Holzmaserung MUSS sichtbar bleiben"
         }
       },
-
       "reference_images": {
         "storage_prefix": "products/aqua-elite/",
         "count": 6,
@@ -573,24 +556,23 @@
         ]
       }
     },
-
     "sgym-pro": {
       "name": "sGym Pro Kraftstation",
       "is_hero_product": false,
       "product_category": "power_station",
       "supabase_product_id": "7e776cc9-dc86-47e9-b8da-cdc0a3ffff69",
-
       "appearance": {
-        "summary": "Kompakte, schlanke Kraftstation in Schwarz. Turmförmiges Design mit 21-Zoll Touchscreen, Seilzug-System, Klimmzugstange oben und Dip-Attachment. Klappbar auf unter 1m² Grundfläche.",
+        "summary": "Compact, slim tower-style power station in black. 21-inch touchscreen, cable pulley system, pull-up bar on top, dip attachment. Foldable to under 1m² footprint.",
         "key_features": "Kompakter schwarzer Stahlrahmen (Turm-Design), 21-Zoll Touchscreen-Display (zeigt Workouts), Seilzug-System mit 13 verstellbaren Positionen (oben + unten), Klimmzugstange oben, Dip-Griffe, Standfläche/Trittplatte unten, Zubehör: Trizeps-Seil, Einzel-Griffe, Langhantel-Attachment, Kickback-Strap, klappbar",
-        "colors_available": ["black"],
+        "colors_available": [
+          "black"
+        ],
         "branding": {
           "text": "SPORTSTECH",
           "position": "Auf dem Rahmen/Display-Bereich",
           "style": "Sportstech Branding auf schwarzem Rahmen"
         }
       },
-
       "specs": {
         "resistance_kg": 120,
         "resistance_per_side_kg": 60,
@@ -607,13 +589,12 @@
         "assembly_minutes": 10,
         "price_eur": 3119
       },
-
       "how_it_works": {
-        "principle": "Multifunktionale Kraftstation mit elektronischem Seilzug-Widerstand. Kabel können in 13 Positionen eingestellt werden für über 400 Übungen. Klimmzugstange und Dip-Griffe integriert.",
-        "position": "STEHEND vor dem Gerät für Seilzug-Übungen, HÄNGEND an der Klimmzugstange, SITZEND auf optionaler Bank",
-        "exercises": "Cable Flys, Lat Pulldown, Tricep Pushdown, Bicep Curls, Rows, Pull-Ups, Dips, Kickbacks — über 400 Varianten"
+        "principle": "Multifunctional power station with electronic cable resistance. Cables can be adjusted in 13 positions for 400+ exercises. Pull-up bar and dip grips integrated.",
+        "position": "STANDING in front of the machine for cable exercises, HANGING from the pull-up bar, or KNEELING/SEATED for specific exercises.",
+        "direction": "Person FACES the machine/display. The 21-inch touchscreen is on the front of the tower.",
+        "exercises": "Cable Flys, Lat Pulldown, Tricep Pushdown, Bicep Curls, Rows, Pull-Ups, Dips, Kickbacks — 400+ variants."
       },
-
       "correct_usage_poses": [
         {
           "name": "Cable Pull (stehend)",
@@ -631,7 +612,6 @@
           "camera_angle": "3/4 von hinten für Rückenmuskulatur"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "EXAKTE Nachbildung — schwarzer Turm mit Display, Seilzug, Klimmzugstange",
@@ -648,7 +628,6 @@
           "Unrealistische Übungsposen"
         ]
       },
-
       "reference_images": {
         "storage_prefix": "products/sgym-pro/",
         "count": 10,
@@ -666,52 +645,79 @@
         ]
       }
     },
-
     "hgx50": {
       "name": "HGX50 Kraftstation",
       "is_hero_product": false,
       "product_category": "power_station",
       "supabase_product_id": "51596356-e530-4a5b-92a5-ca2600b083f6",
-
       "appearance": {
-        "summary": "Klassische Multi-Gym Kraftstation in Schwarz-Rot. Kompaktes Design unter 2m² Grundfläche. Gewichtsblock mit 12 Platten (60kg). Lat-Pulldown, Butterfly-Arme, Bein-Curl, Bizeps-Pad.",
+        "summary": "Classic multi-gym power station in black-red. Compact design under 2m² footprint. Weight stack with 12 plates (60kg). Lat pulldown, butterfly arms, leg curl, bicep pad.",
         "key_features": "Q195 Stahlrahmen in Matt-Schwarz mit roten Akzenten, 12-Platten Gewichtsblock (60kg), Lat-Pulldown-Stange mit Gummi-Griffen, Butterfly-Arme (verstellbarer Winkel), Bizeps-Curl-Pad (EVA + Kunstleder), Beinstrecker/-beuger, verstellbare Sitzhöhe, EVA + Kunstleder Polsterung",
-        "colors_available": ["black-red"],
-        "branding": { "text": "SPORTSTECH", "position": "Auf dem Rahmen", "style": "Rot auf Schwarz" }
+        "colors_available": [
+          "black-red"
+        ],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Auf dem Rahmen",
+          "style": "Rot auf Schwarz"
+        }
       },
-
       "how_it_works": {
-        "principle": "Klassische Kraftstation mit Seilzug-System und Gewichtsblock. Person sitzt auf der Bank oder steht und nutzt verschiedene Attachments für verschiedene Muskelgruppen.",
-        "exercises": "Lat Pulldown, Butterfly, Bench Press, Bicep Curl, Tricep Extension, Leg Extension, Leg Curl, Rowing — 40+ Varianten"
+        "principle": "Classic multi-gym power station with cable/pulley system and weight stack. Person sits on the bench or stands and uses various attachments for different muscle groups.",
+        "position": "SEATED on the bench for lat pulldown, butterfly, leg exercises. STANDING for cable rows and other exercises.",
+        "direction": "Person FACES the weight stack when doing lat pulldown. For butterfly, person faces OUTWARD from the machine.",
+        "exercises": "Lat Pulldown, Butterfly, Bench Press, Bicep Curl, Tricep Extension, Leg Extension, Leg Curl, Rowing — 40+ variants."
       },
-
       "correct_usage_poses": [
-        { "name": "Lat Pulldown", "position": "SITZEND auf der Bank, Knie unter Polster, Lat-Stange nach unten ziehen", "camera_angle": "Frontal oder 3/4" },
-        { "name": "Butterfly", "position": "SITZEND, Arme an den Butterfly-Polstern, zusammendrücken vor der Brust", "camera_angle": "Frontal" },
-        { "name": "Leg Extension", "position": "SITZEND, Beine unter Polster, nach oben strecken", "camera_angle": "Seitlich" }
+        {
+          "name": "Lat Pulldown",
+          "position": "SITZEND auf der Bank, Knie unter Polster, Lat-Stange nach unten ziehen",
+          "camera_angle": "Frontal oder 3/4"
+        },
+        {
+          "name": "Butterfly",
+          "position": "SITZEND, Arme an den Butterfly-Polstern, zusammendrücken vor der Brust",
+          "camera_angle": "Frontal"
+        },
+        {
+          "name": "Leg Extension",
+          "position": "SITZEND, Beine unter Polster, nach oben strecken",
+          "camera_angle": "Seitlich"
+        }
       ],
-
       "ai_generation_rules": {
-        "must_match": ["EXAKTE Nachbildung — schwarzer Stahlrahmen mit roten Akzenten", "Sichtbarer Gewichtsblock", "Korrekte Übungsausführung"],
-        "must_avoid": ["Verwechslung mit sGym Pro (schlanker Turm) — HGX50 ist eine KLASSISCHE Kraftstation mit Bank", "Generische Multi-Gym"]
+        "must_match": [
+          "EXAKTE Nachbildung — schwarzer Stahlrahmen mit roten Akzenten",
+          "Sichtbarer Gewichtsblock",
+          "Korrekte Übungsausführung"
+        ],
+        "must_avoid": [
+          "Verwechslung mit sGym Pro (schlanker Turm) — HGX50 ist eine KLASSISCHE Kraftstation mit Bank",
+          "Generische Multi-Gym"
+        ]
       },
-
-      "reference_images": { "storage_prefix": "products/hgx50/", "count": 5 }
+      "reference_images": {
+        "storage_prefix": "products/hgx50/",
+        "count": 5
+      }
     },
-
     "svibe": {
       "name": "sVibe Vibrationsplatte",
       "is_hero_product": false,
       "product_category": "vibration_plate",
       "supabase_product_id": "b7797e0d-3c25-42d7-96fe-e83aed43811d",
-
       "appearance": {
-        "summary": "Hexagonale (sechseckige) Vibrationsplatte in Schwarz. Kompakt, flach, mit 7 LED-Farben. Modernes Premium-Design. Anti-Rutsch Oberfläche.",
+        "summary": "Hexagonal (six-sided) vibration plate in black. Compact, flat, with 7 LED colors. Modern premium design. Anti-slip surface.",
         "key_features": "Hexagonale Form (sechseckig — NICHT rechteckig), matt-schwarze Oberfläche, Anti-Rutsch Trittfläche, 7 LED-Farboptionen (leuchten um die Platte), Dual-Motor System, Transportrollen, kompakt (78x42x14cm)",
-        "colors_available": ["black"],
-        "branding": { "text": "SPORTSTECH / sVibe", "position": "Auf der Oberfläche", "style": "Dezentes Branding" }
+        "colors_available": [
+          "black"
+        ],
+        "branding": {
+          "text": "SPORTSTECH / sVibe",
+          "position": "Auf der Oberfläche",
+          "style": "Dezentes Branding"
+        }
       },
-
       "specs": {
         "vibration_type": "4D-Oscillation",
         "dual_motors": true,
@@ -723,39 +729,65 @@
         "weight_kg": 15,
         "led_colors": 7
       },
-
       "how_it_works": {
-        "principle": "Person steht auf der vibrierenden Platte. Die 4D-Oszillation aktiviert Muskeln im ganzen Körper. 99 Intensitätsstufen. Kann auch für Dehnübungen, Planks, Push-Ups genutzt werden.",
-        "position": "STEHEND auf der Platte (Standardpose), KNIEND für Planks, SITZEND für Oberkörperübungen"
+        "principle": "Person stands on the vibrating plate. The 4D oscillation activates muscles throughout the entire body. 99 intensity levels. Can also be used for stretching, planks, push-ups.",
+        "position": "STANDING on the plate (standard pose). Can also be KNEELING for planks or SEATED for upper body exercises.",
+        "direction": "Person STANDS on the hexagonal plate facing any direction. No specific front/back orientation required."
       },
-
       "correct_usage_poses": [
-        { "name": "Standing", "position": "STEHEND auf der Platte, leicht gebeugte Knie, aufrechter Oberkörper", "camera_angle": "Frontal oder 3/4" },
-        { "name": "Squat Hold", "position": "In Squat-Position auf der Platte, Knie gebeugt, Oberkörper aufrecht", "camera_angle": "3/4 oder seitlich" },
-        { "name": "Plank", "position": "Hände auf der Platte, Plank-Position, Körper gerade", "camera_angle": "Seitlich" }
+        {
+          "name": "Standing",
+          "position": "STEHEND auf der Platte, leicht gebeugte Knie, aufrechter Oberkörper",
+          "camera_angle": "Frontal oder 3/4"
+        },
+        {
+          "name": "Squat Hold",
+          "position": "In Squat-Position auf der Platte, Knie gebeugt, Oberkörper aufrecht",
+          "camera_angle": "3/4 oder seitlich"
+        },
+        {
+          "name": "Plank",
+          "position": "Hände auf der Platte, Plank-Position, Körper gerade",
+          "camera_angle": "Seitlich"
+        }
       ],
-
       "ai_generation_rules": {
-        "must_match": ["HEXAGONALE Form — sechseckig, NICHT rechteckig oder quadratisch", "Schwarze, flache Platte am Boden", "Person STEHT auf der Platte", "LED-Beleuchtung um die Kanten"],
-        "must_avoid": ["Rechteckige Form — sVibe ist HEXAGONAL", "Platte zu groß oder zu dick dargestellt — sie ist kompakt und flach (14cm hoch)", "Person liegt auf der Platte"]
+        "must_match": [
+          "HEXAGONALE Form — sechseckig, NICHT rechteckig oder quadratisch",
+          "Schwarze, flache Platte am Boden",
+          "Person STEHT auf der Platte",
+          "LED-Beleuchtung um die Kanten"
+        ],
+        "must_avoid": [
+          "Rechteckige Form — sVibe ist HEXAGONAL",
+          "Platte zu groß oder zu dick dargestellt — sie ist kompakt und flach (14cm hoch)",
+          "Person liegt auf der Platte"
+        ]
       },
-
-      "reference_images": { "storage_prefix": "products/svibe/", "count": 3 }
+      "reference_images": {
+        "storage_prefix": "products/svibe/",
+        "count": 3
+      }
     },
-
     "woodpad-pro": {
       "name": "WoodPad Pro",
       "is_hero_product": true,
       "product_category": "walking_pad",
       "supabase_product_id": "5ae31fc9-70b1-4ae9-9590-1a1623cb13da",
-
       "appearance": {
-        "summary": "Elegantes Walking Pad aus echtem Holz. Ultra-flaches Design (13.8cm hoch). Edles Holz-Finish in Hellbraun/Dunkelbraun/Grau. Kein Handlauf — schlankes, minimalistisches Laufband zum Gehen.",
+        "summary": "Elegant walking pad made of real wood. Ultra-flat design (13.8cm high). Noble wood finish in light brown/dark brown/gray. No handrails — slim, minimalist walking treadmill.",
         "key_features": "Echtes Holz-Finish (Eiche), ultra-flach (13.8cm), LCD-Display, klappbar auf unter 0.5m², Transportrollen, sofort einsatzbereit (kein Aufbau), 4 Trainingsprogramme, Bluetooth für App-Verbindung",
-        "colors_available": ["light-brown", "dark-brown", "gray"],
-        "branding": { "text": "SPORTSTECH / WoodPad Pro", "position": "Auf dem Holzrahmen seitlich", "style": "Dezentes Branding auf Holz" }
+        "colors_available": [
+          "light-brown",
+          "dark-brown",
+          "gray"
+        ],
+        "branding": {
+          "text": "SPORTSTECH / WoodPad Pro",
+          "position": "Auf dem Holzrahmen seitlich",
+          "style": "Dezentes Branding auf Holz"
+        }
       },
-
       "specs": {
         "max_speed_kmh": 8,
         "running_surface_cm": "100 x 40",
@@ -768,39 +800,61 @@
         "programs": 4,
         "price_eur": 499
       },
-
       "how_it_works": {
-        "principle": "Person geht (max 8 km/h) auf dem flachen Holz-Walking-Pad. Perfekt für unter den Stehschreibtisch. Kein Aufbau nötig — auspacken und loslegen.",
-        "position": "STEHEND und GEHEND auf dem Pad. Kein Handlauf — freies Gehen.",
-        "typical_use": "Homeoffice unter dem Stehschreibtisch, oder frei im Wohnzimmer zum gemütlichen Gehen"
+        "principle": "Person walks (max 8 km/h) on the flat wooden walking pad. Perfect for under a standing desk. No assembly required — unpack and start.",
+        "position": "STANDING and WALKING on the pad. No handrails — free walking. Barefoot or with shoes.",
+        "direction": "Person faces FORWARD in the walking direction. The pad is flat with no console — person walks toward the front edge.",
+        "typical_use": "Home office under a standing desk, or freely in the living room for casual walking."
       },
-
       "correct_usage_poses": [
-        { "name": "Office Walking", "position": "GEHEND auf dem WoodPad unter einem Stehschreibtisch, arbeitet am Computer", "camera_angle": "3/4 oder seitlich" },
-        { "name": "Free Walking", "position": "GEHEND auf dem WoodPad im Wohnzimmer, entspannt, evtl. mit Handy", "camera_angle": "Frontal oder 3/4" }
+        {
+          "name": "Office Walking",
+          "position": "GEHEND auf dem WoodPad unter einem Stehschreibtisch, arbeitet am Computer",
+          "camera_angle": "3/4 oder seitlich"
+        },
+        {
+          "name": "Free Walking",
+          "position": "GEHEND auf dem WoodPad im Wohnzimmer, entspannt, evtl. mit Handy",
+          "camera_angle": "Frontal oder 3/4"
+        }
       ],
-
       "ai_generation_rules": {
-        "must_match": ["EXAKTE Nachbildung — echtes Holz-Finish, ultra-flaches Design", "KEIN Handlauf — WoodPad Pro ist FLACH wie ein Brett", "Person GEHT, nicht rennt (max 8km/h)", "Holz-Ästhetik muss premium und wohnzimmertauglich aussehen", "Korrekte Holzfarbe wie angegeben (hell/dunkel/grau)"],
-        "must_avoid": ["Handläufe oder Konsole — WoodPad Pro ist KOMPLETT FLACH", "Lauf-Pose — nur GEHEN", "Plastik-Look — muss echtes HOLZ aussehen", "Verwechslung mit normalem Laufband — WoodPad ist ein WALKING PAD aus Holz"]
+        "must_match": [
+          "EXAKTE Nachbildung — echtes Holz-Finish, ultra-flaches Design",
+          "KEIN Handlauf — WoodPad Pro ist FLACH wie ein Brett",
+          "Person GEHT, nicht rennt (max 8km/h)",
+          "Holz-Ästhetik muss premium und wohnzimmertauglich aussehen",
+          "Korrekte Holzfarbe wie angegeben (hell/dunkel/grau)"
+        ],
+        "must_avoid": [
+          "Handläufe oder Konsole — WoodPad Pro ist KOMPLETT FLACH",
+          "Lauf-Pose — nur GEHEN",
+          "Plastik-Look — muss echtes HOLZ aussehen",
+          "Verwechslung mit normalem Laufband — WoodPad ist ein WALKING PAD aus Holz"
+        ]
       },
-
-      "reference_images": { "storage_prefix": "products/woodpad-pro/", "count": 4 }
+      "reference_images": {
+        "storage_prefix": "products/woodpad-pro/",
+        "count": 4
+      }
     },
-
     "sxm200": {
       "name": "SXM200 Smith Machine",
       "is_hero_product": false,
       "product_category": "smith_machine",
       "supabase_product_id": "d3e2c720-4785-44db-9061-50607b875a15",
-
       "appearance": {
-        "summary": "Große Smith Machine / Power Rack in Schwarz. Geführte Langhantelstange, zwei Seilzug-Türme mit je 70kg Gewichtsstack. Klimmzugstange oben. Massives Stahlgestell.",
+        "summary": "Large Smith Machine / Power Rack in black. Guided barbell bar, two cable pulley towers with 70kg weight stack each. Pull-up bar on top. Massive steel frame.",
         "key_features": "Schwarzer Stahlrahmen (Power Rack Struktur), geführte Smith-Langhantelstange (vertikal gleitend), zwei separate Kabel-Türme mit je 70kg Gewichtsblock (140kg total), Klimmzugstange oben, Gewichtsplatten-Aufbewahrung, Schwere-Sack-Halterung",
-        "colors_available": ["black"],
-        "branding": { "text": "SPORTSTECH", "position": "Auf dem Rahmen", "style": "Sportstech Logo auf schwarzem Stahl" }
+        "colors_available": [
+          "black"
+        ],
+        "branding": {
+          "text": "SPORTSTECH",
+          "position": "Auf dem Rahmen",
+          "style": "Sportstech Logo auf schwarzem Stahl"
+        }
       },
-
       "specs": {
         "dual_weight_stacks_kg": 70,
         "total_training_weight_kg": 140,
@@ -809,48 +863,75 @@
         "pullup_bar": true,
         "price_eur": 2400
       },
-
       "how_it_works": {
-        "principle": "Smith Machine mit geführter Langhantel + freie Kabelzüge. Person steht im Rack und nutzt die geführte Stange für Squats, Bench Press, etc. Oder nutzt die Kabelzüge für isolierte Übungen.",
-        "exercises": "Squats, Bench Press, Overhead Press, Deadlifts (geführt), Cable Flys, Lat Pulldown, Rows, Pull-Ups — 100+ Varianten"
+        "principle": "Smith Machine with guided barbell + free cable pulleys. Person stands inside the rack and uses the guided bar for squats, bench press, etc. Or uses the cable pulleys for isolated exercises.",
+        "position": "STANDING inside the rack for squats/overhead press. LYING on a bench for bench press. STANDING between towers for cable exercises.",
+        "direction": "Person FACES into the rack, with the guided barbell bar in front of or on their shoulders.",
+        "exercises": "Squats, Bench Press, Overhead Press, Deadlifts (guided), Cable Flys, Lat Pulldown, Rows, Pull-Ups — 100+ variants."
       },
-
       "correct_usage_poses": [
-        { "name": "Squat", "position": "STEHEND im Rack, Langhantel auf den Schultern, Knie beugen in Squat-Position", "camera_angle": "Seitlich oder 3/4" },
-        { "name": "Bench Press", "position": "LIEGEND auf Bank (separat), Langhantel drücken", "camera_angle": "Seitlich" },
-        { "name": "Cable Fly", "position": "STEHEND zwischen den Türmen, Kabel nach vorne/zusammen ziehen", "camera_angle": "Frontal" },
-        { "name": "Pull-Up", "position": "HÄNGEND an der Klimmzugstange oben", "camera_angle": "Frontal" }
+        {
+          "name": "Squat",
+          "position": "STEHEND im Rack, Langhantel auf den Schultern, Knie beugen in Squat-Position",
+          "camera_angle": "Seitlich oder 3/4"
+        },
+        {
+          "name": "Bench Press",
+          "position": "LIEGEND auf Bank (separat), Langhantel drücken",
+          "camera_angle": "Seitlich"
+        },
+        {
+          "name": "Cable Fly",
+          "position": "STEHEND zwischen den Türmen, Kabel nach vorne/zusammen ziehen",
+          "camera_angle": "Frontal"
+        },
+        {
+          "name": "Pull-Up",
+          "position": "HÄNGEND an der Klimmzugstange oben",
+          "camera_angle": "Frontal"
+        }
       ],
-
       "ai_generation_rules": {
-        "must_match": ["EXAKTE Nachbildung — massives schwarzes Power Rack mit geführter Langhantel", "Zwei separate Kabel-Türme mit sichtbaren Gewichtsblöcken", "Klimmzugstange oben", "Korrekte Übungsausführung"],
-        "must_avoid": ["Verwechslung mit einfachem Kabelzug — SXM200 ist ein GROSSES RACK", "Falsche Proportionen — das Gerät ist 2.3m HOCH", "Generisches Power Rack statt exakter Nachbildung"]
+        "must_match": [
+          "EXAKTE Nachbildung — massives schwarzes Power Rack mit geführter Langhantel",
+          "Zwei separate Kabel-Türme mit sichtbaren Gewichtsblöcken",
+          "Klimmzugstange oben",
+          "Korrekte Übungsausführung"
+        ],
+        "must_avoid": [
+          "Verwechslung mit einfachem Kabelzug — SXM200 ist ein GROSSES RACK",
+          "Falsche Proportionen — das Gerät ist 2.3m HOCH",
+          "Generisches Power Rack statt exakter Nachbildung"
+        ]
       },
-
-      "reference_images": { "storage_prefix": "products/sxm200/", "count": 5 }
+      "reference_images": {
+        "storage_prefix": "products/sxm200/",
+        "count": 5
+      }
     },
-
     "rowing-machine": {
       "name": "Rudergerät",
       "is_hero_product": false,
       "product_category": "rowing_machine",
-
       "appearance": {
         "summary": "Elegantes Rudergerät mit echtem Holz. Premium-Design das ins Wohnzimmer passt. Verfügbar in Natur-Holz und Schwarz.",
         "key_features": "Echte Holzmaserung (Esche oder Eiche), Sportstech Branding, Seilzug-Mechanismus, gepolsterter Sitz auf Schiene",
-        "colors_available": ["wood-natural", "wood-black", "black"],
+        "colors_available": [
+          "wood-natural",
+          "wood-black",
+          "black"
+        ],
         "branding": {
           "text": "SPORTSTECH",
           "style": "Logo in schwarz-metallic auf Holz-Variante"
         }
       },
-
       "how_it_works": {
-        "principle": "Person sitzt auf dem gepolsterten Sitz und zieht den Griff mit beiden Händen zum Körper. Beine drücken gleichzeitig nach vorne.",
-        "position": "SITZEND auf dem Rudergerät, aufrechte Haltung beim Ziehen",
-        "motion": "Zug-Bewegung: Beine strecken → Arme ziehen → zurückgleiten"
+        "principle": "Person sits on the padded seat and pulls the handle toward their body with both hands. Legs push forward simultaneously.",
+        "position": "SEATED on the rowing machine, upright posture during the pull phase.",
+        "direction": "Person FACES the resistance unit at the FRONT of the rower. The seat slides toward it during the pull.",
+        "motion": "Pull motion: legs extend → arms pull → slide back."
       },
-
       "correct_usage_poses": [
         {
           "name": "Catch Position (Start)",
@@ -863,7 +944,6 @@
           "camera_angle": "3/4 oder seitlich"
         }
       ],
-
       "ai_generation_rules": {
         "must_match": [
           "Rudergerät muss EXAKTE Nachbildung der Referenzbilder sein",
