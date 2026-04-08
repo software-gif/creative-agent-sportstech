@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
@@ -16,7 +17,14 @@ export default function Header() {
       <nav className="flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-3">
-            <span className="text-lg font-bold text-primary tracking-tight">SPORTSTECH</span>
+            <Image
+              src="/logo-light.svg"
+              alt="Sportstech"
+              width={140}
+              height={22}
+              className="h-5 w-auto"
+              priority
+            />
             <div className="border-l border-border pl-3">
               <span className="text-[10px] font-semibold text-muted uppercase tracking-widest">
                 Creative Board
