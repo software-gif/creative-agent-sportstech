@@ -32,6 +32,7 @@ export const CAMERA_ANGLES = [
   "Eye level",
   "Slightly above",
   "High angle",
+  "Slightly below",
   "Low angle",
   "Ground level",
 ] as const;
