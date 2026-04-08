@@ -204,6 +204,23 @@ def load_room_preset(preset_name):
     return None
 
 
+def load_models_pool():
+    """Load the models pool from lifestyle_variance.json for auto-rotation."""
+    path = os.path.join(PROJECT_ROOT, "branding", "lifestyle_variance.json")
+    if not os.path.exists(path):
+        return []
+    with open(path) as f:
+        data = json.load(f)
+    return data.get("models", [])
+
+
+def get_random_model(models_pool, index=0):
+    """Pick a model from the pool, rotating through them."""
+    if not models_pool:
+        return None
+    return models_pool[index % len(models_pool)]
+
+
 def load_product_knowledge(product_handle):
     """Load product-specific AI rules."""
     path = os.path.join(PROJECT_ROOT, "branding", "product_knowledge.json")
@@ -342,10 +359,22 @@ def main():
     # === STEP 1: IMAGE DESCRIBER — analyze product before generating ===
     product_description_ai = describe_product_from_images(freisteller, product_name)
 
+    # === MODEL ROTATION — pick different models for batch generation ===
+    models_pool = load_models_pool()
+    if models_pool and not args.character_description and not args.character_id:
+        print(f"  Model rotation: {len(models_pool)} models available")
+
     # Generate N images
     for i in range(args.count):
         print(f"\n{'─' * 40}")
         print(f"Image {i + 1}/{args.count}")
+
+        # Auto-rotate model if no specific character given
+        character_desc = args.character_description
+        if not character_desc and not args.character_id and models_pool:
+            model = get_random_model(models_pool, i)
+            character_desc = model["prompt_snippet"]
+            print(f"  Auto-model: {model['description']}")
 
         # === WEAVY COMPOSITING PATTERN ===
         # Send images in labeled groups, then one clear compositing instruction
@@ -398,11 +427,21 @@ MUST AVOID:
 
 SCENE: {room_prompt or 'A bright modern Scandinavian living room with warm oak floors, large windows, sheer curtains, natural light.'}
 
-PERSON: {args.character_description or 'An athletic person in dark fitness clothing'}
+PERSON: {character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
 POSE: {pose}
 {f'How product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
 {f'Correct position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
-Body must be anatomically correct with natural weight distribution and physically plausible interaction.
+
+CRITICAL POSE RULES — the person must look like a REAL PHOTOGRAPH of someone actually exercising:
+- Natural weight distribution — gravity applies, feet bear weight realistically
+- Joints bend in anatomically correct directions — no hyperextension, no impossible angles
+- Motion blur or dynamic tension should suggest REAL movement, not a frozen mannequin
+- Muscles should show natural engagement (quads, calves, core) appropriate to the exercise
+- Expression should match effort level — focused, slightly exerted, not blank or overly posed
+- Clothing should react to movement — slight fabric tension, natural draping
+- Hair should respond to motion if applicable (ponytail swinging slightly)
+- The person should look like they are IN THE MIDDLE of a natural movement cycle, not posing for a camera
+- Reference real fitness photography for natural body mechanics
 
 CAMERA: {args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Hasselblad.
 
