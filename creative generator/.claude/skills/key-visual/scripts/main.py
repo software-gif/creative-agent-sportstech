@@ -376,25 +376,13 @@ def main():
             character_desc = model["prompt_snippet"]
             print(f"  Auto-model: {model['description']}")
 
-        # === WEAVY COMPOSITING PATTERN ===
-        # Send images in labeled groups, then one clear compositing instruction
+        # === NEW LOGIC: Lifestyle first → Product details → Person ===
+        # Priority order:
+        # 1. Lifestyle examples (show product + human interaction + room = the TARGET)
+        # 2. Product cutouts (for exact product details)
+        # 3. Character references (if available)
         parts = []
 
-        # GROUP 1: Product reference images (Freisteller — the ground truth)
-        best_freisteller = freisteller[:5]
-        for img in best_freisteller:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        # GROUP 2: Lifestyle examples (show product in room context)
-        best_lifestyle = lifestyle_refs[:2]
-        for img in best_lifestyle:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        # GROUP 3: Character references (if available)
-        for img in character_images:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        # === SINGLE COMPOSITING INSTRUCTION (Weavy Pattern) ===
         must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
         must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
         how_it_works = pk.get("how_it_works", {})
@@ -403,49 +391,69 @@ def main():
         if not pose and pk.get("correct_usage_poses"):
             pose = pk["correct_usage_poses"][0].get("position", "")
 
-        n_product = len(best_freisteller)
+        # STEP A: Lifestyle examples FIRST — these show the COMPLETE picture
+        # (correct product in room with person using it correctly)
+        best_lifestyle = lifestyle_refs[:3]
+        for img in best_lifestyle:
+            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
         n_lifestyle = len(best_lifestyle)
+        if n_lifestyle > 0:
+            lifestyle_refs_str = ", ".join([f"Image {j+1}" for j in range(n_lifestyle)])
+            parts.append({
+                "text": f"[{lifestyle_refs_str}] These are REAL LIFESTYLE PHOTOGRAPHS of the {product_name} in use. Study these carefully — they show:\n- The CORRECT appearance of the product in a room setting\n- How a REAL PERSON interacts with this equipment (correct body position, posture, foot placement)\n- The correct SCALE and PROPORTIONS of the product relative to a human\n- The style and quality level your output must match\n\n"
+            })
+
+        # STEP B: Product cutouts — for exact product details
+        best_freisteller = freisteller[:4]
+        for img in best_freisteller:
+            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+        n_product = len(best_freisteller)
+        if n_product > 0:
+            product_refs_str = ", ".join([f"Image {n_lifestyle+j+1}" for j in range(n_product)])
+            parts.append({
+                "text": f"[{product_refs_str}] These are PRODUCT CUTOUTS showing the exact {product_name} design details on a white background. The product in your generated image must be a LITERAL RECREATION of these — every color, LED strip, display, button, and branding element must match EXACTLY.\n\n"
+            })
+
+        # STEP C: Character references (if available)
+        for img in character_images:
+            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
         n_character = len(character_images)
-        product_img_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
-        lifestyle_img_refs = ", ".join([f"Image {n_product+j+1}" for j in range(n_lifestyle)])
-        char_img_refs = ", ".join([f"Image {n_product+n_lifestyle+j+1}" for j in range(n_character)])
+        if n_character > 0:
+            char_refs_str = ", ".join([f"Image {n_lifestyle+n_product+j+1}" for j in range(n_character)])
+            parts.append({
+                "text": f"[{char_refs_str}] CHARACTER REFERENCE — preserve this person's identity exactly.\n\n"
+            })
 
-        prompt_text = f"""You are a precision compositing engine. Your task is to synthesize distinct visual inputs into a single coherent frame.
+        # === MAIN PROMPT — structured by priority ===
+        prompt_text = f"""Create a professional lifestyle photograph. You are a precision compositing engine.
 
-Product Accuracy: The {product_name} must be a literal recreation of [{product_img_refs}]; do not simplify or genericize its design.
-{f'Style Reference: [{lifestyle_img_refs}] show how this product integrates into a real room.' if lifestyle_img_refs else ''}
-{f'Character Identity: Strictly adhere to the person shown in [{char_img_refs}].' if char_img_refs else ''}
+STEP 1 — PRODUCT IN ROOM:
+Place the {product_name} in this environment: {room_prompt or 'A bright modern living room with warm oak floors, large windows, natural light.'}
+The product must be a LITERAL RECREATION of the reference cutout images. Do not simplify or genericize ANY part of its design.
 
-DETAILED PRODUCT DESCRIPTION (from AI image analysis):
+PRODUCT DETAILS (from AI analysis of reference images):
 {product_description_ai}
 
-ADDITIONAL PRODUCT RULES:
-{chr(10).join('- ' + r for r in must_match)}
+STEP 2 — HUMAN INTERACTION:
+{character_desc or args.character_description or 'An athletic person in dark fitness clothing'} is using the {product_name}.
+{f'How this product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
+{f'Correct body position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
+Specific pose: {pose}
 
-MUST AVOID:
-{chr(10).join('- ' + r for r in must_avoid)}
+CRITICAL — Look at the lifestyle reference images above. The person must interact with the product EXACTLY like the people in those reference photos:
+- Feet must be PHYSICALLY ON the equipment (on the belt, on the pedals, on the seat)
+- Hands must be in a REALISTIC position (on handlebars, swinging naturally, gripping handles)
+- Body weight must be supported by the equipment, not floating or hovering
+- The person must look like they are genuinely USING the equipment mid-workout, captured candidly
+- Study the body angles, foot positions, and hand placements in the lifestyle reference images and REPLICATE that level of realism
 
-SCENE: {room_prompt or 'A bright modern Scandinavian living room with warm oak floors, large windows, sheer curtains, natural light.'}
-
-PERSON: {character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
-POSE: {pose}
-{f'How product works: {how_it_works.get("principle", "")}' if how_it_works.get('principle') else ''}
-{f'Correct position: {how_it_works.get("position", "")}' if how_it_works.get('position') else ''}
-
-CRITICAL POSE RULES — the person must look like a REAL PHOTOGRAPH of someone actually exercising:
-- Natural weight distribution — gravity applies, feet bear weight realistically
-- Joints bend in anatomically correct directions — no hyperextension, no impossible angles
-- Motion blur or dynamic tension should suggest REAL movement, not a frozen mannequin
-- Muscles should show natural engagement (quads, calves, core) appropriate to the exercise
-- Expression should match effort level — focused, slightly exerted, not blank or overly posed
-- Clothing should react to movement — slight fabric tension, natural draping
-- Hair should respond to motion if applicable (ponytail swinging slightly)
-- The person should look like they are IN THE MIDDLE of a natural movement cycle, not posing for a camera
-- Reference real fitness photography for natural body mechanics
-
-CAMERA: {args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Hasselblad.
-
-CONSTRAINT: Do not introduce any elements, furniture, or stylistic flourishes not present in the references. The output should look like a professional photograph taken in that specific room with that specific model and equipment. Soft natural lighting, no harsh contrast. {args.format} aspect ratio. No text or watermarks."""
+STEP 3 — CAMERA & QUALITY:
+{args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Shot on Hasselblad.
+Soft natural interior lighting. No harsh contrast. {args.format} aspect ratio. No text or watermarks.
+Output must look like a high-end commercial fitness photograph — not AI-generated."""
 
         parts.append({"text": prompt_text})
 
