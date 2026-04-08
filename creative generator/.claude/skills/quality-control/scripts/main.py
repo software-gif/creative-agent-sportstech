@@ -183,15 +183,21 @@ Set "pass" to true if overall >= 7, false otherwise. List ALL specific issues fo
     try:
         resp = requests.post(TEXT_ENDPOINT, json={
             "contents": [{"parts": parts}],
-            "generationConfig": {"temperature": 0.1, "maxOutputTokens": 500},
+            "generationConfig": {"temperature": 0.1, "maxOutputTokens": 1500},
         }, timeout=60)
         resp.raise_for_status()
         text = resp.json().get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
 
-        # Parse JSON from response
+        # Parse JSON from response — handle various formats
         text = text.strip()
         if text.startswith("```"):
-            text = text.split("\n", 1)[-1].rsplit("```", 1)[0]
+            text = text.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+
+        # Find JSON object in response
+        start = text.find("{")
+        end = text.rfind("}") + 1
+        if start >= 0 and end > start:
+            text = text[start:end]
 
         review = json.loads(text)
         return review
