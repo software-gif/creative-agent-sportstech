@@ -59,28 +59,67 @@ def get_brand_id():
     return brands[0]["id"]
 
 
-def get_product_images(product_handle, max_images=6):
-    """Fetch product reference images from Supabase Storage."""
+def list_storage_files(prefix, limit=50):
+    """List files in Supabase Storage."""
     key = SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY
     resp = requests.post(
         f"{SUPABASE_URL}/storage/v1/object/list/creatives",
         headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        json={"prefix": f"products/{product_handle}/", "limit": max_images},
+        json={"prefix": prefix, "limit": limit},
     )
     if resp.status_code != 200:
-        print(f"  Storage list error: {resp.status_code} {resp.text[:100]}")
         return []
+    return [f for f in resp.json() if f.get("name") and not f["name"].startswith(".")]
 
-    files = sorted(resp.json(), key=lambda f: f.get("name", ""))[:max_images]
+
+def download_image(url):
+    """Download image and return base64 data + mime type."""
+    try:
+        resp = requests.get(url, timeout=30)
+        if resp.status_code == 200:
+            data = base64.b64encode(resp.content).decode()
+            content_type = resp.headers.get("content-type", "image/png")
+            if "jpeg" in content_type or "jpg" in content_type:
+                mime = "image/jpeg"
+            else:
+                mime = "image/png"
+            return {"data": data, "mime": mime}
+    except Exception:
+        pass
+    return None
+
+
+def get_product_images(product_handle):
+    """Fetch ALL product reference images: Freisteller + Renders + best Lifestyle examples."""
     images = []
-    for f in files:
-        img_url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/products/{product_handle}/{f['name']}"
-        img_resp = requests.get(img_url, timeout=30)
-        if img_resp.status_code == 200:
-            data = base64.b64encode(img_resp.content).decode()
-            ext = f["name"].rsplit(".", 1)[-1].lower()
-            mime = f"image/{'png' if ext == 'png' else 'jpeg'}"
-            images.append({"data": data, "mime": mime, "name": f["name"]})
+
+    # 1. ALL Freisteller (cutout images — most important for product accuracy)
+    freisteller_files = list_storage_files(f"products/{product_handle}/")
+    print(f"  Freisteller: {len(freisteller_files)} found")
+    for f in sorted(freisteller_files, key=lambda x: x.get("name", "")):
+        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/products/{product_handle}/{f['name']}"
+        img = download_image(url)
+        if img:
+            images.append({**img, "name": f"freisteller/{f['name']}", "type": "freisteller"})
+
+    # 2. Renders (3D renders — great for product shape/detail)
+    render_files = list_storage_files(f"renders/{product_handle}/", limit=8)
+    print(f"  Renders: {len(render_files)} found (using up to 8)")
+    for f in sorted(render_files, key=lambda x: x.get("name", ""))[:8]:
+        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/renders/{product_handle}/{f['name']}"
+        img = download_image(url)
+        if img:
+            images.append({**img, "name": f"render/{f['name']}", "type": "render"})
+
+    # 3. Lifestyle examples (show how product looks in real settings — up to 4)
+    lifestyle_files = list_storage_files(f"lifestyle/{product_handle}/", limit=4)
+    print(f"  Lifestyle examples: {len(lifestyle_files)} found (using up to 4)")
+    for f in sorted(lifestyle_files, key=lambda x: x.get("name", ""))[:4]:
+        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/lifestyle/{product_handle}/{f['name']}"
+        img = download_image(url)
+        if img:
+            images.append({**img, "name": f"lifestyle/{f['name']}", "type": "lifestyle_example"})
+
     return images
 
 
@@ -254,56 +293,120 @@ def main():
         print(f"\n{'─' * 40}")
         print(f"Image {i + 1}/{args.count}")
 
-        # Build multimodal parts
+        # Build multimodal parts — images FIRST, then text instructions
         parts = []
 
-        # Add product reference images
-        for img in product_images:
+        # === PRODUCT REFERENCE IMAGES (most important) ===
+        freisteller = [img for img in product_images if img.get("type") == "freisteller"]
+        renders = [img for img in product_images if img.get("type") == "render"]
+        lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle_example"]
+
+        # Send ALL freisteller (cutout images are the ground truth)
+        for img in freisteller:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
-        # Add product accuracy instruction
         parts.append({
-            "text": f"PRODUCT REFERENCE: The {product_name} must be a literal recreation of the reference images above. Do not simplify or genericize its design. Every detail must match.\n\n"
+            "text": f"[PRODUCT CUTOUT IMAGES ABOVE] These {len(freisteller)} images show the EXACT {product_name} from every angle on a white/transparent background. Study EVERY detail: the exact shape, proportions, colors, materials, textures, buttons, displays, branding, LED accents. Your generated image MUST recreate this EXACT product — not a similar product, not a simplified version, THIS EXACT product.\n\n"
         })
 
-        # Add character references
+        # Send renders (show product in 3D context)
+        for img in renders:
+            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+        if renders:
+            parts.append({
+                "text": f"[PRODUCT 3D RENDERS ABOVE] These {len(renders)} renders show the {product_name} from additional angles. Use these to understand the 3D shape, depth, and how light interacts with the surfaces.\n\n"
+            })
+
+        # Send lifestyle examples (show how it should look in a room)
+        for img in lifestyle_refs:
+            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+        if lifestyle_refs:
+            parts.append({
+                "text": f"[LIFESTYLE EXAMPLES ABOVE] These {len(lifestyle_refs)} images show how the {product_name} looks in real interior settings. Use these as STYLE reference for how the product integrates into a room environment. Match this quality and realism level.\n\n"
+            })
+
+        # === CHARACTER REFERENCES ===
         for img in character_images:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
         if character_images:
             parts.append({
-                "text": "CHARACTER REFERENCE: Strictly adhere to the facial and physical features of this subject. Preserve identity, skin tone, hair, and build.\n\n"
+                "text": "CHARACTER REFERENCE: Strictly adhere to the facial and physical features of this subject. Preserve identity, skin tone, hair, and build exactly.\n\n"
             })
 
-        # Add the main prompt
+        # === BUILD THE MAIN PROMPT ===
         if args.prompt:
             prompt_text = args.prompt
         else:
-            # Auto-build prompt
             must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
             must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
+
+            # Get the best pose from product knowledge
             pose = args.pose
             if not pose and pk.get("correct_usage_poses"):
-                pose = pk["correct_usage_poses"][0].get("position", "")
+                best_pose = pk["correct_usage_poses"][0]
+                pose = best_pose.get("position", "")
 
-            prompt_text = f"""Generate a photorealistic lifestyle photograph.
+            # Get HOW the product works
+            how_it_works = pk.get("how_it_works", {})
+            principle = how_it_works.get("principle", "")
+            position = how_it_works.get("position", "")
+            motion = how_it_works.get("motion", "")
 
-SCENE: {room_prompt or 'A bright, modern living room with natural light.'}
+            # Get product appearance details
+            appearance = pk.get("appearance", {})
+            product_description = appearance.get("summary", "")
+            key_features = appearance.get("key_features", "")
 
-PERSON: {args.character_description or 'An athletic person'} using the {product_name}.
-POSE: {pose or f'Using the {product_name} correctly'}
+            prompt_text = f"""You are a precision compositing engine creating a photorealistic lifestyle photograph.
 
-CAMERA: {args.shot_size} shot, {args.camera_angle}, {args.character_angle} character angle, {args.lens} lens, {args.depth_of_field} aperture. Shot on Hasselblad.
+=== SCENE ===
+{room_prompt or 'A bright, modern living room with natural light, Scandinavian design, warm oak floors, large windows with sheer curtains.'}
 
-PRODUCT RULES:
-{chr(10).join('- ' + r for r in must_match[:5])}
+=== PERSON ===
+{args.character_description or 'An athletic person in their 30s wearing dark athletic clothes'}
 
-MUST AVOID:
-{chr(10).join('- ' + r for r in must_avoid[:5])}
+=== PRODUCT INTERACTION (CRITICAL — READ CAREFULLY) ===
+The person is using the {product_name} in the room.
+HOW THE PRODUCT WORKS: {principle}
+CORRECT BODY POSITION: {position}
+{f'MOVEMENT: {motion}' if motion else ''}
+SPECIFIC POSE: {pose}
 
-LIGHTING: Soft, natural interior lighting. No high contrast. Professional photography quality.
-OUTPUT: Photorealistic, 8K quality, no text overlays, no watermarks.
-FORMAT: {args.format} aspect ratio."""
+The person's body must be in a NATURAL, ANATOMICALLY CORRECT position. Weight distribution must be realistic. Joints must bend in natural directions. The interaction between human and machine must look PHYSICALLY PLAUSIBLE — as if a real person is actually using this equipment.
+
+=== PRODUCT ACCURACY (CRITICAL — DO NOT SIMPLIFY) ===
+Product: {product_name}
+Description: {product_description}
+Key Features: {key_features}
+
+You have {len(freisteller)} cutout reference images, {len(renders)} 3D renders, and {len(lifestyle_refs)} lifestyle examples of this EXACT product above.
+
+MANDATORY PRODUCT RULES:
+{chr(10).join('- ' + r for r in must_match)}
+
+ABSOLUTELY FORBIDDEN:
+{chr(10).join('- ' + r for r in must_avoid)}
+
+The product in your image must be IDENTICAL to the reference images. Not similar. Not inspired by. IDENTICAL. Every button, every display, every color accent, every logo placement must match exactly.
+
+=== CAMERA ===
+Shot: {args.shot_size}
+Camera angle: {args.camera_angle}
+Character angle: {args.character_angle}
+Lens: {args.lens}
+Aperture: {args.depth_of_field}
+Shot on Hasselblad medium format camera.
+
+=== TECHNICAL REQUIREMENTS ===
+- Soft, warm natural interior lighting — NO harsh contrast, NO flash
+- Photorealistic quality — must look like a real photograph, not AI-generated
+- No text, watermarks, logos overlaid on the image
+- {args.format} aspect ratio
+- 8K resolution quality
+- The product must be the visual HERO of the image — clearly visible, well-lit, detailed"""
 
         parts.append({"text": prompt_text})
 

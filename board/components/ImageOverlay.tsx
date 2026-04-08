@@ -36,6 +36,9 @@ export default function ImageOverlay({ creative, onClose }: ImageOverlayProps) {
         />
         <div className="hidden lg:flex flex-col justify-end min-w-[240px] max-w-[300px] pb-4">
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 text-white">
+            {creative.short_id && (
+              <p className="text-xs font-mono font-bold text-white/50 mb-1">{creative.short_id}</p>
+            )}
             {product && (
               <p className="text-sm font-bold text-primary-light">{product}</p>
             )}

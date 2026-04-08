@@ -70,9 +70,13 @@ CREATE TABLE environments (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- Short ID sequence for creatives
+CREATE SEQUENCE IF NOT EXISTS creative_short_id_seq START 1;
+
 -- 6. Creatives (generated images — main output table)
 CREATE TABLE creatives (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  short_id TEXT UNIQUE DEFAULT 'CR-' || LPAD(nextval('creative_short_id_seq')::TEXT, 4, '0'),
   brand_id UUID NOT NULL REFERENCES brands(id) ON DELETE CASCADE,
   batch_id UUID,
   product_id UUID REFERENCES products(id) ON DELETE SET NULL,

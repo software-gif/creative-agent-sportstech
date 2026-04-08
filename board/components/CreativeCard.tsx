@@ -5,6 +5,7 @@ import { PRODUCT_LABELS, ENV_LABELS } from "@/lib/constants";
 
 export type Creative = {
   id: string;
+  short_id: string | null;
   brand_id: string;
   batch_id: string | null;
   product_id: string | null;
@@ -148,6 +149,11 @@ export default function CreativeCard({
         {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
+            {creative.short_id && (
+              <span className="text-[10px] font-mono font-bold text-foreground bg-border/50 px-1.5 py-0.5 rounded">
+                {creative.short_id}
+              </span>
+            )}
             {productLabel && <Tag color="primary">{productLabel}</Tag>}
             {envLabel && <Tag>{envLabel}</Tag>}
             {creative.camera_angle && <Tag color="muted">{creative.camera_angle}</Tag>}
@@ -200,7 +206,14 @@ export default function CreativeCard({
             <span className="text-xs">Kein Bild</span>
           </div>
         )}
-        {/* Format badge */}
+        {/* Badges */}
+        <div className="absolute top-2 left-2">
+          {creative.short_id && (
+            <span className="bg-black/70 backdrop-blur-sm text-white/90 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded">
+              {creative.short_id}
+            </span>
+          )}
+        </div>
         <div className="absolute top-2 right-2">
           <span className="bg-black/60 backdrop-blur-sm text-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
             {creative.format}
