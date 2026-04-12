@@ -370,17 +370,11 @@ def main():
             "text": f"[{product_refs}] = PRODUCT REFERENCE. The {product_name} must be a literal recreation of these images; do not simplify or genericize its design.\n\n"
         })
 
-        # GROUP 2: Lifestyle examples (show how product + person look in room)
-        best_lifestyle = lifestyle_refs[:2]
-        for img in best_lifestyle:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        n_lifestyle = len(best_lifestyle)
-        if n_lifestyle > 0:
-            lifestyle_refs_str = ", ".join([f"Image {n_product+j+1}" for j in range(n_lifestyle)])
-            parts.append({
-                "text": f"[{lifestyle_refs_str}] = STYLE & INTERACTION REFERENCE. These show the correct way a person uses this product and the photographic quality to match.\n\n"
-            })
+        # NOTE: Lifestyle refs REMOVED from image inputs.
+        # Problem: Gemini weights images > text. If any lifestyle ref shows a person
+        # facing the wrong direction, Gemini copies that pose instead of following
+        # text instructions. Product cutouts + detailed text description is more reliable.
+        n_lifestyle = 0
 
         # GROUP 3: Character references
         for img in character_images:
@@ -388,37 +382,38 @@ def main():
 
         n_character = len(character_images)
 
-        # === COMPOSITING PROMPT ===
-        prompt_text = f"""You are a precision compositing engine. Synthesize the visual inputs into a single coherent, photorealistic frame.
+        # === COMPOSITING PROMPT — DIRECTION FIRST ===
+        prompt_text = f"""Generate a photorealistic lifestyle photograph of a person using the {product_name}.
 
-Product Accuracy: The {product_name} must be a LITERAL RECREATION of [{product_refs}]; do not simplify or genericize its design.
-
-DETAILED PRODUCT DESCRIPTION (AI analysis):
-{product_description_ai}
-
-MANDATORY PRODUCT RULES:
-{chr(10).join('- ' + r for r in must_match)}
-
-MUST AVOID:
-{chr(10).join('- ' + r for r in must_avoid)}
-
-{f'DIRECTION: {direction}' if direction else ''}
-
-ENVIRONMENT:
-{room_prompt or 'A bright modern living room with warm oak floors, large windows, sheer curtains, natural light.'}
-
-PERSON:
-{character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
-
-HOW THIS PERSON USES THE PRODUCT:
+{'=' * 40}
+MOST IMPORTANT RULE — PERSON ORIENTATION:
+{direction}
 {how_it_works.get('principle', '')}
 {how_it_works.get('position', '')}
-Pose: {pose}
+{'=' * 40}
 
-The person must look like they are GENUINELY using the equipment — feet physically on the machine, natural body mechanics, realistic weight distribution. Like a candid photo of someone mid-workout.
+The person described below is using the {product_name}. Their body, chest, and face MUST point TOWARD the console/display end of the machine. They must NOT face away from it.
+
+PERSON: {character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
+POSE: {pose}
+
+ENVIRONMENT: {room_prompt or 'A bright modern living room with warm oak floors, large windows, sheer curtains, natural light.'}
+
+PRODUCT: The {product_name} must be a LITERAL RECREATION of the reference images [{product_refs}]. Do not simplify.
+
+PRODUCT DETAILS:
+{product_description_ai}
+
+MANDATORY:
+{chr(10).join('- ' + r for r in must_match)}
+
+FORBIDDEN:
+{chr(10).join('- ' + r for r in must_avoid)}
 
 CAMERA: {args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Hasselblad.
-Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography quality."""
+Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography.
+
+FINAL CHECK: Is the person facing the display/console? If not, FLIP THEM. The person runs/walks TOWARD the screen."""
 
         parts.append({"text": prompt_text})
 
