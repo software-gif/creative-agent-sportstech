@@ -349,8 +349,16 @@ def main():
         how_it_works = pk.get("how_it_works", {})
 
         pose = args.pose
-        if not pose and pk.get("correct_usage_poses"):
-            pose = pk["correct_usage_poses"][0].get("position", "")
+        pose_camera_angle = ""
+        if pk.get("correct_usage_poses"):
+            if not pose:
+                pose = pk["correct_usage_poses"][0].get("position", "")
+            pose_camera_angle = pk["correct_usage_poses"][0].get("camera_angle", "")
+
+        # Product-specific pose camera (e.g. "3/4 from behind-side") encodes the
+        # only viewpoint that keeps the display on the user's side. Overrides the
+        # generic --character-angle default unless the user passed a pose override.
+        effective_character_angle = pose_camera_angle or args.character_angle
 
         # Get direction info if available
         direction = how_it_works.get("direction", "")
@@ -364,7 +372,15 @@ def main():
         product_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
 
         parts.append({
-            "text": f"[{product_refs}] = PRODUCT REFERENCE. The {product_name} must be a literal recreation of these images; do not simplify or genericize its design.\n\n"
+            "text": (
+                f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name}. "
+                f"Use these images ONLY to match the exact geometry, colors, materials, "
+                f"and details of the product. DO NOT copy the camera angle, composition, "
+                f"orientation, or which side of the product faces the camera — these are "
+                f"marketing shots with the display/front artificially facing the viewer. "
+                f"The final image uses a COMPLETELY DIFFERENT camera position defined in "
+                f"the SCENE SETUP section of the prompt below.\n\n"
+            )
         })
 
         # Character references — these are the ONLY other images sent alongside
@@ -373,38 +389,41 @@ def main():
         for img in character_images:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
-        # === COMPOSITING PROMPT — DIRECTION FIRST ===
+        # === COMPOSITING PROMPT — SCENE SETUP FIRST (person + camera + display physics) ===
         prompt_text = f"""Generate a photorealistic lifestyle photograph of a person using the {product_name}.
 
 {'=' * 40}
-MOST IMPORTANT RULE — PERSON ORIENTATION:
+SCENE SETUP (strictly enforced — violations make the image unusable):
+
+1. PERSON ORIENTATION:
 {direction}
 {how_it_works.get('principle', '')}
 {how_it_works.get('position', '')}
-{'=' * 40}
 
-The person described below is using the {product_name}. Their body, chest, and face MUST point TOWARD the console/display end of the machine. They must NOT face away from it.
+2. CAMERA FRAMING:
+{effective_character_angle}
+
+3. DISPLAY / CONSOLE ORIENTATION (physical law):
+The {product_name}'s display screen has exactly ONE side with the interface and it ALWAYS faces the user. The camera position in (2) determines what the camera can see:
+- When the camera is behind or beside the user, the display faces AWAY from the camera. We see only the back edge of the console. No screen interface is visible in the frame.
+- The user's face and the screen interface CANNOT both be visible in the same frame. This combination is physically impossible — never generate it.
+{'=' * 40}
 
 PERSON: {character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
 POSE: {pose}
 
 ENVIRONMENT: {room_prompt or 'A bright modern living room with warm oak floors, large windows, sheer curtains, natural light.'}
 
-PRODUCT: The {product_name} must be a LITERAL RECREATION of the reference images [{product_refs}]. Do not simplify.
-
-PRODUCT DETAILS:
+PRODUCT DETAILS (shape, colors, and materials — composition is defined in SCENE SETUP above):
 {product_description_ai}
 
-MANDATORY:
+MANDATORY product accuracy:
 {chr(10).join('- ' + r for r in must_match)}
 
 FORBIDDEN:
 {chr(10).join('- ' + r for r in must_avoid)}
 
-CAMERA: {args.shot_size}, {args.camera_angle}, {args.character_angle}, {args.lens}, {args.depth_of_field}. Hasselblad.
-Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography.
-
-FINAL CHECK: Is the person facing the display/console? If not, FLIP THEM. The person runs/walks TOWARD the screen."""
+Technical: {args.shot_size}, {args.camera_angle}, {args.lens}, {args.depth_of_field}. Hasselblad. Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography."""
 
         parts.append({"text": prompt_text})
 

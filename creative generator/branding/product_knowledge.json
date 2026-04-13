@@ -32,7 +32,7 @@
         {
           "name": "Homeoffice Walking",
           "position": "STEHEND auf dem Walking Pad, unter einem Stehschreibtisch. Person arbeitet am Computer während sie geht.",
-          "camera_angle": "3/4 oder seitlich"
+          "camera_angle": "Camera positioned behind and slightly to the side of the walker at a 3/4 over-the-shoulder angle. The walker is seen from behind (back of head, shoulders, back, legs); the standing desk and any walking pad display are in front of them. The display interface faces the walker and is NOT visible to the camera — only the back edge of the console is visible. The walker's face is not visible in the frame."
         },
         {
           "name": "Wohnzimmer Walking",
@@ -83,7 +83,7 @@
         {
           "name": "Running",
           "position": "LAUFEND auf dem Laufband, dynamische Pose, Arme schwingen natürlich",
-          "camera_angle": "3/4, seitlich, oder frontal"
+          "camera_angle": "Camera positioned behind the runner at a 3/4 over-the-shoulder angle. The runner is seen from behind (back of head, shoulders, back, legs mid-stride); the treadmill console is in front of them. The display screen interface faces the runner and is NOT visible to the camera — only the back edge of the console is visible. The runner's face is not visible in the frame."
         },
         {
           "name": "Display Interaction",
@@ -162,7 +162,7 @@
         {
           "name": "Running / Jogging",
           "position": "Person faces the display/console, running on the belt. Natural mid-stride: one foot on the belt pushing off, other knee driving forward. Arms bent ~90 degrees swinging in opposition to legs. Upright torso with slight forward lean. Person looks at the display or straight ahead TOWARD the console.",
-          "camera_angle": "3/4 from behind-side shows both person and display"
+          "camera_angle": "Camera positioned behind the runner at a 3/4 over-the-shoulder angle. The runner is seen from behind (back of head, shoulders, back, legs mid-stride); the F37s Pro console is in front of them. The display screen interface faces the runner and is NOT visible to the camera — only the back edge of the console is visible. The runner's face is not visible in the frame."
         },
         {
           "name": "Walking / Light Cardio",
@@ -247,7 +247,7 @@
         {
           "name": "Standard Cycling",
           "position": "SITZEND auf dem Sattel, aufrechter Oberkörper, Hände oben am Lenker, Füße treten in die Pedale",
-          "camera_angle": "3/4, seitlich, oder frontal"
+          "camera_angle": "Camera positioned behind the rider at a 3/4 over-the-shoulder angle. The rider is seen from behind (back of head, shoulders, back, arms reaching to the handlebars); the bike's console is in front of them. The display screen interface faces the rider and is NOT visible to the camera — only the back edge of the console is visible. The rider's face is not visible in the frame."
         },
         {
           "name": "Intense Cycling / Drop Position",
@@ -340,7 +340,7 @@
         {
           "name": "Aufrechtes Radfahren",
           "position": "SITZEND auf dem Sattel, aufrechter Oberkörper, Hände an den vorderen Lenkergriffen, Füße in den Pedalen",
-          "camera_angle": "3/4 oder seitlich"
+          "camera_angle": "Camera positioned behind the rider at a 3/4 over-the-shoulder angle. The rider is seen from behind (back of head, shoulders, back, arms reaching forward); the X150 console is in front of them. The display screen interface faces the rider and is NOT visible to the camera — only the back edge of the console is visible. The rider's face is not visible in the frame."
         },
         {
           "name": "Recumbent / Liegend",
@@ -423,7 +423,7 @@
         {
           "name": "Standard Crosstraining",
           "position": "STEHEND auf den Pedalen, aufrecht, Hände greifen die BEWEGLICHEN Armstangen, Beine in elliptischer Gleitbewegung",
-          "camera_angle": "3/4 oder seitlich für volle Bewegungsdarstellung"
+          "camera_angle": "Camera positioned behind the user at a 3/4 over-the-shoulder angle. The user is seen from behind (back of head, shoulders, back, arms reaching forward to the handles, legs on the pedals); the cross-trainer console is in front of them. The display screen interface faces the user and is NOT visible to the camera — only the back edge of the console is visible. The user's face is not visible in the frame."
         },
         {
           "name": "Bein-fokussiert",
@@ -516,7 +516,7 @@
         {
           "name": "Catch (Start)",
           "position": "Knie gebeugt, Arme ausgestreckt, Oberkörper leicht nach vorne",
-          "camera_angle": "Seitlich für volle Schienenlänge"
+          "camera_angle": "Camera positioned in full side profile showing the rower's complete range of motion on the rail. The rower's body is seen in profile pulling the handle; the flywheel/water tank with the display is at the far end of the rail. The display faces the rower and only its side edge is visible to the camera — never the screen interface from the front. The rower's face is visible only in profile."
         },
         {
           "name": "Drive (Zug)",
@@ -810,7 +810,7 @@
         {
           "name": "Office Walking",
           "position": "GEHEND auf dem WoodPad unter einem Stehschreibtisch, arbeitet am Computer",
-          "camera_angle": "3/4 oder seitlich"
+          "camera_angle": "Camera positioned behind and slightly to the side of the walker at a 3/4 over-the-shoulder angle. The walker is seen from behind (shoulders, back, legs) standing on the WoodPad; the standing desk and computer are in front of them. Any display on the walking pad or desk faces the walker and is NOT visible to the camera. The walker's face is not visible in the frame."
         },
         {
           "name": "Free Walking",
