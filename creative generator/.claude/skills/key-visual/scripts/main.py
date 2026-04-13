@@ -90,7 +90,13 @@ def download_image(url):
 
 
 def get_product_images(product_handle):
-    """Fetch ALL product reference images: Freisteller + Renders + best Lifestyle examples."""
+    """Fetch product reference images: Freisteller + Renders ONLY.
+
+    Lifestyle examples are intentionally NOT fetched here. Gemini weights images
+    higher than text, so lifestyle refs showing people in the wrong orientation
+    caused pose-direction regressions (see commit 9eb82b5). Lifestyle context is
+    instead provided via the cached Image Describer text.
+    """
     images = []
 
     # 1. ALL Freisteller (cutout images — most important for product accuracy)
@@ -110,15 +116,6 @@ def get_product_images(product_handle):
         img = download_image(url)
         if img:
             images.append({**img, "name": f"render/{f['name']}", "type": "render"})
-
-    # 3. Lifestyle examples (show how product looks in real settings — up to 4)
-    lifestyle_files = list_storage_files(f"lifestyle/{product_handle}/", limit=4)
-    print(f"  Lifestyle examples: {len(lifestyle_files)} found (using up to 4)")
-    for f in sorted(lifestyle_files, key=lambda x: x.get("name", ""))[:4]:
-        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/lifestyle/{product_handle}/{f['name']}"
-        img = download_image(url)
-        if img:
-            images.append({**img, "name": f"lifestyle/{f['name']}", "type": "lifestyle_example"})
 
     return images
 
@@ -318,10 +315,10 @@ def main():
         if room_prompt:
             print(f"  Using room preset: {args.room_preset}")
 
-    # Pre-select best images by type
+    # Pre-select best images by type.
+    # NOTE: lifestyle_example refs are intentionally never fetched — see get_product_images().
     freisteller = [img for img in product_images if img.get("type") == "freisteller"]
     renders = [img for img in product_images if img.get("type") == "render"]
-    lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle_example"]
 
     # === STEP 1: LOAD CACHED PRODUCT DESCRIPTION (from Image Describer skill) ===
     product_description_ai = load_cached_product_description(args.product)
@@ -370,17 +367,11 @@ def main():
             "text": f"[{product_refs}] = PRODUCT REFERENCE. The {product_name} must be a literal recreation of these images; do not simplify or genericize its design.\n\n"
         })
 
-        # NOTE: Lifestyle refs REMOVED from image inputs.
-        # Problem: Gemini weights images > text. If any lifestyle ref shows a person
-        # facing the wrong direction, Gemini copies that pose instead of following
-        # text instructions. Product cutouts + detailed text description is more reliable.
-        n_lifestyle = 0
-
-        # GROUP 3: Character references
+        # Character references — these are the ONLY other images sent alongside
+        # product cutouts. Lifestyle example refs are never appended here; see
+        # get_product_images() for the rationale.
         for img in character_images:
             parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-
-        n_character = len(character_images)
 
         # === COMPOSITING PROMPT — DIRECTION FIRST ===
         prompt_text = f"""Generate a photorealistic lifestyle photograph of a person using the {product_name}.
