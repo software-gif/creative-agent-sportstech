@@ -19,6 +19,9 @@ export default function ImageOverlay({ creative, variants = [], onClose, onSelec
   const product = PRODUCT_LABELS[creative.product_category || ""] || creative.product_category;
   const env = creative.environment_style || creative.environment;
 
+  const multishots = variants.filter((v) => v.creative_type === "multishot");
+  const colorVariants = variants.filter((v) => v.creative_type === "color_variant");
+
   return (
     <div
       className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-6"
@@ -119,45 +122,80 @@ export default function ImageOverlay({ creative, variants = [], onClose, onSelec
               </button>
             )}
           </div>
+
+          {/* Variant groups — beside the image, stacked vertically */}
+          {(multishots.length > 0 || colorVariants.length > 0) && (
+            <div className="mt-3 space-y-3">
+              <VariantGroup
+                label="Multishots"
+                items={multishots}
+                activeId={creative.id}
+                onSelect={onSelectVariant}
+              />
+              <VariantGroup
+                label="Color Variants"
+                items={colorVariants}
+                activeId={creative.id}
+                onSelect={onSelectVariant}
+              />
+            </div>
+          )}
         </div>
       </div>
-      {/* Variants strip */}
-      {variants.length > 0 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/60 backdrop-blur-sm rounded-xl p-2">
-          <span className="text-[10px] text-white/40 font-medium px-2">Variants</span>
-          {variants.map((v) => {
-            const vUrl = getImageUrl(v);
-            const isActive = v.id === creative.id;
-            return (
-              <button
-                key={v.id}
-                onClick={() => onSelectVariant?.(v)}
-                className={`w-14 h-14 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
-                  isActive ? "border-primary scale-105" : "border-transparent hover:border-white/30"
-                }`}
-              >
-                {vUrl ? (
-                  <img src={vUrl} alt={v.short_id || ""} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-white/10 flex items-center justify-center text-[8px] text-white/40">
-                    {v.short_id}
-                  </div>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      )}
-      {/* Mobile (no variants) */}
-      {variants.length === 0 && (
-        <div className="lg:hidden absolute bottom-6 left-6 right-6 text-center text-white">
-          <p className="font-semibold">{product || "Lifestyle"}</p>
-          <p className="text-sm text-white/60">
-            {env && <span className="capitalize">{env.replace(/_/g, " ")} — </span>}
-            {creative.format}
-          </p>
-        </div>
-      )}
+      {/* Mobile caption (right column is hidden below lg) */}
+      <div className="lg:hidden absolute bottom-6 left-6 right-6 text-center text-white">
+        <p className="font-semibold">{product || "Lifestyle"}</p>
+        <p className="text-sm text-white/60">
+          {env && <span className="capitalize">{env.replace(/_/g, " ")} — </span>}
+          {creative.format}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function VariantGroup({
+  label,
+  items,
+  activeId,
+  onSelect,
+}: {
+  label: string;
+  items: Creative[];
+  activeId: string;
+  onSelect?: (c: Creative) => void;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-[11px] font-semibold text-white/80 uppercase tracking-wide">{label}</span>
+        <span className="text-[10px] text-white/40 tabular-nums">{items.length}</span>
+      </div>
+      <div className="grid grid-cols-4 gap-1.5">
+        {items.map((v) => {
+          const vUrl = getImageUrl(v);
+          const isActive = v.id === activeId;
+          return (
+            <button
+              key={v.id}
+              onClick={() => onSelect?.(v)}
+              className={`relative aspect-square rounded-md overflow-hidden border-2 transition-all ${
+                isActive ? "border-primary scale-105" : "border-transparent hover:border-white/40"
+              }`}
+              title={v.camera_angle || v.color_variant || v.character_angle || v.short_id || undefined}
+            >
+              {vUrl ? (
+                <img src={vUrl} alt={v.short_id || ""} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-white/10 flex items-center justify-center text-[8px] text-white/40">
+                  {v.short_id}
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

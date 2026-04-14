@@ -211,7 +211,7 @@ export default function CreativeCard({
             {creative.color_variant && <Tag color="accent">{creative.color_variant}</Tag>}
             <Tag color="muted">{creative.format}</Tag>
             {multishots.length > 0 && <Tag color="muted">{multishots.length} Multishots</Tag>}
-            {colors.length > 0 && <Tag color="accent">{colors.length} Colors</Tag>}
+            {colors.length > 0 && <Tag color="accent">{colors.length} Color Variants</Tag>}
           </div>
           <p className="text-xs text-muted mt-1 truncate">
             {new Date(creative.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
@@ -289,7 +289,7 @@ export default function CreativeCard({
           </div>
         )}
         <VariantStrip label="Multishots" items={multishots} onClick={onImageClick} />
-        <VariantStrip label="Colors" items={colors} onClick={onImageClick} />
+        <VariantStrip label="Color Variants" items={colors} onClick={onImageClick} />
         {actions && <div className="mt-2.5 flex items-center gap-2">{actions}</div>}
       </div>
     </div>
