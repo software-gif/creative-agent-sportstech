@@ -10,6 +10,7 @@ export default function Header() {
   const navItems = [
     { href: "/", label: "Board", icon: "M4 6h16M4 12h16M4 18h7" },
     { href: "/library", label: "Library", icon: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" },
+    { href: "/presets", label: "Presets", icon: "M4 6h6v6H4zm10 0h6v6h-6zm-10 10h6v6H4zm10 0h6v6h-6z" },
   ];
 
   return (
