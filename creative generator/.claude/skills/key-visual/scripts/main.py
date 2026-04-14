@@ -23,6 +23,7 @@ import base64
 import json
 import os
 import random
+import subprocess
 import sys
 import uuid
 from datetime import datetime
@@ -281,6 +282,12 @@ def main():
     parser.add_argument("--format", default="9:16")
     parser.add_argument("--prompt", default=None, help="Full composite prompt from Claude (overrides auto-build)")
     parser.add_argument("--count", type=int, default=1, help="Number of images to generate")
+    parser.add_argument("--auto-qc", action="store_true",
+                        help="Run quality-control on each generated image and retry on failure.")
+    parser.add_argument("--qc-retries", type=int, default=2,
+                        help="Max retries per image when --auto-qc is enabled (default 2, so up to 3 attempts total).")
+    parser.add_argument("--qc-threshold", type=int, default=7,
+                        help="Minimum QC score (0-10) to accept the image (default 7).")
     args = parser.parse_args()
 
     if not GEMINI_API_KEY:
@@ -335,77 +342,88 @@ def main():
     if models_pool and not args.character_description and not args.character_id:
         print(f"  Model rotation: {len(models_pool)} models available")
 
+    # Path to the quality-control skill (for --auto-qc subprocess calls)
+    qc_script = os.path.join(SCRIPT_DIR, "..", "..", "quality-control", "scripts", "main.py")
+    max_attempts = (args.qc_retries + 1) if args.auto_qc else 1
+
     # Generate N images
     for i in range(args.count):
         print(f"\n{'─' * 40}")
         print(f"Image {i + 1}/{args.count}")
 
-        # Auto-rotate model if no specific character given
+        # Auto-rotate model if no specific character given. Kept outside the
+        # retry loop so multiple attempts for the same image slot reuse the
+        # same model — re-rolling camera angle per attempt is enough variance.
         character_desc = args.character_description
         if not character_desc and not args.character_id and models_pool:
             model = get_random_model(models_pool, i)
             character_desc = model["prompt_snippet"]
             print(f"  Auto-model: {model['description']}")
 
-        # Auto-rotate camera angle per image when not explicitly set. This
-        # prevents every image in a batch landing on the same default angle
-        # — Clemente's feedback was that everything ended up "Eye level".
-        image_camera_angle = args.camera_angle or random.choice(VALID_CAMERA_ANGLES)
-        image_character_angle = args.character_angle or random.choice(VALID_CHARACTER_ANGLES)
-        if not args.camera_angle or not args.character_angle:
-            print(f"  Camera rotation: {image_camera_angle} / {image_character_angle}")
+        accepted = False
+        for attempt in range(1, max_attempts + 1):
+            if max_attempts > 1:
+                print(f"  Attempt {attempt}/{max_attempts}")
 
-        # === PROVEN APPROACH (CR-005 to CR-007 worked well) ===
-        # Product cutouts FIRST → Lifestyle for style → Character → Compositing prompt
-        parts = []
+            # Auto-rotate camera angle per attempt when not explicitly set. On
+            # retries this gives Gemini a fresh angle to try — often the fix
+            # for a pose/geometry failure.
+            image_camera_angle = args.camera_angle or random.choice(VALID_CAMERA_ANGLES)
+            image_character_angle = args.character_angle or random.choice(VALID_CHARACTER_ANGLES)
+            if not args.camera_angle or not args.character_angle:
+                print(f"  Camera rotation: {image_camera_angle} / {image_character_angle}")
 
-        must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
-        must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
-        how_it_works = pk.get("how_it_works", {})
+            # === PROVEN APPROACH (CR-005 to CR-007 worked well) ===
+            # Product cutouts FIRST → Lifestyle for style → Character → Compositing prompt
+            parts = []
 
-        pose = args.pose
-        pose_camera_angle = ""
-        if pk.get("correct_usage_poses"):
-            if not pose:
-                pose = pk["correct_usage_poses"][0].get("position", "")
-            pose_camera_angle = pk["correct_usage_poses"][0].get("camera_angle", "")
+            must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
+            must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
+            how_it_works = pk.get("how_it_works", {})
 
-        # Product-specific pose camera (e.g. "3/4 from behind-side") encodes the
-        # only viewpoint that keeps the display on the user's side. Overrides the
-        # rotated/per-image character angle unless the user passed a pose override.
-        effective_character_angle = pose_camera_angle or image_character_angle
+            pose = args.pose
+            pose_camera_angle = ""
+            if pk.get("correct_usage_poses"):
+                if not pose:
+                    pose = pk["correct_usage_poses"][0].get("position", "")
+                pose_camera_angle = pk["correct_usage_poses"][0].get("camera_angle", "")
 
-        # Get direction info if available
-        direction = how_it_works.get("direction", "")
+            # Product-specific pose camera (e.g. "3/4 from behind-side") encodes the
+            # only viewpoint that keeps the display on the user's side. Overrides the
+            # rotated/per-image character angle unless the user passed a pose override.
+            effective_character_angle = pose_camera_angle or image_character_angle
 
-        # GROUP 1: Product cutouts (ground truth for product accuracy)
-        best_freisteller = freisteller[:5]
-        for img in best_freisteller:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+            # Get direction info if available
+            direction = how_it_works.get("direction", "")
 
-        n_product = len(best_freisteller)
-        product_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
+            # GROUP 1: Product cutouts (ground truth for product accuracy)
+            best_freisteller = freisteller[:5]
+            for img in best_freisteller:
+                parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
-        parts.append({
-            "text": (
-                f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name}. "
-                f"Use these images ONLY to match the exact geometry, colors, materials, "
-                f"and details of the product. DO NOT copy the camera angle, composition, "
-                f"orientation, or which side of the product faces the camera — these are "
-                f"marketing shots with the display/front artificially facing the viewer. "
-                f"The final image uses a COMPLETELY DIFFERENT camera position defined in "
-                f"the SCENE SETUP section of the prompt below.\n\n"
-            )
-        })
+            n_product = len(best_freisteller)
+            product_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
 
-        # Character references — these are the ONLY other images sent alongside
-        # product cutouts. Lifestyle example refs are never appended here; see
-        # get_product_images() for the rationale.
-        for img in character_images:
-            parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+            parts.append({
+                "text": (
+                    f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name}. "
+                    f"Use these images ONLY to match the exact geometry, colors, materials, "
+                    f"and details of the product. DO NOT copy the camera angle, composition, "
+                    f"orientation, or which side of the product faces the camera — these are "
+                    f"marketing shots with the display/front artificially facing the viewer. "
+                    f"The final image uses a COMPLETELY DIFFERENT camera position defined in "
+                    f"the SCENE SETUP section of the prompt below.\n\n"
+                )
+            })
 
-        # === COMPOSITING PROMPT — SCENE SETUP FIRST (person + camera + display physics) ===
-        prompt_text = f"""Generate a photorealistic lifestyle photograph of a person using the {product_name}.
+            # Character references — these are the ONLY other images sent alongside
+            # product cutouts. Lifestyle example refs are never appended here; see
+            # get_product_images() for the rationale.
+            for img in character_images:
+                parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+            # === COMPOSITING PROMPT — SCENE SETUP FIRST (person + camera + display physics) ===
+            prompt_text = f"""Generate a photorealistic lifestyle photograph of a person using the {product_name}.
 
 {'=' * 40}
 SCENE SETUP (strictly enforced — violations make the image unusable):
@@ -440,65 +458,94 @@ FORBIDDEN:
 
 Technical: {args.shot_size}, {image_camera_angle}, {args.lens}, {args.depth_of_field}. Hasselblad. Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography."""
 
-        parts.append({"text": prompt_text})
+            parts.append({"text": prompt_text})
 
-        # Generate
-        result = generate_image(parts)
-        if result is None:
-            print(f"  FAILED: Could not generate image {i + 1}")
-            continue
+            # Generate
+            result = generate_image(parts)
+            if result is None:
+                print(f"  FAILED: Could not generate image {i + 1}")
+                continue
 
-        img_bytes, ext = result
-        creative_id = str(uuid.uuid4())
-        storage_path = f"creatives/{batch_id}/{creative_id}.{ext}"
-        url = upload_to_supabase(img_bytes, storage_path, ext)
+            img_bytes, ext = result
+            creative_id = str(uuid.uuid4())
+            storage_path = f"creatives/{batch_id}/{creative_id}.{ext}"
+            url = upload_to_supabase(img_bytes, storage_path, ext)
 
-        if not url:
-            local_dir = os.path.join(PROJECT_ROOT, "creatives", batch_id)
-            os.makedirs(local_dir, exist_ok=True)
-            local_path = os.path.join(local_dir, f"{creative_id}.{ext}")
-            with open(local_path, "wb") as f:
-                f.write(img_bytes)
-            print(f"  Saved locally: {local_path}")
+            if not url:
+                local_dir = os.path.join(PROJECT_ROOT, "creatives", batch_id)
+                os.makedirs(local_dir, exist_ok=True)
+                local_path = os.path.join(local_dir, f"{creative_id}.{ext}")
+                with open(local_path, "wb") as f:
+                    f.write(img_bytes)
+                print(f"  Saved locally: {local_path}")
 
-        # Save to database
-        creative_data = {
-            "id": creative_id,
-            "brand_id": brand_id,
-            "batch_id": batch_id,
-            "storage_path": storage_path,
-            "prompt_text": prompt_text,
-            "prompt_json": {
-                "product": args.product,
+            # Save to database
+            creative_data = {
+                "id": creative_id,
+                "brand_id": brand_id,
+                "batch_id": batch_id,
+                "storage_path": storage_path,
+                "prompt_text": prompt_text,
+                "prompt_json": {
+                    "product": args.product,
+                    "character_id": args.character_id,
+                    "character_description": args.character_description,
+                    "environment_id": args.environment_id,
+                    "room_preset": args.room_preset,
+                    "pose": args.pose,
+                },
+                "shot_size": args.shot_size,
+                "camera_angle": image_camera_angle,
+                "character_angle": effective_character_angle,
+                "lens": args.lens,
+                "depth_of_field": args.depth_of_field,
+                "creative_type": "lifestyle",
+                "format": args.format,
+                "generation_model": GEMINI_MODEL,
+                "generation_mode": "raw",
+                "environment_style": args.room_preset,
+                "product_category": pk.get("product_category", args.product),
                 "character_id": args.character_id,
-                "character_description": args.character_description,
                 "environment_id": args.environment_id,
-                "room_preset": args.room_preset,
-                "pose": args.pose,
-            },
-            "shot_size": args.shot_size,
-            "camera_angle": image_camera_angle,
-            "character_angle": effective_character_angle,
-            "lens": args.lens,
-            "depth_of_field": args.depth_of_field,
-            "creative_type": "lifestyle",
-            "format": args.format,
-            "generation_model": GEMINI_MODEL,
-            "generation_mode": "raw",
-            "environment_style": args.room_preset,
-            "product_category": pk.get("product_category", args.product),
-            "character_id": args.character_id,
-            "environment_id": args.environment_id,
-            "status": "generated",
-        }
+                "status": "generated",
+            }
 
-        # Remove None values
-        creative_data = {k: v for k, v in creative_data.items() if v is not None}
+            # Remove None values
+            creative_data = {k: v for k, v in creative_data.items() if v is not None}
 
-        saved = save_creative_to_db(creative_data)
-        print(f"  SAVED: {saved['id']}")
-        if url:
-            print(f"  URL: {url}")
+            saved = save_creative_to_db(creative_data)
+            print(f"  SAVED: {saved['id']}")
+            if url:
+                print(f"  URL: {url}")
+
+            if not args.auto_qc:
+                accepted = True
+                break
+
+            # Run QC inline. --delete-on-fail drops the creative from DB +
+            # storage when the score is under threshold, so on a FAIL we can
+            # just loop back and regenerate from scratch with a fresh angle.
+            print(f"  Running QC (threshold {args.qc_threshold})...")
+            qc_proc = subprocess.run(
+                [
+                    sys.executable, qc_script,
+                    "--creative-id", creative_id,
+                    "--delete-on-fail",
+                    "--threshold", str(args.qc_threshold),
+                ],
+                capture_output=True, text=True,
+            )
+            sys.stdout.write(qc_proc.stdout)
+            if qc_proc.stderr:
+                sys.stderr.write(qc_proc.stderr)
+
+            if qc_proc.returncode == 0:
+                accepted = True
+                break
+            print(f"  QC rejected image (attempt {attempt}/{max_attempts}), retrying…")
+
+        if not accepted:
+            print(f"  WARN: Image slot {i + 1} exhausted {max_attempts} attempts without passing QC")
 
     print(f"\n{'=' * 60}")
     print(f"BATCH COMPLETE: {batch_id}")
