@@ -170,15 +170,24 @@ How this product is used:
 
 EVALUATE THE GENERATED IMAGE AGAINST THESE CRITERIA. Be strict — if anything looks even slightly off, drop the score. A passing image (8+) must be fully believable as a real photograph.
 
+HARD FAILURES — any of these means overall = 0, pass = false, regardless of other criteria:
+- PERSON IS NOT PHYSICALLY USING THE EQUIPMENT. Feet must be ON the walking/running surface, hands must be ON the handles of a bike/rower/crosstrainer, body must be ON the vibration plate. If the person is standing next to, behind, or in front of the equipment instead of on it, this is an automatic overall = 0 and pass = false. The same applies if the person's feet are on the floor next to the walking pad while they use a laptop at a standing desk — that is not usage, that is the product being decorative.
+- The wrong product is shown (e.g. a tall treadmill with handrails when the brief says flat walking pad).
+- The product is grossly distorted (bent, melted, floating, double-sized).
+
+If none of the hard failures apply, continue scoring:
+
 1. PRODUCT ACCURACY (0-10)
    - Does the product match the reference images EXACTLY? Shape, colors, display panel position/size, handlebars, buttons, LEDs, branding.
    - Proportions of the product vs. the user (e.g. is the walking surface the right width for two feet?).
    - Wood/material finish matches reference intensity.
+   - Side panel and end-cap details (roller mounts, small visible holes/screws, front console) must be consistent with references — Gemini tends to smooth these away, penalize when they are absent or wrong.
 
 2. POSE & USAGE CORRECTNESS (0-10) — MOST IMPORTANT
    - Is the person using the equipment the way a real user would? Shoes on equipment that demands shoes (treadmills, walking pads, crosstrainers)? Hands gripping where they should grip?
    - Body mechanics: weight distribution makes sense, joints bend naturally, stance matches the activity.
    - Facing direction consistent with the product's display/console orientation.
+   - Person's weight is clearly on the equipment, not on the surrounding floor.
    - If the user is barefoot on a walking pad, treadmill, or crosstrainer → score max 5.
    - Awkward, stiff, or unnatural posture → score max 6.
 

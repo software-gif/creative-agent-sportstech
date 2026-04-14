@@ -42,6 +42,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person STEHT mit beiden Füßen AUF der Gehfläche des Walking Pads — niemals daneben, dahinter oder davor",
           "Walking Pad muss eine EXAKTE Nachbildung der Referenzbilder sein — NICHT vereinfachen oder generisch darstellen",
           "Flaches, kompaktes Design OHNE hohe Handläufe",
           "SPORTSTECH Branding sichtbar auf dem Gerät",
@@ -51,6 +52,7 @@
           "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Generisches/vereinfachtes Laufband — muss exakt wie Referenzbild aussehen",
           "Hohe Handläufe oder Konsole — Walking Pad ist FLACH",
           "Person rennt — Walking Pad ist zum GEHEN",
@@ -97,6 +99,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person steht oder geht mit beiden Füßen AUF dem Laufband — niemals daneben",
           "Laufband muss EXAKTE Nachbildung der Referenzbilder sein",
           "Breites schwarzes Laufband, silberne Seitenleisten",
           "Massive Konsole mit Bildschirm oben",
@@ -106,6 +109,7 @@
           "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Vereinfachtes generisches Laufband",
           "Falsche Proportionen der Konsole",
           "Person hält sich am Handlauf fest WÄHREND des Laufens (nur beim Stehenbleiben)",
@@ -185,6 +189,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person steht oder läuft mit beiden Füßen AUF dem F37s Pro Laufband — niemals daneben",
           "Person FACES the display/console — the tall part with the screen is the FRONT of the treadmill",
           "Treadmill must be a literal recreation of reference images — matte black body with blue/cyan LED strips",
           "10.1-inch touchscreen display at the TOP of the console between handlebars",
@@ -198,6 +203,7 @@
           "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Person running AWAY from the display — person must FACE the display/console",
           "Person running BACKWARDS or in the wrong direction on the treadmill",
           "Generic/simplified treadmill — must match reference images exactly",
@@ -279,6 +285,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person SITZT auf dem sBike-Sattel, Füße IN den Pedalen, Hände am Lenker — niemals daneben",
           "sBike muss EXAKTE Nachbildung der Referenzbilder sein — matt-schwarzes Premium-Design",
           "Blauer LED-Leuchtring um das Schwungrad (hinten)",
           "21.5-Zoll Touchscreen-Display oben auf Ständer über dem Lenker",
@@ -290,6 +297,7 @@
           "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Generisches/vereinfachtes Spinning Bike — muss exakt wie Referenzbilder aussehen",
           "Gerade Lenker statt Drop-Bar/Multi-Grip Rennrad-Lenker",
           "Fehlendes oder falsches Display — das 21.5-Zoll Display ist DAS Hauptmerkmal",
@@ -369,6 +377,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person SITZT auf dem X150-Sattel, Füße in den Pedalen — niemals daneben",
           "X150 muss EXAKTE Nachbildung der Referenzbilder sein — X-förmiger schwarzer Klapprahmen mit roten Akzenten",
           "Ergonomischer Sattel mit RÜCKENLEHNE — das ist ein Unterscheidungsmerkmal",
           "Integrierte Power Ropes sichtbar an den Seiten",
@@ -378,6 +387,7 @@
           "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Verwechslung mit großem Speedbike oder Ergometer — X150 ist KOMPAKT und KLAPPBAR",
           "Fehlende Rückenlehne am Sattel",
           "Fehlende Power Ropes",
@@ -454,6 +464,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person STEHT mit beiden Füßen AUF den Pedalen des Crosstrainers und hält die Griffe — niemals daneben",
           "sCross muss EXAKTE Nachbildung der Referenzbilder sein — schwarzer Rahmen, silberne Schwungscheibe",
           "Person STEHT auf den Pedalen — NICHT sitzend",
           "Elliptische Beinbewegung — Füße auf den Pedalen, Beine in ovaler Bewegungsbahn",
@@ -464,6 +475,7 @@
           "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Person SITZT auf dem Crosstrainer — man STEHT auf den Pedalen",
           "Verwechslung mit Fahrrad/Ergometer — Crosstrainer hat KEINE Sitzposition",
           "Falsche Armbewegung — Arme bewegen sich SYNCHRON mit den Beinen über die Armstangen",
@@ -544,6 +556,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person SITZT auf dem Ruder-Schlitten, Füße in den Fußstützen, beide Hände am Griff — nicht daneben",
           "EXAKTE Nachbildung — helles Eichenholz-Rahmen mit schwarzer Schiene",
           "Transparenter Wassertank vorne mit sichtbarem Wasser und LED-Beleuchtung",
           "21.5-Zoll Touchscreen auf Holz-Ständer über dem Wassertank",
@@ -552,6 +565,7 @@
           "Doppel-Aluminium-Schienen sichtbar"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Fehlender oder nicht-transparenter Wassertank — das Wasser MUSS sichtbar sein",
           "Falsches Holz — muss HELLES Eichenholz sein (nicht dunkel, nicht Plastik)",
           "Generisches Rudergerät statt exakter AquaElite Nachbildung",
@@ -632,6 +646,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person TRAINIERT aktiv an der sGym Pro (Griffe in der Hand, Übung in Ausführung) — nicht daneben",
           "EXAKTE Nachbildung — schwarzer Turm mit Display, Seilzug, Klimmzugstange",
           "21-Zoll Touchscreen-Display am Gerät",
           "Seilzug-Kabel sichtbar",
@@ -641,6 +656,7 @@
           "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Verwechslung mit klassischer Multi-Gym/Kraftstation mit Gewichtsblock — sGym Pro ist SCHLANK und MODERN",
           "Falsche Proportionen — das Gerät ist ein schmaler TURM (44cm breit geklappt)",
           "Generische Kraftstation statt exakter Nachbildung",
@@ -707,12 +723,14 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person TRAINIERT aktiv an der HGX50 (an den Griffen oder der Bank) — nicht daneben",
           "EXAKTE Nachbildung — schwarzer Stahlrahmen mit roten Akzenten",
           "Sichtbarer Gewichtsblock",
           "Korrekte Übungsausführung",
           "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Verwechslung mit sGym Pro (schlanker Turm) — HGX50 ist eine KLASSISCHE Kraftstation mit Bank",
           "Generische Multi-Gym",
           "Barfuß auf dem Gerät"
@@ -775,6 +793,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person STEHT mit beiden Füßen AUF der hexagonalen Vibrationsplatte — niemals daneben",
           "HEXAGONALE Form — sechseckig, NICHT rechteckig oder quadratisch",
           "Schwarze, flache Platte am Boden",
           "Person STEHT auf der Platte",
@@ -782,6 +801,7 @@
           "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Rechteckige Form — sVibe ist HEXAGONAL",
           "Platte zu groß oder zu dick dargestellt — sie ist kompakt und flach (14cm hoch)",
           "Person liegt auf der Platte",
@@ -844,6 +864,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person STEHT mit beiden Füßen AUF der Gehfläche des WoodPad Pro — niemals daneben, dahinter oder davor",
           "EXAKTE Nachbildung — echtes Holz-Finish, ultra-flaches Design",
           "KEIN Handlauf — WoodPad Pro ist FLACH wie ein Brett",
           "Person GEHT, nicht rennt (max 8km/h)",
@@ -853,6 +874,7 @@
           "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Handläufe oder Konsole — WoodPad Pro ist KOMPLETT FLACH",
           "Lauf-Pose — nur GEHEN",
           "Plastik-Look — muss echtes HOLZ aussehen",
@@ -921,6 +943,7 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person TRAINIERT aktiv an der SXM200 (Langhantel, Griffe oder Bank in Benutzung) — nicht daneben",
           "EXAKTE Nachbildung — massives schwarzes Power Rack mit geführter Langhantel",
           "Zwei separate Kabel-Türme mit sichtbaren Gewichtsblöcken",
           "Klimmzugstange oben",
@@ -928,6 +951,7 @@
           "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Verwechslung mit einfachem Kabelzug — SXM200 ist ein GROSSES RACK",
           "Falsche Proportionen — das Gerät ist 2.3m HOCH",
           "Generisches Power Rack statt exakter Nachbildung",
@@ -976,12 +1000,14 @@
       ],
       "ai_generation_rules": {
         "must_match": [
+          "Person SITZT auf dem Ruder-Schlitten, Füße in den Fußstützen, beide Hände am Griff — nicht daneben",
           "Rudergerät muss EXAKTE Nachbildung der Referenzbilder sein",
           "Echte, sichtbare Holzmaserung — lebendig, ausgeprägt, tiefe Muster",
           "SPORTSTECH Logo in schwarz-metallic",
           "Korrekte Ruderhaltung — Sitzen, Griff mit beiden Händen"
         ],
         "must_avoid": [
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Vereinfachte Holzmaserung — muss VIVID und PRONOUNCED sein",
           "Falsche Ruderpose (z.B. stehend, nur eine Hand)",
           "Generisches Rudergerät statt exakter Nachbildung",

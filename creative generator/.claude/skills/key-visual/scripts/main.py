@@ -464,10 +464,13 @@ def main():
                 parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
             # === COMPOSITING PROMPT — SCENE SETUP FIRST (person + camera + display physics) ===
-            prompt_text = f"""Generate a photorealistic lifestyle photograph of a person using the {product_name}.
+            prompt_text = f"""Generate a photorealistic lifestyle photograph of a person ACTIVELY USING the {product_name}. The person must be physically on/at the equipment, with their weight supported by it — not standing next to it while doing something else.
 
 {'=' * 40}
 SCENE SETUP (strictly enforced — violations make the image unusable):
+
+0. PRODUCT CONTACT (NON-NEGOTIABLE):
+The person must be in active physical contact with the {product_name}. Their feet must be on the walking/running/stepping surface, or their body on the seat/saddle/plate, or their hands on the handles/bar. The product is NOT a decorative floor accessory that the person happens to be standing beside. If the person is on the wood/tile/rug floor next to the product, the image is unusable.
 
 1. PERSON ORIENTATION:
 {direction}
