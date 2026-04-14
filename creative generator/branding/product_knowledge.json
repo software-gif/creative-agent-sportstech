@@ -46,14 +46,18 @@
           "Flaches, kompaktes Design OHNE hohe Handläufe",
           "SPORTSTECH Branding sichtbar auf dem Gerät",
           "Person STEHT und GEHT — nicht laufend/rennend",
-          "Korrekte Farbe wie im Prompt angegeben (gray, black, wood)"
+          "Korrekte Farbe wie im Prompt angegeben (gray, black, wood)",
+          "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
           "Generisches/vereinfachtes Laufband — muss exakt wie Referenzbild aussehen",
           "Hohe Handläufe oder Konsole — Walking Pad ist FLACH",
           "Person rennt — Walking Pad ist zum GEHEN",
           "Unnötige Requisiten im Raum (Hanteln, Gewichte) wenn nicht explizit gewünscht",
-          "Falsches Sportstech Logo oder falsche Platzierung"
+          "Falsches Sportstech Logo oder falsche Platzierung",
+          "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
+          "Unnatürlich flache, gestreckte oder verdrehte Füße"
         ]
       }
     },
@@ -97,13 +101,17 @@
           "Breites schwarzes Laufband, silberne Seitenleisten",
           "Massive Konsole mit Bildschirm oben",
           "Rotes SPORTSTECH Logo auf silbernen Pfosten",
-          "Korrekte Laufhaltung — aufrecht, natürliche Armbewegung"
+          "Korrekte Laufhaltung — aufrecht, natürliche Armbewegung",
+          "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
           "Vereinfachtes generisches Laufband",
           "Falsche Proportionen der Konsole",
           "Person hält sich am Handlauf fest WÄHREND des Laufens (nur beim Stehenbleiben)",
-          "Falsches oder fehlendes SPORTSTECH Branding"
+          "Falsches oder fehlendes SPORTSTECH Branding",
+          "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
+          "Unnatürlich flache, gestreckte oder verdrehte Füße"
         ]
       }
     },
@@ -185,7 +193,9 @@
           "Blue/cyan LED accent strips along BOTH sides of the running deck",
           "Red safety key on cord attached to the console",
           "Green START and red STOP buttons visible on console",
-          "Person's feet are ON the running belt, body facing TOWARD the display"
+          "Person's feet are ON the running belt, body facing TOWARD the display",
+          "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
           "Person running AWAY from the display — person must FACE the display/console",
@@ -195,7 +205,9 @@
           "Multiple displays or wrong display shape — ONE 10.1-inch screen at top",
           "Person gripping both handlebars tightly while running (hands should swing freely)",
           "Missing LED accent strips on the sides",
-          "Wrong proportions — the machine is sleek and modern, not bulky"
+          "Wrong proportions — the machine is sleek and modern, not bulky",
+          "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
+          "Unnatürlich flache, gestreckte oder verdrehte Füße"
         ]
       },
       "reference_images": {
@@ -274,7 +286,8 @@
           "Multi-Grip Rennrad-Lenker (Drop-Bar Style) — NICHT gerade Lenker",
           "Roter Widerstandsknopf / Not-Stopp sichtbar",
           "Blaues leuchtendes S-Logo unter dem Display",
-          "Korrekte Sitzposition — Person sitzt auf Sattel, Füße in Pedalen, Hände am Lenker"
+          "Korrekte Sitzposition — Person sitzt auf Sattel, Füße in Pedalen, Hände am Lenker",
+          "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops"
         ],
         "must_avoid": [
           "Generisches/vereinfachtes Spinning Bike — muss exakt wie Referenzbilder aussehen",
@@ -283,7 +296,8 @@
           "Fehlender blauer LED-Ring am Schwungrad",
           "Person steht neben dem Bike statt darauf zu sitzen/fahren",
           "Falsche Fußposition — Füße müssen IN den Pedalen sein, nicht daneben",
-          "Verwechslung mit normalem Heimtrainer/Ergometer — sBike ist ein SPEEDBIKE mit Rennrad-Ästhetik"
+          "Verwechslung mit normalem Heimtrainer/Ergometer — sBike ist ein SPEEDBIKE mit Rennrad-Ästhetik",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {
@@ -360,14 +374,16 @@
           "Integrierte Power Ropes sichtbar an den Seiten",
           "Rote Akzentfarbe an Sattel, Pedalen und Details",
           "Kompaktes, schlankes Design — das Gerät ist KLEIN und KLAPPBAR",
-          "Korrekte Sitz-/Trittposition"
+          "Korrekte Sitz-/Trittposition",
+          "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops"
         ],
         "must_avoid": [
           "Verwechslung mit großem Speedbike oder Ergometer — X150 ist KOMPAKT und KLAPPBAR",
           "Fehlende Rückenlehne am Sattel",
           "Fehlende Power Ropes",
           "Falsche Größenproportionen — das Gerät ist kleiner als ein normales Fahrrad",
-          "Generisches Ergometer statt dem spezifischen X-Frame Design"
+          "Generisches Ergometer statt dem spezifischen X-Frame Design",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {
@@ -444,7 +460,8 @@
           "Silberne/chromfarbene Schwungscheibe deutlich sichtbar an der Seite",
           "Zwei verschiedene Grifftypen sichtbar: bewegliche Armstangen oben + feste Griffe unten",
           "LCD-Display in der Mitte des Geräts",
-          "Aufrechte Körperhaltung — natürliche, entspannte Trainingsposition"
+          "Aufrechte Körperhaltung — natürliche, entspannte Trainingsposition",
+          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
         ],
         "must_avoid": [
           "Person SITZT auf dem Crosstrainer — man STEHT auf den Pedalen",
@@ -453,7 +470,8 @@
           "Generischer Crosstrainer statt exakter Nachbildung",
           "Fehlende silberne Schwungscheibe",
           "Unrealistische Körperhaltung oder Verrenkungen — die Bewegung ist FLIESSEND und NATÜRLICH",
-          "Verwechslung der Griffe — bewegliche Armstangen sind OBEN (lang), feste Griffe sind UNTEN (kurz)"
+          "Verwechslung der Griffe — bewegliche Armstangen sind OBEN (lang), feste Griffe sind UNTEN (kurz)",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {
@@ -619,13 +637,15 @@
           "Seilzug-Kabel sichtbar",
           "Klimmzugstange oben am Gerät",
           "Kompaktes Turm-Design — das Gerät ist SCHMAL und HOCH, nicht breit",
-          "Korrekte Übungsausführung — natürliche Krafttraining-Posen"
+          "Korrekte Übungsausführung — natürliche Krafttraining-Posen",
+          "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
           "Verwechslung mit klassischer Multi-Gym/Kraftstation mit Gewichtsblock — sGym Pro ist SCHLANK und MODERN",
           "Falsche Proportionen — das Gerät ist ein schmaler TURM (44cm breit geklappt)",
           "Generische Kraftstation statt exakter Nachbildung",
-          "Unrealistische Übungsposen"
+          "Unrealistische Übungsposen",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {
@@ -689,11 +709,13 @@
         "must_match": [
           "EXAKTE Nachbildung — schwarzer Stahlrahmen mit roten Akzenten",
           "Sichtbarer Gewichtsblock",
-          "Korrekte Übungsausführung"
+          "Korrekte Übungsausführung",
+          "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
           "Verwechslung mit sGym Pro (schlanker Turm) — HGX50 ist eine KLASSISCHE Kraftstation mit Bank",
-          "Generische Multi-Gym"
+          "Generische Multi-Gym",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {
@@ -756,12 +778,14 @@
           "HEXAGONALE Form — sechseckig, NICHT rechteckig oder quadratisch",
           "Schwarze, flache Platte am Boden",
           "Person STEHT auf der Platte",
-          "LED-Beleuchtung um die Kanten"
+          "LED-Beleuchtung um die Kanten",
+          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
         ],
         "must_avoid": [
           "Rechteckige Form — sVibe ist HEXAGONAL",
           "Platte zu groß oder zu dick dargestellt — sie ist kompakt und flach (14cm hoch)",
-          "Person liegt auf der Platte"
+          "Person liegt auf der Platte",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {
@@ -824,13 +848,17 @@
           "KEIN Handlauf — WoodPad Pro ist FLACH wie ein Brett",
           "Person GEHT, nicht rennt (max 8km/h)",
           "Holz-Ästhetik muss premium und wohnzimmertauglich aussehen",
-          "Korrekte Holzfarbe wie angegeben (hell/dunkel/grau)"
+          "Korrekte Holzfarbe wie angegeben (hell/dunkel/grau)",
+          "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
         ],
         "must_avoid": [
           "Handläufe oder Konsole — WoodPad Pro ist KOMPLETT FLACH",
           "Lauf-Pose — nur GEHEN",
           "Plastik-Look — muss echtes HOLZ aussehen",
-          "Verwechslung mit normalem Laufband — WoodPad ist ein WALKING PAD aus Holz"
+          "Verwechslung mit normalem Laufband — WoodPad ist ein WALKING PAD aus Holz",
+          "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
+          "Unnatürlich flache, gestreckte oder verdrehte Füße"
         ]
       },
       "reference_images": {
@@ -896,12 +924,14 @@
           "EXAKTE Nachbildung — massives schwarzes Power Rack mit geführter Langhantel",
           "Zwei separate Kabel-Türme mit sichtbaren Gewichtsblöcken",
           "Klimmzugstange oben",
-          "Korrekte Übungsausführung"
+          "Korrekte Übungsausführung",
+          "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
           "Verwechslung mit einfachem Kabelzug — SXM200 ist ein GROSSES RACK",
           "Falsche Proportionen — das Gerät ist 2.3m HOCH",
-          "Generisches Power Rack statt exakter Nachbildung"
+          "Generisches Power Rack statt exakter Nachbildung",
+          "Barfuß auf dem Gerät"
         ]
       },
       "reference_images": {

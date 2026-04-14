@@ -94,33 +94,58 @@ def download_image(url):
     return None
 
 
-def get_product_images(product_handle):
-    """Fetch product reference images: Freisteller + Renders ONLY.
+MAX_PRODUCT_REFERENCES = 12  # upper bound to keep the request payload sane
 
-    Lifestyle examples are intentionally NOT fetched here. Gemini weights images
-    higher than text, so lifestyle refs showing people in the wrong orientation
-    caused pose-direction regressions (see commit 9eb82b5). Lifestyle context is
-    instead provided via the cached Image Describer text.
+
+def get_product_images(product_handle):
+    """Fetch product reference images: high-res render cutouts first, then
+    whatever Shopware thumbnails we have as a lightweight extra.
+
+    The primary source is `renders/<handle>/cutouts/` — those were produced
+    by the background-remover skill from the 1500-4096px CGI renders and
+    are by far the most useful references Gemini has for matching product
+    geometry, materials, and branding.
+
+    The `products/<handle>/` folder contains small Shopware thumbnails
+    (often ~200px). They're kept as a low-priority fallback — they can
+    still contribute color information without bloating the payload.
+
+    Lifestyle examples are intentionally NOT fetched here. Gemini weights
+    images higher than text, so lifestyle refs showing people in the wrong
+    orientation caused pose-direction regressions (see commit 9eb82b5).
+    Lifestyle context is provided via the cached Image Describer text.
     """
     images = []
 
-    # 1. ALL Freisteller (cutout images — most important for product accuracy)
-    freisteller_files = list_storage_files(f"products/{product_handle}/")
-    print(f"  Freisteller: {len(freisteller_files)} found")
-    for f in sorted(freisteller_files, key=lambda x: x.get("name", "")):
+    # 1. Render cutouts (high-res, transparent PNGs from background-remover)
+    cutout_files = list_storage_files(f"renders/{product_handle}/cutouts/")
+    print(f"  Render cutouts: {len(cutout_files)} found")
+    for f in sorted(cutout_files, key=lambda x: x.get("name", "")):
+        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/renders/{product_handle}/cutouts/{f['name']}"
+        img = download_image(url)
+        if img:
+            images.append({**img, "name": f"render_cutout/{f['name']}", "type": "render_cutout"})
+
+    # 2. Raw renders (fallback when cutouts are missing — never run rembg)
+    if not cutout_files:
+        render_files = list_storage_files(f"renders/{product_handle}/")
+        print(f"  Renders (raw fallback): {len(render_files)} found")
+        for f in sorted(render_files, key=lambda x: x.get("name", "")):
+            url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/renders/{product_handle}/{f['name']}"
+            img = download_image(url)
+            if img:
+                images.append({**img, "name": f"render/{f['name']}", "type": "render"})
+
+    # 3. Shopware thumbnails as a lightweight extra (color anchor)
+    thumb_files = list_storage_files(f"products/{product_handle}/")
+    print(f"  Shopware thumbs: {len(thumb_files)} found")
+    for f in sorted(thumb_files, key=lambda x: x.get("name", "")):
+        if f.get("name") == "cutouts":
+            continue
         url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/products/{product_handle}/{f['name']}"
         img = download_image(url)
         if img:
-            images.append({**img, "name": f"freisteller/{f['name']}", "type": "freisteller"})
-
-    # 2. Renders (3D renders — great for product shape/detail)
-    render_files = list_storage_files(f"renders/{product_handle}/", limit=8)
-    print(f"  Renders: {len(render_files)} found (using up to 8)")
-    for f in sorted(render_files, key=lambda x: x.get("name", ""))[:8]:
-        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/renders/{product_handle}/{f['name']}"
-        img = download_image(url)
-        if img:
-            images.append({**img, "name": f"render/{f['name']}", "type": "render"})
+            images.append({**img, "name": f"thumb/{f['name']}", "type": "thumb"})
 
     return images
 
@@ -329,10 +354,13 @@ def main():
         if room_prompt:
             print(f"  Using room preset: {args.room_preset}")
 
-    # Pre-select best images by type.
-    # NOTE: lifestyle_example refs are intentionally never fetched — see get_product_images().
-    freisteller = [img for img in product_images if img.get("type") == "freisteller"]
-    renders = [img for img in product_images if img.get("type") == "render"]
+    # Pre-select best images by type. Render cutouts are the high-quality
+    # geometric anchors (transparent PNGs, 1500-4096px). Raw renders are a
+    # fallback for products where the bg-remover hasn't run yet. Shopware
+    # thumbs are low-res (~200px) and only contribute color information.
+    render_cutouts = [img for img in product_images if img.get("type") == "render_cutout"]
+    raw_renders = [img for img in product_images if img.get("type") == "render"]
+    thumbs = [img for img in product_images if img.get("type") == "thumb"]
 
     # === STEP 1: LOAD CACHED PRODUCT DESCRIPTION (from Image Describer skill) ===
     product_description_ai = load_cached_product_description(args.product)
@@ -396,23 +424,36 @@ def main():
             # Get direction info if available
             direction = how_it_works.get("direction", "")
 
-            # GROUP 1: Product cutouts (ground truth for product accuracy)
-            best_freisteller = freisteller[:5]
-            for img in best_freisteller:
+            # GROUP 1: Product references (ground truth for product accuracy).
+            # Prefer the transparent high-res render cutouts; fall back to raw
+            # renders when no cutouts exist; append small Shopware thumbs last
+            # as a color anchor. Cap total references to MAX_PRODUCT_REFERENCES
+            # so the request payload stays reasonable.
+            primary_refs = render_cutouts or raw_renders
+            # Shuffle so multi-image batches don't always see the same order —
+            # Gemini tends to weight earlier images more heavily.
+            primary_sampled = random.sample(primary_refs, min(len(primary_refs), MAX_PRODUCT_REFERENCES - min(3, len(thumbs))))
+            thumb_sampled = thumbs[:MAX_PRODUCT_REFERENCES - len(primary_sampled)]
+            selected_refs = primary_sampled + thumb_sampled
+
+            for img in selected_refs:
                 parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
-            n_product = len(best_freisteller)
+            n_product = len(selected_refs)
             product_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
+            ref_source = "high-resolution transparent CGI renders" if render_cutouts else "product renders"
 
             parts.append({
                 "text": (
-                    f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name}. "
-                    f"Use these images ONLY to match the exact geometry, colors, materials, "
-                    f"and details of the product. DO NOT copy the camera angle, composition, "
-                    f"orientation, or which side of the product faces the camera — these are "
-                    f"marketing shots with the display/front artificially facing the viewer. "
-                    f"The final image uses a COMPLETELY DIFFERENT camera position defined in "
-                    f"the SCENE SETUP section of the prompt below.\n\n"
+                    f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name} "
+                    f"({n_product} {ref_source}). Use these images ONLY to match the exact "
+                    f"geometry, proportions, colors, materials, wood grain, branding text, "
+                    f"and every visible detail of the product. Treat these as the ground "
+                    f"truth for what the product looks like. DO NOT copy the camera angle, "
+                    f"composition, orientation, or which side of the product faces the "
+                    f"camera — those are marketing shots with the display/front artificially "
+                    f"facing the viewer. The final image uses a COMPLETELY DIFFERENT camera "
+                    f"position defined in the SCENE SETUP section of the prompt below.\n\n"
                 )
             })
 
