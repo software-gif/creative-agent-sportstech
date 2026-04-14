@@ -656,22 +656,27 @@
       ],
       "ai_generation_rules": {
         "must_match": [
-          "Person TRAINIERT aktiv an der sGym Pro (Griffe in der Hand, Übung in Ausführung) — nicht daneben",
-          "EXAKTE Nachbildung — schwarzer Turm mit Display, Seilzug, Klimmzugstange",
-          "21-Zoll Touchscreen-Display am Gerät",
-          "Seilzug-Kabel sichtbar",
-          "Klimmzugstange oben am Gerät",
-          "Kompaktes Turm-Design — das Gerät ist SCHMAL und HOCH, nicht breit",
-          "Korrekte Übungsausführung — natürliche Krafttraining-Posen",
-          "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
+          "Person TRAINIERT aktiv an der sGym Pro (beide Hände an den Griffen, in aktiver Übungsausführung) — nicht daneben",
+          "Person STEHT auf der breiten schwarzen BODENPLATTE vor dem Turm — die Bodenplatte ist ein essentielles Merkmal",
+          "EXAKTE Nachbildung — schmaler, hoher schwarzer Turm (44cm breit geklappt, ca. 2m hoch) mit breiter flacher Bodenplatte am Fuß",
+          "ZWEI ARTIKULIERTE CABLE-ARME OBEN AM TURM die sich nach außen/vorne ausklappen lassen — das ist das definierende Feature. Ohne diese Arme ist es NICHT die sGym Pro.",
+          "KLIMMZUGSTANGE quer oben am Turm, als Teil der artikulierten Arm-Struktur",
+          "Grosses senkrechtes Display/Touchscreen (21-Zoll) auf der Vorderseite des Turms, in Brusthöhe",
+          "Zwei Cable-Handles (Griffe) die ÜBER SEILZUGKABEL mit den artikulierten Armen oben verbunden sind — die Kabel müssen sichtbar und durchgehend sein, vom Arm bis zur Hand",
+          "Person benutzt BEIDE Cable-Handles gleichzeitig in einer symmetrischen Bewegung (z.B. Chest Press, Front Raise, Row)",
+          "Rotes SPORTSTECH Branding / S-Logo auf der Vorderseite des Turms",
+          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
-          "Verwechslung mit klassischer Multi-Gym/Kraftstation mit Gewichtsblock — sGym Pro ist SCHLANK und MODERN",
-          "Falsche Proportionen — das Gerät ist ein schmaler TURM (44cm breit geklappt)",
-          "Generische Kraftstation statt exakter Nachbildung",
-          "Unrealistische Übungsposen",
-          "Barfuß auf dem Gerät"
+          "GENERISCHER SCHWARZER SCHRANK / MINIMALISTISCHES DISPLAY-MODUL ohne die artikulierten Cable-Arme oben — das ist NICHT die sGym Pro",
+          "Fehlende Cable-Arme oben am Turm — ohne die zwei artikulierten Arme ist das Bild unbrauchbar",
+          "Fehlende Klimmzugstange oben",
+          "Nur EIN Cable-Handle sichtbar, während der andere an nichts angeschlossen ist",
+          "Cable-Handle in der Hand der Person, aber Kabel endet mitten in der Luft oder am falschen Ort (muss sichtbar zum Arm oben führen)",
+          "Verwechslung mit klassischer Kraftstation, Multi-Gym mit Gewichtsblock, oder HGX50 — die sGym Pro hat KEIN sichtbares Gewichtsblock (Widerstand elektronisch)",
+          "Verwechslung mit einfachem Display-Schrank ohne Trainingsfunktion",
+          "Barfuß beim Training"
         ]
       },
       "reference_images": {
