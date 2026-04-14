@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Creative, getImageUrl, downloadCreative } from "./CreativeCard";
 import { PRODUCT_LABELS } from "@/lib/constants";
 
@@ -11,6 +12,8 @@ type ImageOverlayProps = {
 };
 
 export default function ImageOverlay({ creative, variants = [], onClose, onSelectVariant }: ImageOverlayProps) {
+  const [copied, setCopied] = useState<"path" | "id" | null>(null);
+
   if (!creative) return null;
 
   const imageUrl = getImageUrl(creative);
@@ -21,6 +24,18 @@ export default function ImageOverlay({ creative, variants = [], onClose, onSelec
 
   const multishots = variants.filter((v) => v.creative_type === "multishot");
   const colorVariants = variants.filter((v) => v.creative_type === "color_variant");
+
+  async function copy(value: string, kind: "path" | "id") {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(kind);
+      setTimeout(() => setCopied(null), 1500);
+    } catch {
+      // Clipboard API unavailable — fall back to prompt so the user can
+      // still grab the value manually instead of getting no feedback.
+      window.prompt("Copy:", value);
+    }
+  }
 
   return (
     <div
@@ -121,6 +136,26 @@ export default function ImageOverlay({ creative, variants = [], onClose, onSelec
                 Download
               </button>
             )}
+
+            {/* Copy helpers for agent chaining */}
+            <div className="mt-2 flex gap-1.5">
+              {creative.storage_path && (
+                <button
+                  onClick={() => copy(creative.storage_path!, "path")}
+                  className="flex-1 text-[11px] font-medium bg-white/10 hover:bg-white/20 text-white/80 py-1.5 rounded-md transition-colors"
+                  title="Copy storage path — paste into Claude prompt for multishot/color-variant"
+                >
+                  {copied === "path" ? "Copied!" : "Copy path"}
+                </button>
+              )}
+              <button
+                onClick={() => copy(creative.id, "id")}
+                className="flex-1 text-[11px] font-medium bg-white/10 hover:bg-white/20 text-white/80 py-1.5 rounded-md transition-colors"
+                title="Copy creative ID"
+              >
+                {copied === "id" ? "Copied!" : "Copy ID"}
+              </button>
+            </div>
           </div>
 
           {/* Variant groups — beside the image, stacked vertically */}
