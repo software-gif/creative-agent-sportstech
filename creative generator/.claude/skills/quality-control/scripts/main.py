@@ -231,9 +231,18 @@ How this product is used:
 EVALUATE THE GENERATED IMAGE AGAINST THESE CRITERIA. Be strict — if anything looks even slightly off, drop the score. A passing image (8+) must be fully believable as a real photograph.
 
 HARD FAILURES — any of these means overall = 0, pass = false, regardless of other criteria:
+
 - PERSON IS NOT PHYSICALLY USING THE EQUIPMENT. Feet must be ON the walking/running surface, hands must be ON the handles of a bike/rower/crosstrainer, body must be ON the vibration plate. If the person is standing next to, behind, or in front of the equipment instead of on it, this is an automatic overall = 0 and pass = false. The same applies if the person's feet are on the floor next to the walking pad while they use a laptop at a standing desk — that is not usage, that is the product being decorative.
-- The wrong product is shown (e.g. a tall treadmill with handrails when the brief says flat walking pad).
-- The product is grossly distorted (bent, melted, floating, double-sized).
+
+- THE WRONG PRODUCT is shown (e.g. a tall treadmill with handrails when the brief says flat walking pad).
+
+- ANATOMICAL IMPOSSIBILITY on the person: twisted or bent-the-wrong-way joints, legs rotated 180° from where the hips face, extra or missing fingers, melting faces, limbs fused with the equipment, impossibly long arms, feet pointing backwards relative to the hips, knees bending sideways. If a real human body could not physically assume the pose shown, that is a hard failure.
+
+- PHYSICAL / MECHANICAL IMPOSSIBILITY on the equipment: a cable, rope, or chain that floats unconnected in mid-air, a handle that the person holds but is not attached to any cable or bar, a pulley with no cable through it, a weight stack floating with no connection, a barbell not aligned with the rails it's supposed to slide along, or any load-bearing element that doesn't physically connect to what it should. If a mechanical engineer would say "this cannot work", that is a hard failure.
+
+- DUPLICATED OR MIRRORED GEOMETRY on the product: two pulleys where the references show one, a doubled console, a second display that shouldn't exist, a cable splitting into two where it should be continuous. If a feature appears twice in the generated image but only once in the references, that is a hard failure.
+
+- THE PRODUCT is grossly distorted (bent, melted, floating, double-sized, proportions that don't match references).
 
 If none of the hard failures apply, continue scoring:
 

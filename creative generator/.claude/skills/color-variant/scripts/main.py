@@ -17,6 +17,7 @@ import argparse
 import base64
 import json
 import os
+import subprocess
 import sys
 import uuid
 from datetime import datetime
@@ -212,7 +213,18 @@ def main():
     parser.add_argument("--logo-instructions", default=None, help="Logo color/style instructions")
     parser.add_argument("--keep-scene", action="store_true", default=True, help="Keep scene and character the same")
     parser.add_argument("--source-creative-id", default=None, help="Source creative ID from Supabase")
+    parser.add_argument("--auto-qc", dest="auto_qc", action="store_true", default=True,
+                        help="Run quality-control on the generated variant and retry on failure. Default: on.")
+    parser.add_argument("--no-qc", dest="auto_qc", action="store_false",
+                        help="Skip the QC loop. Use sparingly.")
+    parser.add_argument("--qc-retries", type=int, default=2,
+                        help="Max retries when auto-qc is on (default 2).")
+    parser.add_argument("--qc-threshold", type=int, default=7,
+                        help="Minimum QC score (0-10) to accept the variant (default 7).")
     args = parser.parse_args()
+
+    qc_script = os.path.join(SCRIPT_DIR, "..", "..", "quality-control", "scripts", "main.py")
+    max_attempts = (args.qc_retries + 1) if args.auto_qc else 1
 
     if not GEMINI_API_KEY:
         sys.exit("ERROR: GEMINI_API_KEY not set")
@@ -268,53 +280,86 @@ Logo: {logo_inst}"""
     print(f"  Source: {source_path}")
     print(f"  Prompt: {prompt[:200]}...")
 
-    # Generate
-    result = generate_color_variant(source_path, prompt)
-    if result is None:
-        sys.exit("FAILED: Could not generate color variant")
+    saved = None
+    storage_path = None
+    for attempt in range(1, max_attempts + 1):
+        if max_attempts > 1:
+            print(f"\n  Attempt {attempt}/{max_attempts}")
 
-    img_bytes, ext = result
-    creative_id = str(uuid.uuid4())
-    storage_path = f"color_variants/{creative_id}.{ext}"
-    url = upload_to_supabase(img_bytes, storage_path, ext)
+        result = generate_color_variant(source_path, prompt)
+        if result is None:
+            print(f"  FAILED: Could not generate color variant (attempt {attempt})")
+            continue
 
-    if not url:
-        # Save locally as fallback
-        local_dir = os.path.join(PROJECT_ROOT, "creatives", "color_variants")
-        os.makedirs(local_dir, exist_ok=True)
-        local_path = os.path.join(local_dir, f"{creative_id}.{ext}")
-        with open(local_path, "wb") as f:
-            f.write(img_bytes)
-        print(f"  Saved locally: {local_path}")
-        storage_path = f"creatives/color_variants/{creative_id}.{ext}"
+        img_bytes, ext = result
+        creative_id = str(uuid.uuid4())
+        storage_path = f"color_variants/{creative_id}.{ext}"
+        url = upload_to_supabase(img_bytes, storage_path, ext)
 
-    # Save to database
-    creative_data = {
-        "id": creative_id,
-        "brand_id": brand_id,
-        "parent_id": parent_id,
-        "storage_path": storage_path,
-        "prompt_text": prompt,
-        "prompt_json": {
-            "source_image": args.source_image,
-            "source_creative_id": args.source_creative_id,
-            "target_color": args.target_color,
-            "material_instructions": material_inst,
-            "logo_instructions": logo_inst,
-        },
-        "creative_type": "color_variant",
-        "color_variant": args.target_color,
-        "generation_model": GEMINI_MODEL,
-        "status": "generated",
-    }
+        if not url:
+            # Save locally as fallback
+            local_dir = os.path.join(PROJECT_ROOT, "creatives", "color_variants")
+            os.makedirs(local_dir, exist_ok=True)
+            local_path = os.path.join(local_dir, f"{creative_id}.{ext}")
+            with open(local_path, "wb") as f:
+                f.write(img_bytes)
+            print(f"  Saved locally: {local_path}")
+            storage_path = f"creatives/color_variants/{creative_id}.{ext}"
 
-    saved = save_creative_to_db(creative_data)
+        # Save to database
+        creative_data = {
+            "id": creative_id,
+            "brand_id": brand_id,
+            "parent_id": parent_id,
+            "storage_path": storage_path,
+            "prompt_text": prompt,
+            "prompt_json": {
+                "source_image": args.source_image,
+                "source_creative_id": args.source_creative_id,
+                "target_color": args.target_color,
+                "material_instructions": material_inst,
+                "logo_instructions": logo_inst,
+                "product": args.product,  # let QC pick the right rules
+            },
+            "creative_type": "color_variant",
+            "color_variant": args.target_color,
+            "generation_model": GEMINI_MODEL,
+            "status": "generated",
+        }
+
+        saved = save_creative_to_db(creative_data)
+        print(f"  SAVED: {saved['id']}")
+        if url:
+            print(f"  URL: {url}")
+
+        if not args.auto_qc:
+            break
+
+        print(f"  Running QC (threshold {args.qc_threshold})...")
+        qc_proc = subprocess.run(
+            [
+                sys.executable, qc_script,
+                "--creative-id", creative_id,
+                "--delete-on-fail",
+                "--threshold", str(args.qc_threshold),
+            ],
+            capture_output=True, text=True,
+        )
+        sys.stdout.write(qc_proc.stdout)
+        if qc_proc.stderr:
+            sys.stderr.write(qc_proc.stderr)
+        if qc_proc.returncode == 0:
+            break
+        saved = None
+        print(f"  QC rejected variant (attempt {attempt}/{max_attempts}), retrying…")
+
+    if not saved:
+        sys.exit(f"FAILED: color variant did not pass QC in {max_attempts} attempts")
+
     print(f"\n{'=' * 60}")
     print(f"COLOR VARIANT SAVED: {saved['id']}")
     print(f"  Color: {args.target_color}")
     print(f"  Storage: {storage_path}")
-    if url:
-        print(f"  URL: {url}")
     print(f"{'=' * 60}")
 
     # Structured result for agent chaining

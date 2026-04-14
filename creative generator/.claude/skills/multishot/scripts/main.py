@@ -23,6 +23,7 @@ import argparse
 import base64
 import json
 import os
+import subprocess
 import sys
 import uuid
 from datetime import datetime
@@ -265,7 +266,18 @@ def main():
     parser.add_argument("--model-detail", default=None)
     parser.add_argument("--batch", default=None, help="JSON array of settings for batch generation")
     parser.add_argument("--source-creative-id", default=None)
+    parser.add_argument("--auto-qc", dest="auto_qc", action="store_true", default=True,
+                        help="Run quality-control on each generated shot and retry on failure. Default: on.")
+    parser.add_argument("--no-qc", dest="auto_qc", action="store_false",
+                        help="Skip the QC loop. Use sparingly.")
+    parser.add_argument("--qc-retries", type=int, default=2,
+                        help="Max retries per shot when auto-qc is on (default 2).")
+    parser.add_argument("--qc-threshold", type=int, default=7,
+                        help="Minimum QC score (0-10) to accept a shot (default 7).")
     args = parser.parse_args()
+
+    qc_script = os.path.join(SCRIPT_DIR, "..", "..", "quality-control", "scripts", "main.py")
+    max_attempts = (args.qc_retries + 1) if args.auto_qc else 1
 
     if not GEMINI_API_KEY:
         sys.exit("ERROR: GEMINI_API_KEY not set")
@@ -312,6 +324,22 @@ def main():
     print(f"  Batch ID: {batch_id}")
     print(f"  Shots: {len(shots)}")
 
+    # Attempt to resolve the parent's product handle so the QC judge uses
+    # the correct must_match rules. parent_id gives us the creative row.
+    parent_product_handle = None
+    if parent_id:
+        try:
+            pr = requests.get(
+                f"{SUPABASE_URL}/rest/v1/creatives",
+                headers=get_supabase_headers(),
+                params={"id": f"eq.{parent_id}", "select": "prompt_json,product_category"},
+            )
+            if pr.ok and pr.json():
+                pj = pr.json()[0].get("prompt_json") or {}
+                parent_product_handle = pj.get("product")
+        except Exception:
+            pass
+
     results = []
     for i, settings in enumerate(shots):
         label = f"shot_{i+1}"
@@ -320,47 +348,83 @@ def main():
         print(f"\n{'─' * 40}")
         print(f"Shot {i+1}/{len(shots)}")
         print(f"  Settings: {json.dumps({k:v for k,v in settings.items() if v}, ensure_ascii=False)}")
-        print(f"  Prompt: {prompt[:200]}")
 
-        result = generate_multishot(source_path, prompt, label)
-        if result is None:
-            print(f"  FAILED: {label}")
-            continue
+        accepted_id = None
+        for attempt in range(1, max_attempts + 1):
+            if max_attempts > 1:
+                print(f"  Attempt {attempt}/{max_attempts}")
 
-        img_bytes, ext = result
-        creative_id = str(uuid.uuid4())
-        storage_path = f"multishots/{batch_id}/{label}.{ext}"
-        url = upload_to_supabase(img_bytes, storage_path, ext)
+            result = generate_multishot(source_path, prompt, label, attempt)
+            if result is None:
+                print(f"  FAILED: {label}")
+                continue
 
-        if not url:
-            local_dir = os.path.join(PROJECT_ROOT, "creatives", "multishots", batch_id)
-            os.makedirs(local_dir, exist_ok=True)
-            local_path = os.path.join(local_dir, f"{label}.{ext}")
-            with open(local_path, "wb") as f:
-                f.write(img_bytes)
-            print(f"  Saved locally: {local_path}")
+            img_bytes, ext = result
+            creative_id = str(uuid.uuid4())
+            storage_path = f"multishots/{batch_id}/{label}_a{attempt}.{ext}"
+            url = upload_to_supabase(img_bytes, storage_path, ext)
 
-        creative_data = {
-            "id": creative_id,
-            "brand_id": brand_id,
-            "batch_id": batch_id,
-            "parent_id": parent_id,
-            "storage_path": storage_path,
-            "prompt_text": prompt,
-            "prompt_json": {"source_image": args.source_image, "settings": settings},
-            "shot_size": settings.get("shot_size"),
-            "camera_angle": settings.get("camera_angle"),
-            "character_angle": settings.get("character_angle"),
-            "lens": settings.get("lens"),
-            "depth_of_field": settings.get("depth_of_field"),
-            "creative_type": "multishot",
-            "generation_model": GEMINI_MODEL,
-            "status": "generated",
-        }
+            if not url:
+                local_dir = os.path.join(PROJECT_ROOT, "creatives", "multishots", batch_id)
+                os.makedirs(local_dir, exist_ok=True)
+                local_path = os.path.join(local_dir, f"{label}_a{attempt}.{ext}")
+                with open(local_path, "wb") as f:
+                    f.write(img_bytes)
+                print(f"  Saved locally: {local_path}")
 
-        saved = save_creative_to_db(creative_data)
-        results.append(saved)
-        print(f"  Saved: {saved['id']}")
+            creative_data = {
+                "id": creative_id,
+                "brand_id": brand_id,
+                "batch_id": batch_id,
+                "parent_id": parent_id,
+                "storage_path": storage_path,
+                "prompt_text": prompt,
+                "prompt_json": {
+                    "source_image": args.source_image,
+                    "settings": settings,
+                    # Inherit the parent's product handle so QC loads the
+                    # right must_match / must_avoid rules.
+                    "product": parent_product_handle,
+                },
+                "shot_size": settings.get("shot_size"),
+                "camera_angle": settings.get("camera_angle"),
+                "character_angle": settings.get("character_angle"),
+                "lens": settings.get("lens"),
+                "depth_of_field": settings.get("depth_of_field"),
+                "creative_type": "multishot",
+                "generation_model": GEMINI_MODEL,
+                "status": "generated",
+            }
+
+            saved = save_creative_to_db(creative_data)
+            print(f"  Saved: {saved['id']}")
+
+            if not args.auto_qc:
+                accepted_id = saved["id"]
+                results.append(saved)
+                break
+
+            print(f"  Running QC (threshold {args.qc_threshold})...")
+            qc_proc = subprocess.run(
+                [
+                    sys.executable, qc_script,
+                    "--creative-id", creative_id,
+                    "--delete-on-fail",
+                    "--threshold", str(args.qc_threshold),
+                ],
+                capture_output=True, text=True,
+            )
+            sys.stdout.write(qc_proc.stdout)
+            if qc_proc.stderr:
+                sys.stderr.write(qc_proc.stderr)
+            if qc_proc.returncode == 0:
+                accepted_id = saved["id"]
+                results.append(saved)
+                break
+            print(f"  QC rejected {label} (attempt {attempt}/{max_attempts}), retrying…")
+
+        if not accepted_id:
+            print(f"  WARN: {label} exhausted {max_attempts} attempts without passing QC")
 
     print(f"\n{'=' * 60}")
     print(f"MULTISHOT BATCH COMPLETE: {batch_id}")

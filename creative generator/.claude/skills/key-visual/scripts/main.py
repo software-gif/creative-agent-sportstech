@@ -461,10 +461,12 @@ def main():
     parser.add_argument("--count", type=int, default=1, help="Number of images to generate")
     parser.add_argument("--variant", default=None,
                         help="Product color/material variant (e.g. wood_light, black). If unset, defaults to the dominant variant in the catalog.")
-    parser.add_argument("--auto-qc", action="store_true",
-                        help="Run quality-control on each generated image and retry on failure.")
+    parser.add_argument("--auto-qc", dest="auto_qc", action="store_true", default=True,
+                        help="Run quality-control on each generated image and retry on failure. Default: on.")
+    parser.add_argument("--no-qc", dest="auto_qc", action="store_false",
+                        help="Skip the QC loop and land every image on the board. Use sparingly.")
     parser.add_argument("--qc-retries", type=int, default=2,
-                        help="Max retries per image when --auto-qc is enabled (default 2, so up to 3 attempts total).")
+                        help="Max retries per image when auto-qc is on (default 2, so up to 3 attempts total).")
     parser.add_argument("--qc-threshold", type=int, default=7,
                         help="Minimum QC score (0-10) to accept the image (default 7).")
     args = parser.parse_args()
