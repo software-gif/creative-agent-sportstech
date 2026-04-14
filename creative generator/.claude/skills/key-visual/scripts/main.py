@@ -770,6 +770,12 @@ The person must be in active physical contact with the {product_name}. Their fee
 The {product_name}'s display screen has exactly ONE side with the interface and it ALWAYS faces the user. The camera position in (2) determines what the camera can see:
 - When the camera is behind or beside the user, the display faces AWAY from the camera. We see only the back edge of the console. No screen interface is visible in the frame.
 - The user's face and the screen interface CANNOT both be visible in the same frame. This combination is physically impossible — never generate it.
+
+4. DISPLAY / SCREEN CONTENT (handle this carefully — the model tends to hallucinate UI):
+If any display, touchscreen or console screen is visible in the frame, render it as a DARK MATTE SCREEN (black or deep charcoal). If you render UI at all, keep it minimal and abstract: a subtle workout line graph, clean sans-serif labels at unreadable size, maybe one accent colour highlight. NEVER render readable numbers, timer values, menu text, text you cannot directly verify from the reference images, Apple iOS UI, smartphone lockscreens, or any realistic-looking user interface with specific text. When in doubt, render the display completely off. A dark display is always better than an invented one.
+
+5. COMPONENT COUNT (non-negotiable):
+Count the cables, handles, pulleys, rollers, handlebars, display screens and weight stacks you see in the reference images and match those counts exactly in the generated image. Do not duplicate linear elements. If a cable goes from the tower down to a handle, it is ONE continuous cable — never split it into two or render it as multiple strands. If the reference has two handles with one cable each, the generated image has exactly two cables total.
 {'=' * 40}
 
 PERSON: {character_desc or args.character_description or 'An athletic person in dark fitness clothing'}

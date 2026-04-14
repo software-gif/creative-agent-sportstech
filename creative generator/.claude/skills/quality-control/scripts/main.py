@@ -242,6 +242,10 @@ HARD FAILURES — any of these means overall = 0, pass = false, regardless of ot
 
 - DUPLICATED OR MIRRORED GEOMETRY on the product: two pulleys where the references show one, a doubled console, a second display that shouldn't exist, a cable splitting into two where it should be continuous. If a feature appears twice in the generated image but only once in the references, that is a hard failure.
 
+- COUNT MISMATCH vs references: count the cables, handles, pulleys, handlebars, display screens, and weight stacks in the generated image and compare against the reference photos. If the generated image has MORE of any of these than the references show (e.g. 4 cables where references have 2, 2 displays where references have 1, 3 handles where references have 2), that is a hard failure. Gemini tends to duplicate linear elements — penalise it.
+
+- DISPLAY / SCREEN CONTENT: if a display or touchscreen is visible in the generated image and shows invented text, garbled numbers, random menus, Apple iOS / smartphone UI, or content that clearly doesn't match the workout-interface style of the references, that is a hard failure. A dark or off display is always acceptable; a wrong display is not.
+
 - THE PRODUCT is grossly distorted (bent, melted, floating, double-sized, proportions that don't match references).
 
 If none of the hard failures apply, continue scoring:

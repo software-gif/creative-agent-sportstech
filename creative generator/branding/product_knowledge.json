@@ -106,7 +106,8 @@
           "Rotes SPORTSTECH Logo auf silbernen Pfosten",
           "Korrekte Laufhaltung — aufrecht, natürliche Armbewegung",
           "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
-          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -115,7 +116,8 @@
           "Person hält sich am Handlauf fest WÄHREND des Laufens (nur beim Stehenbleiben)",
           "Falsches oder fehlendes SPORTSTECH Branding",
           "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
-          "Unnatürlich flache, gestreckte oder verdrehte Füße"
+          "Unnatürlich flache, gestreckte oder verdrehte Füße",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ]
       }
     },
@@ -200,7 +202,8 @@
           "Green START and red STOP buttons visible on console",
           "Person's feet are ON the running belt, body facing TOWARD the display",
           "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
-          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -213,7 +216,8 @@
           "Missing LED accent strips on the sides",
           "Wrong proportions — the machine is sleek and modern, not bulky",
           "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
-          "Unnatürlich flache, gestreckte oder verdrehte Füße"
+          "Unnatürlich flache, gestreckte oder verdrehte Füße",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ]
       },
       "reference_images": {
@@ -294,7 +298,8 @@
           "Roter Widerstandsknopf / Not-Stopp sichtbar",
           "Blaues leuchtendes S-Logo unter dem Display",
           "Korrekte Sitzposition — Person sitzt auf Sattel, Füße in Pedalen, Hände am Lenker",
-          "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops"
+          "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -305,7 +310,8 @@
           "Person steht neben dem Bike statt darauf zu sitzen/fahren",
           "Falsche Fußposition — Füße müssen IN den Pedalen sein, nicht daneben",
           "Verwechslung mit normalem Heimtrainer/Ergometer — sBike ist ein SPEEDBIKE mit Rennrad-Ästhetik",
-          "Barfuß auf dem Gerät"
+          "Barfuß auf dem Gerät",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ]
       },
       "reference_images": {
@@ -384,7 +390,8 @@
           "Rote Akzentfarbe an Sattel, Pedalen und Details",
           "Kompaktes, schlankes Design — das Gerät ist KLEIN und KLAPPBAR",
           "Korrekte Sitz-/Trittposition",
-          "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops"
+          "Person trägt geschlossene Fitness-/Indoor-Cycling-Schuhe — nie barfuß, keine Flip-Flops",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -393,7 +400,8 @@
           "Fehlende Power Ropes",
           "Falsche Größenproportionen — das Gerät ist kleiner als ein normales Fahrrad",
           "Generisches Ergometer statt dem spezifischen X-Frame Design",
-          "Barfuß auf dem Gerät"
+          "Barfuß auf dem Gerät",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ],
         "allowed_camera_angles": [
           "Eye level",
@@ -482,7 +490,8 @@
           "Zwei verschiedene Grifftypen sichtbar: bewegliche Armstangen oben + feste Griffe unten",
           "LCD-Display in der Mitte des Geräts",
           "Aufrechte Körperhaltung — natürliche, entspannte Trainingsposition",
-          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
+          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -493,7 +502,8 @@
           "Fehlende silberne Schwungscheibe",
           "Unrealistische Körperhaltung oder Verrenkungen — die Bewegung ist FLIESSEND und NATÜRLICH",
           "Verwechslung der Griffe — bewegliche Armstangen sind OBEN (lang), feste Griffe sind UNTEN (kurz)",
-          "Barfuß auf dem Gerät"
+          "Barfuß auf dem Gerät",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ]
       },
       "reference_images": {
@@ -572,14 +582,16 @@
           "21.5-Zoll Touchscreen auf Holz-Ständer über dem Wassertank",
           "SPORTSTECH Logo seitlich auf dem Holzrahmen",
           "Korrekte Ruderhaltung — Sitzen, beide Hände am Griff",
-          "Doppel-Aluminium-Schienen sichtbar"
+          "Doppel-Aluminium-Schienen sichtbar",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
           "Fehlender oder nicht-transparenter Wassertank — das Wasser MUSS sichtbar sein",
           "Falsches Holz — muss HELLES Eichenholz sein (nicht dunkel, nicht Plastik)",
           "Generisches Rudergerät statt exakter AquaElite Nachbildung",
-          "Fehlende LED-Beleuchtung am Wassertank"
+          "Fehlende LED-Beleuchtung am Wassertank",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ],
         "color_variant_rules": {
           "light_to_dark": "Holzfarbe von Hellbraun zu Dunkelbraun ändern, Holzmaserung MUSS sichtbar bleiben"
@@ -656,27 +668,22 @@
       ],
       "ai_generation_rules": {
         "must_match": [
-          "Person TRAINIERT aktiv an der sGym Pro (beide Hände an den Griffen, in aktiver Übungsausführung) — nicht daneben",
-          "Person STEHT auf der breiten schwarzen BODENPLATTE vor dem Turm — die Bodenplatte ist ein essentielles Merkmal",
-          "EXAKTE Nachbildung — schmaler, hoher schwarzer Turm (44cm breit geklappt, ca. 2m hoch) mit breiter flacher Bodenplatte am Fuß",
-          "ZWEI ARTIKULIERTE CABLE-ARME OBEN AM TURM die sich nach außen/vorne ausklappen lassen — das ist das definierende Feature. Ohne diese Arme ist es NICHT die sGym Pro.",
-          "KLIMMZUGSTANGE quer oben am Turm, als Teil der artikulierten Arm-Struktur",
-          "Grosses senkrechtes Display/Touchscreen (21-Zoll) auf der Vorderseite des Turms, in Brusthöhe",
-          "Zwei Cable-Handles (Griffe) die ÜBER SEILZUGKABEL mit den artikulierten Armen oben verbunden sind — die Kabel müssen sichtbar und durchgehend sein, vom Arm bis zur Hand",
-          "Person benutzt BEIDE Cable-Handles gleichzeitig in einer symmetrischen Bewegung (z.B. Chest Press, Front Raise, Row)",
-          "Rotes SPORTSTECH Branding / S-Logo auf der Vorderseite des Turms",
-          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß"
+          "Person TRAINIERT aktiv an der sGym Pro (mindestens eine Hand am Cable-Handle, in aktiver Übungsausführung) — nicht daneben",
+          "Person STEHT auf der breiten schwarzen BODENPLATTE vor dem Turm",
+          "Schmaler, hoher schwarzer Turm (ca. 2m hoch, 44cm breit) — das Grundprofil der sGym Pro",
+          "Senkrechtes Display/Touchscreen auf der Vorderseite des Turms in Brusthöhe",
+          "Cable-Handle(s) mit durchgehenden, sichtbaren Kabeln die zum Turm führen und dort verankert sind — KEINE schwebenden oder abgeschnittenen Kabel",
+          "Rotes SPORTSTECH Branding / S-Logo sichtbar am Turm",
+          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
-          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
-          "GENERISCHER SCHWARZER SCHRANK / MINIMALISTISCHES DISPLAY-MODUL ohne die artikulierten Cable-Arme oben — das ist NICHT die sGym Pro",
-          "Fehlende Cable-Arme oben am Turm — ohne die zwei artikulierten Arme ist das Bild unbrauchbar",
-          "Fehlende Klimmzugstange oben",
-          "Nur EIN Cable-Handle sichtbar, während der andere an nichts angeschlossen ist",
-          "Cable-Handle in der Hand der Person, aber Kabel endet mitten in der Luft oder am falschen Ort (muss sichtbar zum Arm oben führen)",
-          "Verwechslung mit klassischer Kraftstation, Multi-Gym mit Gewichtsblock, oder HGX50 — die sGym Pro hat KEIN sichtbares Gewichtsblock (Widerstand elektronisch)",
-          "Verwechslung mit einfachem Display-Schrank ohne Trainingsfunktion",
-          "Barfuß beim Training"
+          "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF ihm",
+          "Mehrere Kabel pro Cable-Handle — jeder Handle hat GENAU EIN Kabel, kein splitting, keine Doppelungen",
+          "Kabel die in der Luft enden oder an nichts angeschlossen sind",
+          "Verwechslung mit HGX50 Multi-Gym mit Bank und Gewichtsblock — sGym Pro hat KEINEN sichtbaren Gewichtsblock",
+          "Barfuß beim Training",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ]
       },
       "reference_images": {
@@ -828,7 +835,8 @@
           "Schwarze, flache Platte am Boden (Gehäuse komplett schwarz)",
           "LED-Beleuchtung ist ein dezenter Unter-Rand-Glow unter dem Hexagon-Gehäuse, NUR um den Außenrand sichtbar als schmale Lichtlinie — NIEMALS als helle LED-Streifen auf der Ober- oder Vorderseite der Platte",
           "Bedienelemente (Display/Buttons) sind klein und oben-mittig auf der Platte",
-          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
+          "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -837,7 +845,8 @@
           "Person liegt auf der Platte",
           "HELLE LEUCHTSTREIFEN auf der Oberseite oder Vorderseite der Platte — die LEDs sind NUR am Unter-Rand des Gehäuses als Glow, nicht als Leuchtbalken auf der Lauffläche",
           "Vordere Kante mit prominenten LED-Bar — die Vorderseite hat keine LED-Leiste",
-          "Barfuß auf dem Gerät"
+          "Barfuß auf dem Gerät",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ],
         "allowed_camera_angles": [
           "Eye level",
@@ -912,7 +921,8 @@
           "Holz-Ästhetik muss premium und wohnzimmertauglich aussehen",
           "Korrekte Holzfarbe wie angegeben (hell/dunkel/grau)",
           "Person trägt geschlossene Sport-/Laufschuhe (Sneakers, Trainer) — niemals barfuß, nicht in Socken, keine Sandalen",
-          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße"
+          "Füße natürlich auf der Gehfläche, natürliche Gewichtsverteilung, keine verzerrten/unnatürlich flachen Füße",
+          "Wenn ein Display/Touchscreen/Console sichtbar ist: render es als DUNKLES MATTES SCREEN (schwarz oder sehr dunkel), optional mit einer subtilen abstrakten Workout-UI (minimal line graph, clean sans-serif Labels, kein lesbarer Text). Im Zweifel: Display ganz aus / solid dark matte"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
@@ -921,7 +931,8 @@
           "Plastik-Look — muss echtes HOLZ aussehen",
           "Verwechslung mit normalem Laufband — WoodPad ist ein WALKING PAD aus Holz",
           "Barfuß, in Socken oder mit Sandalen auf dem Gerät — wirkt unprofessionell und ist unrealistisch",
-          "Unnatürlich flache, gestreckte oder verdrehte Füße"
+          "Unnatürlich flache, gestreckte oder verdrehte Füße",
+          "Display mit erfundenen Zahlen, garbled Text, lesbaren Menüs, iPhone-/iOS-UI, Apple-Look, oder Content der nicht in den Referenzen vorhanden ist — dunkles Display ist IMMER besser als ein falsches"
         ]
       },
       "reference_images": {
