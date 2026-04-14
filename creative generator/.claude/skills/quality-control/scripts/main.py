@@ -94,39 +94,47 @@ def resolve_product_handle(creative):
     return category_to_handle.get(category, category)
 
 
-def get_product_refs(handle):
-    """Get 2-3 product reference images for comparison."""
-
+def _list_prefix(prefix, limit):
     key = SUPABASE_ANON_KEY
-    # Prefer the high-res transparent cutouts produced by the background-
-    # remover skill — those are what key-visual uses and what the judge
-    # should compare against.
     resp = requests.post(
         f"{SUPABASE_URL}/storage/v1/object/list/creatives",
         headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        json={"prefix": f"renders/{handle}/cutouts/", "limit": 3},
+        json={"prefix": prefix, "limit": limit},
     )
-    if resp.status_code != 200 or not resp.json():
-        # Fall back to the original listing location
-        resp = requests.post(
-            f"{SUPABASE_URL}/storage/v1/object/list/creatives",
-            headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-            json={"prefix": f"products/{handle}/", "limit": 3},
-        )
-        if resp.status_code != 200:
-            return []
-        prefix = f"products/{handle}"
-    else:
-        prefix = f"renders/{handle}/cutouts"
+    if resp.status_code != 200:
+        return []
+    return [f for f in resp.json() if f.get("name") and not f["name"].endswith("/")]
 
+
+def _download_refs(files, prefix, limit=3):
     images = []
-    for f in resp.json()[:3]:
+    for f in files[:limit]:
         url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/{prefix}/{f['name']}"
         b64 = download_image_b64(url)
         if b64:
             ext = f["name"].rsplit(".", 1)[-1].lower()
             images.append({"data": b64, "mime": f"image/{'png' if ext == 'png' else 'jpeg'}"})
     return images
+
+
+def get_product_refs(handle):
+    """Get 2-3 transparent cutouts (the judge's product ground truth)."""
+    files = _list_prefix(f"renders/{handle}/cutouts/", limit=10)
+    if files:
+        return _download_refs(files, f"renders/{handle}/cutouts", limit=3)
+    # Fallback to Shopware thumbs for products without cutouts
+    files = _list_prefix(f"products/{handle}/", limit=10)
+    return _download_refs(files, f"products/{handle}", limit=3)
+
+
+def get_lifestyle_refs(handle, limit=3):
+    """Get real usage photos so the judge can verify pose, usage, branding
+    placement, and subtle details that don't show up on clean cutouts."""
+    files = _list_prefix(f"lifestyle/{handle}/", limit=20)
+    if not files:
+        return []
+    # Prefer the first few — they're usually the canonical marketing shots
+    return _download_refs(files, f"lifestyle/{handle}", limit=limit)
 
 
 def load_product_knowledge(handle):
@@ -153,8 +161,11 @@ def review_creative(creative):
         print(f"  SKIP: Could not download generated image")
         return None
 
-    # Get product reference images
-    ref_images = get_product_refs(handle)
+    # Get two kinds of ground truth: clean product cutouts (geometry,
+    # colours, branding) and real usage photos (pose, logo placement,
+    # details that clean cutouts smooth away).
+    product_refs = get_product_refs(handle)
+    lifestyle_refs = get_lifestyle_refs(handle, limit=3)
 
     # Get product knowledge
     pk = load_product_knowledge(handle)
@@ -165,18 +176,44 @@ def review_creative(creative):
     # Build review prompt
     parts = []
 
-    # Reference images first
-    for img in ref_images:
+    # Group 1: product cutouts
+    for img in product_refs:
         parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
-    # Generated image
+    # Group 2: lifestyle usage photos
+    for img in lifestyle_refs:
+        parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
+
+    # Group 3: the generated image we're reviewing
     parts.append({"inline_data": {"mime_type": "image/jpeg", "data": gen_b64}})
 
-    n_refs = len(ref_images)
+    n_product = len(product_refs)
+    n_lifestyle = len(lifestyle_refs)
+    n_refs = n_product + n_lifestyle
+
+    # Slot labels for the prompt
+    if n_product and n_lifestyle:
+        product_slot = f"1-{n_product}"
+        lifestyle_slot = f"{n_product+1}-{n_refs}"
+        groups_desc = (
+            f"[Images {product_slot}] = CLEAN PRODUCT REFERENCES — transparent cutouts showing "
+            f"the product geometry, colours, branding, buttons, LEDs, and all details.\n"
+            f"[Images {lifestyle_slot}] = REAL USAGE PHOTOS — real people using this product the "
+            f"way it's meant to be used. Use these to verify: the pose, where the branding/logo "
+            f"sits, the exact contact points, and any subtle details the clean cutouts don't show."
+        )
+    elif n_product:
+        groups_desc = (
+            f"[Images 1-{n_product}] = CLEAN PRODUCT REFERENCES — transparent cutouts showing "
+            f"the product geometry, colours, branding, buttons, LEDs, and all details."
+        )
+    else:
+        groups_desc = f"[Images 1-{n_refs}] = PRODUCT REFERENCES"
+
     parts.append({
         "text": f"""You are a STRICT quality inspector reviewing an AI-generated lifestyle photograph for a paid Meta ad campaign. Anything less than photographically believable gets rejected. You are NOT grading on a curve — if you notice any issue, lower the score accordingly.
 
-[Image 1 to {n_refs}] = REFERENCE product images (ground truth — how the product should look)
+{groups_desc}
 [Image {n_refs + 1}] = GENERATED lifestyle image to review
 
 Product: {pk.get('name', handle)}
@@ -201,18 +238,20 @@ HARD FAILURES — any of these means overall = 0, pass = false, regardless of ot
 If none of the hard failures apply, continue scoring:
 
 1. PRODUCT ACCURACY (0-10)
-   - Does the product match the reference images EXACTLY? Shape, colors, display panel position/size, handlebars, buttons, LEDs, branding.
-   - Proportions of the product vs. the user (e.g. is the walking surface the right width for two feet?).
+   - Does the product match the CLEAN PRODUCT REFERENCES exactly? Shape, colours, display panel position/size, handlebars, buttons, LEDs.
+   - Does the BRANDING placement match the usage photos? The SPORTSTECH logo should only appear where it appears in the references — not invented on additional panels or in places the real product doesn't have it.
+   - Are there any decorative elements on the product (fake LED bars, red dots, extra buttons, phantom panels) that do NOT appear in ANY of the references? If yes, penalize.
+   - Proportions of the product vs. the user.
    - Wood/material finish matches reference intensity.
-   - Side panel and end-cap details (roller mounts, small visible holes/screws, front console) must be consistent with references — Gemini tends to smooth these away, penalize when they are absent or wrong.
+   - Side panel and end-cap details (roller mounts, small visible holes/screws, front console) must be consistent with references — Gemini tends to smooth these away, penalise when they are absent or wrong.
 
 2. POSE & USAGE CORRECTNESS (0-10) — MOST IMPORTANT
-   - Is the person using the equipment the way a real user would? Shoes on equipment that demands shoes (treadmills, walking pads, crosstrainers)? Hands gripping where they should grip?
-   - Body mechanics: weight distribution makes sense, joints bend naturally, stance matches the activity.
+   - Compare the pose in the generated image against the REAL USAGE PHOTOS. Does the person use the equipment the same way? Same grip? Same contact points? Same body mechanics?
+   - If the usage photos show people doing a specific movement (seated cable pulldown, squatting under a barbell, rowing, walking) and the generated image shows something DIFFERENT or awkward, that's a usage failure — max 5.
+   - Shoes on equipment that demands shoes (treadmills, walking pads, crosstrainers, strength stations)? Barefoot on those → max 5.
    - Facing direction consistent with the product's display/console orientation.
    - Person's weight is clearly on the equipment, not on the surrounding floor.
-   - If the user is barefoot on a walking pad, treadmill, or crosstrainer → score max 5.
-   - Awkward, stiff, or unnatural posture → score max 6.
+   - Awkward, stiff, or unnatural posture → max 6.
 
 3. SCENE GEOMETRY & PERSPECTIVE (0-10)
    - Do all objects (desks, monitors, chairs, shelves, plants, windows) sit on consistent floor and wall planes? Nothing should be rotated or tilted relative to its expected orientation.

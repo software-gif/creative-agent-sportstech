@@ -95,7 +95,7 @@ def download_image(url):
 
 
 MAX_PRODUCT_REFERENCES = 12  # upper bound to keep the request payload sane
-MAX_USAGE_REFERENCES = 3     # how many real-user photos to include per generation
+MAX_USAGE_REFERENCES = 5     # how many real-user photos to include per generation
 
 
 def load_reference_catalog(product_handle):
