@@ -71,28 +71,57 @@ def download_image_b64(url):
     return None
 
 
-def get_product_refs(product_category):
-    """Get 2-3 product reference images for comparison."""
-    # Map category to handle
+def resolve_product_handle(creative):
+    """Figure out the real product handle for a creative.
+
+    The DB `product_category` column is a coarse Shopware category
+    (e.g. `power_station` is shared between sgym-pro AND hgx50), so
+    using it alone ambiguates products. `prompt_json.product` is the
+    exact handle passed to key-visual at generation time — that's the
+    authoritative value. Fall back to the category-to-handle map for
+    older creatives that don't have prompt_json yet.
+    """
+    prompt_json = creative.get("prompt_json") or {}
+    handle = prompt_json.get("product")
+    if handle:
+        return handle
     category_to_handle = {
         "treadmill": "f37s-pro", "walking_pad": "woodpad-pro", "speedbike": "sbike",
         "ergometer": "x150", "crosstrainer": "scross", "rowing_machine": "aqua-elite",
         "power_station": "sgym-pro", "smith_machine": "sxm200", "vibration_plate": "svibe",
     }
-    handle = category_to_handle.get(product_category, product_category)
+    category = creative.get("product_category", "")
+    return category_to_handle.get(category, category)
+
+
+def get_product_refs(handle):
+    """Get 2-3 product reference images for comparison."""
 
     key = SUPABASE_ANON_KEY
+    # Prefer the high-res transparent cutouts produced by the background-
+    # remover skill — those are what key-visual uses and what the judge
+    # should compare against.
     resp = requests.post(
         f"{SUPABASE_URL}/storage/v1/object/list/creatives",
         headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        json={"prefix": f"products/{handle}/", "limit": 3},
+        json={"prefix": f"renders/{handle}/cutouts/", "limit": 3},
     )
-    if resp.status_code != 200:
-        return []
+    if resp.status_code != 200 or not resp.json():
+        # Fall back to the original listing location
+        resp = requests.post(
+            f"{SUPABASE_URL}/storage/v1/object/list/creatives",
+            headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+            json={"prefix": f"products/{handle}/", "limit": 3},
+        )
+        if resp.status_code != 200:
+            return []
+        prefix = f"products/{handle}"
+    else:
+        prefix = f"renders/{handle}/cutouts"
 
     images = []
     for f in resp.json()[:3]:
-        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/products/{handle}/{f['name']}"
+        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/{prefix}/{f['name']}"
         b64 = download_image_b64(url)
         if b64:
             ext = f["name"].rsplit(".", 1)[-1].lower()
@@ -100,13 +129,7 @@ def get_product_refs(product_category):
     return images
 
 
-def load_product_knowledge(product_category):
-    category_to_handle = {
-        "treadmill": "f37s-pro", "walking_pad": "woodpad-pro", "speedbike": "sbike",
-        "ergometer": "x150", "crosstrainer": "scross", "rowing_machine": "aqua-elite",
-        "power_station": "sgym-pro", "smith_machine": "sxm200", "vibration_plate": "svibe",
-    }
-    handle = category_to_handle.get(product_category, product_category)
+def load_product_knowledge(handle):
     path = os.path.join(PROJECT_ROOT, "branding", "product_knowledge.json")
     if not os.path.exists(path):
         return {}
@@ -118,10 +141,10 @@ def load_product_knowledge(product_category):
 def review_creative(creative):
     """Send generated image + product refs to Gemini for quality review."""
     short_id = creative.get("short_id", creative["id"][:8])
-    product_cat = creative.get("product_category", "")
     storage_path = creative.get("storage_path", "")
+    handle = resolve_product_handle(creative)
 
-    print(f"\n  Reviewing {short_id} ({product_cat})...")
+    print(f"\n  Reviewing {short_id} ({handle})...")
 
     # Download the generated image
     gen_url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/{storage_path}"
@@ -131,10 +154,10 @@ def review_creative(creative):
         return None
 
     # Get product reference images
-    ref_images = get_product_refs(product_cat)
+    ref_images = get_product_refs(handle)
 
     # Get product knowledge
-    pk = load_product_knowledge(product_cat)
+    pk = load_product_knowledge(handle)
     must_match = pk.get("ai_generation_rules", {}).get("must_match", [])
     must_avoid = pk.get("ai_generation_rules", {}).get("must_avoid", [])
     how_it_works = pk.get("how_it_works", {})
@@ -156,7 +179,7 @@ def review_creative(creative):
 [Image 1 to {n_refs}] = REFERENCE product images (ground truth — how the product should look)
 [Image {n_refs + 1}] = GENERATED lifestyle image to review
 
-Product: {pk.get('name', product_cat)}
+Product: {pk.get('name', handle)}
 Product rules that MUST be correct:
 {chr(10).join('- ' + r for r in must_match)}
 

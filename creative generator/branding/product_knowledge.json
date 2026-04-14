@@ -394,6 +394,16 @@
           "Falsche Größenproportionen — das Gerät ist kleiner als ein normales Fahrrad",
           "Generisches Ergometer statt dem spezifischen X-Frame Design",
           "Barfuß auf dem Gerät"
+        ],
+        "allowed_camera_angles": [
+          "Eye level",
+          "Slightly above",
+          "Slightly below"
+        ],
+        "allowed_character_angles": [
+          "Front facing",
+          "3/4 angle",
+          "Profile"
         ]
       },
       "reference_images": {
@@ -740,6 +750,15 @@
           "Fehlender Gewichtsblock",
           "Generische Multi-Gym ohne die spezifischen HGX50 Merkmale",
           "Barfuß beim Krafttraining"
+        ],
+        "allowed_camera_angles": [
+          "Eye level",
+          "Slightly above",
+          "Slightly below"
+        ],
+        "allowed_character_angles": [
+          "Front facing",
+          "3/4 angle"
         ]
       },
       "reference_images": {
@@ -814,6 +833,15 @@
           "HELLE LEUCHTSTREIFEN auf der Oberseite oder Vorderseite der Platte — die LEDs sind NUR am Unter-Rand des Gehäuses als Glow, nicht als Leuchtbalken auf der Lauffläche",
           "Vordere Kante mit prominenten LED-Bar — die Vorderseite hat keine LED-Leiste",
           "Barfuß auf dem Gerät"
+        ],
+        "allowed_camera_angles": [
+          "Eye level",
+          "Slightly above",
+          "High angle"
+        ],
+        "allowed_character_angles": [
+          "Front facing",
+          "3/4 angle"
         ]
       },
       "reference_images": {
@@ -968,6 +996,15 @@
           "Falsche Proportionen — das Gerät ist 2.3m HOCH",
           "Generisches Power Rack statt exakter Nachbildung",
           "Barfuß beim Krafttraining"
+        ],
+        "allowed_camera_angles": [
+          "Eye level",
+          "Slightly above",
+          "Slightly below"
+        ],
+        "allowed_character_angles": [
+          "Front facing",
+          "3/4 angle"
         ]
       },
       "reference_images": {
