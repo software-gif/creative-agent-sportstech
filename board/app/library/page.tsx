@@ -60,7 +60,7 @@ export default function Library() {
     setAssets((prev) => prev.filter((a) => a.creative_id !== creativeId));
   }
 
-  async function moveToFolder(folderId: string, creativeId: string) {
+  async function moveToFolder(folderId: string | null, creativeId: string) {
     const { error } = await supabase
       .from("saved_assets")
       .update({ folder_id: folderId })
@@ -76,6 +76,7 @@ export default function Library() {
 
   function handleDragStart(e: React.DragEvent, creative: Creative) {
     e.dataTransfer.setData("creative-id", creative.id);
+    e.dataTransfer.effectAllowed = "move";
   }
 
   const filtered = selectedFolder

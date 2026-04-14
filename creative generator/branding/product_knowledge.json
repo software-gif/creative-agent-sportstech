@@ -724,16 +724,22 @@
       "ai_generation_rules": {
         "must_match": [
           "Person TRAINIERT aktiv an der HGX50 (an den Griffen oder der Bank) — nicht daneben",
-          "EXAKTE Nachbildung — schwarzer Stahlrahmen mit roten Akzenten",
-          "Sichtbarer Gewichtsblock",
-          "Korrekte Übungsausführung",
+          "EXAKTE Nachbildung der HGX50 Kraftstation — schwarzer Stahlrahmen mit roten Akzenten",
+          "Klassische Multi-Gym Bauweise MIT Bank und sichtbarem Gewichtsblock (Gewichtsplatten im Turm)",
+          "Schwarzer Polster-Sitz und Rücken-Polster an der integrierten Bank",
+          "Beinpresse / Beinstrecker Aufsatz vorne am Rahmen",
+          "Zwei vertikale Rahmen-Säulen mit Seilzug-Umlenkrollen",
+          "Rotes SPORTSTECH Branding sichtbar",
           "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
-          "Verwechslung mit sGym Pro (schlanker Turm) — HGX50 ist eine KLASSISCHE Kraftstation mit Bank",
-          "Generische Multi-Gym",
-          "Barfuß auf dem Gerät"
+          "Verwechslung mit sGym Pro (schlanker Turm OHNE Bank und Gewichtsblock) — HGX50 hat IMMER eine integrierte Bank und einen sichtbaren Gewichtsblock",
+          "Verwechslung mit Smith Machine oder Power Rack",
+          "Fehlende Bank / fehlender Sitz",
+          "Fehlender Gewichtsblock",
+          "Generische Multi-Gym ohne die spezifischen HGX50 Merkmale",
+          "Barfuß beim Krafttraining"
         ]
       },
       "reference_images": {
@@ -795,9 +801,9 @@
         "must_match": [
           "Person STEHT mit beiden Füßen AUF der hexagonalen Vibrationsplatte — niemals daneben",
           "HEXAGONALE Form — sechseckig, NICHT rechteckig oder quadratisch",
-          "Schwarze, flache Platte am Boden",
-          "Person STEHT auf der Platte",
-          "LED-Beleuchtung um die Kanten",
+          "Schwarze, flache Platte am Boden (Gehäuse komplett schwarz)",
+          "LED-Beleuchtung ist ein dezenter Unter-Rand-Glow unter dem Hexagon-Gehäuse, NUR um den Außenrand sichtbar als schmale Lichtlinie — NIEMALS als helle LED-Streifen auf der Ober- oder Vorderseite der Platte",
+          "Bedienelemente (Display/Buttons) sind klein und oben-mittig auf der Platte",
           "Person trägt geschlossene Sport-/Trainingsschuhe — nie barfuß, keine Socken, keine Sandalen"
         ],
         "must_avoid": [
@@ -805,6 +811,8 @@
           "Rechteckige Form — sVibe ist HEXAGONAL",
           "Platte zu groß oder zu dick dargestellt — sie ist kompakt und flach (14cm hoch)",
           "Person liegt auf der Platte",
+          "HELLE LEUCHTSTREIFEN auf der Oberseite oder Vorderseite der Platte — die LEDs sind NUR am Unter-Rand des Gehäuses als Glow, nicht als Leuchtbalken auf der Lauffläche",
+          "Vordere Kante mit prominenten LED-Bar — die Vorderseite hat keine LED-Leiste",
           "Barfuß auf dem Gerät"
         ]
       },
@@ -944,18 +952,22 @@
       "ai_generation_rules": {
         "must_match": [
           "Person TRAINIERT aktiv an der SXM200 (Langhantel, Griffe oder Bank in Benutzung) — nicht daneben",
-          "EXAKTE Nachbildung — massives schwarzes Power Rack mit geführter Langhantel",
-          "Zwei separate Kabel-Türme mit sichtbaren Gewichtsblöcken",
-          "Klimmzugstange oben",
-          "Korrekte Übungsausführung",
+          "EXAKTE Nachbildung der SXM200 Smith Machine — das KERNMERKMAL ist eine DURCHGEHENDE GEFÜHRTE LANGHANTEL, die zwischen zwei vertikalen Stahlstangen auf und ab läuft. Diese Langhantel ist IMMER sichtbar und ist das Hauptmerkmal des Geräts.",
+          "Zwei vertikale Stahlstangen / Führungsschienen (Smith Machine Pfosten) bilden das Grundgerüst",
+          "Klimmzugstange oben quer über den beiden Pfosten",
+          "Rote Akzente an Rahmen und Gewichtsstangen",
+          "Rotes SPORTSTECH Branding sichtbar",
           "Person trägt geschlossene Trainings-/Hallenschuhe — nie barfuß, nicht in Socken"
         ],
         "must_avoid": [
           "Person steht NEBEN, VOR oder HINTER dem Gerät statt AUF/AN ihm — das Produkt darf nie nur dekorativ im Raum stehen",
-          "Verwechslung mit einfachem Kabelzug — SXM200 ist ein GROSSES RACK",
+          "KEINE GEFÜHRTE LANGHANTEL sichtbar — ohne Smith-Machine-Langhantel ist es das falsche Produkt",
+          "Verwechslung mit reiner Kabelzug-/Seilzug-Station ohne Langhantel",
+          "Verwechslung mit einfachem Power-Rack (ohne geführte Langhantel)",
+          "Verwechslung mit Functional Trainer (zwei Kabel-Türme ohne Rack)",
           "Falsche Proportionen — das Gerät ist 2.3m HOCH",
           "Generisches Power Rack statt exakter Nachbildung",
-          "Barfuß auf dem Gerät"
+          "Barfuß beim Krafttraining"
         ]
       },
       "reference_images": {

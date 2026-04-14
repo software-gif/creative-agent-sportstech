@@ -14,7 +14,7 @@ type Folder = {
 type FolderSidebarProps = {
   selectedFolderId: string | null;
   onSelectFolder: (folderId: string | null) => void;
-  onDrop?: (folderId: string, creativeId: string) => void;
+  onDrop?: (folderId: string | null, creativeId: string) => void;
 };
 
 export default function FolderSidebar({
@@ -64,6 +64,7 @@ export default function FolderSidebar({
 
   function handleDragOver(e: React.DragEvent, folderId: string) {
     e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
     setDragOver(folderId);
   }
 
@@ -71,7 +72,7 @@ export default function FolderSidebar({
     setDragOver(null);
   }
 
-  function handleDrop(e: React.DragEvent, folderId: string) {
+  function handleDrop(e: React.DragEvent, folderId: string | null) {
     e.preventDefault();
     setDragOver(null);
     const creativeId = e.dataTransfer.getData("creative-id");
@@ -86,17 +87,30 @@ export default function FolderSidebar({
         Folders
       </h2>
 
-      {/* All Assets */}
-      <button
-        onClick={() => onSelectFolder(null)}
-        className={`text-left text-sm px-3 py-2 rounded-lg transition-colors ${
-          selectedFolderId === null
-            ? "bg-primary/10 text-primary font-medium"
-            : "text-accent hover:bg-background"
+      {/* All Assets — also a drop target to move out of any folder */}
+      <div
+        className={`rounded-lg transition-colors ${
+          dragOver === "__root__" ? "bg-primary-light/20 ring-2 ring-primary-light" : ""
         }`}
+        onDragOver={(e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "move";
+          setDragOver("__root__");
+        }}
+        onDragLeave={handleDragLeave}
+        onDrop={(e) => handleDrop(e, null)}
       >
-        All Assets
-      </button>
+        <button
+          onClick={() => onSelectFolder(null)}
+          className={`w-full text-left text-sm px-3 py-2 rounded-lg transition-colors ${
+            selectedFolderId === null
+              ? "bg-primary/10 text-primary font-medium"
+              : "text-accent hover:bg-background"
+          }`}
+        >
+          All Assets
+        </button>
+      </div>
 
       {/* Folders */}
       {folders.map((folder) => (

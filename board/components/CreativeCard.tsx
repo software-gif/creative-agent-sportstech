@@ -179,7 +179,9 @@ export default function CreativeCard({
   if (viewMode === "list") {
     return (
       <div
-        className="group flex items-center gap-4 bg-surface rounded-xl border border-border p-2 hover:border-primary/30 hover:bg-surface-hover transition-all cursor-pointer"
+        className={`group flex items-center gap-4 bg-surface rounded-xl border border-border p-2 hover:border-primary/30 hover:bg-surface-hover transition-all ${
+          draggable ? "active:cursor-grabbing cursor-grab" : "cursor-pointer"
+        }`}
         draggable={draggable}
         onDragStart={(e) => onDragStart?.(e, creative)}
         onClick={() => imageUrl && onImageClick?.(creative)}
@@ -193,7 +195,13 @@ export default function CreativeCard({
               <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : imageUrl ? (
-            <img src={imageUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
+            <img
+              src={imageUrl}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="lazy"
+              draggable={false}
+            />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-muted">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-5 h-5 opacity-40">
@@ -242,7 +250,9 @@ export default function CreativeCard({
   // Grid view
   return (
     <div
-      className="group bg-surface rounded-xl border border-border overflow-hidden hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30 transition-all"
+      className={`group bg-surface rounded-xl border border-border overflow-hidden hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30 transition-all ${
+        draggable ? "active:cursor-grabbing cursor-grab" : ""
+      }`}
       draggable={draggable}
       onDragStart={(e) => onDragStart?.(e, creative)}
     >
@@ -262,6 +272,7 @@ export default function CreativeCard({
             alt=""
             className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
             loading="lazy"
+            draggable={false}
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-muted gap-2">
