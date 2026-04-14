@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Creative, getImageUrl, downloadCreative } from "./CreativeCard";
+import { Creative, getImageUrl, downloadCreative, resolveProductHandle } from "./CreativeCard";
 import { PRODUCT_LABELS } from "@/lib/constants";
 
 type ImageOverlayProps = {
@@ -19,7 +19,8 @@ export default function ImageOverlay({ creative, variants = [], onClose, onSelec
   const imageUrl = getImageUrl(creative);
   if (!imageUrl) return null;
 
-  const product = PRODUCT_LABELS[creative.product_category || ""] || creative.product_category;
+  const productHandle = resolveProductHandle(creative);
+  const product = PRODUCT_LABELS[productHandle] || productHandle;
   const env = creative.environment_style || creative.environment;
 
   const multishots = variants.filter((v) => v.creative_type === "multishot");

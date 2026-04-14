@@ -7,6 +7,7 @@ import CreativeCard, {
   Creative,
   getImageUrl,
   downloadCreative,
+  resolveProductHandle,
 } from "@/components/CreativeCard";
 import ImageOverlay from "@/components/ImageOverlay";
 import SaveButton from "@/components/SaveButton";
@@ -104,7 +105,7 @@ export default function Board() {
   );
 
   const filtered = parents
-    .filter((c) => productFilter === "all" || c.product_category === productFilter)
+    .filter((c) => productFilter === "all" || resolveProductHandle(c) === productFilter)
     .filter((c) => {
       if (envFilter === "all") return true;
       const envStyle = c.environment_style || c.environment || "";

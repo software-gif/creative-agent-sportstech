@@ -1,18 +1,40 @@
+// Each product is its own entry keyed by the exact handle from
+// product_knowledge.json. Two products can share a Shopware category
+// (power_station is both sgym-pro AND hgx50) — we intentionally treat
+// them as separate products so the filters, labels, and QC can all
+// distinguish them.
 export const PRODUCTS = [
-  { value: "walking_pad", label: "WoodPad Pro" },
-  { value: "treadmill", label: "F37s Pro" },
-  { value: "speedbike", label: "sBike" },
-  { value: "ergometer", label: "X150" },
-  { value: "crosstrainer", label: "sCross" },
-  { value: "rowing_machine", label: "AquaElite" },
-  { value: "power_station", label: "sGym Pro / HGX50" },
-  { value: "smith_machine", label: "SXM200" },
-  { value: "vibration_plate", label: "sVibe" },
+  { value: "woodpad-pro",  label: "WoodPad Pro",  category: "walking_pad" },
+  { value: "f37s-pro",     label: "F37s Pro",     category: "treadmill" },
+  { value: "sbike",        label: "sBike",        category: "speedbike" },
+  { value: "x150",         label: "X150",         category: "ergometer" },
+  { value: "scross",       label: "sCross",       category: "crosstrainer" },
+  { value: "aqua-elite",   label: "AquaElite",    category: "rowing_machine" },
+  { value: "sgym-pro",     label: "sGym Pro",     category: "power_station" },
+  { value: "hgx50",        label: "HGX50",        category: "power_station" },
+  { value: "sxm200",       label: "SXM200",       category: "smith_machine" },
+  { value: "svibe",        label: "sVibe",        category: "vibration_plate" },
 ] as const;
 
 export const PRODUCT_LABELS: Record<string, string> = Object.fromEntries(
   PRODUCTS.map((p) => [p.value, p.label])
 );
+
+// Legacy category → default handle map, used when a creative only has
+// `product_category` and no `prompt_json.product` (pre-dates the handle fix).
+// For `power_station` we default to sgym-pro arbitrarily; the proper
+// resolver in `resolveProductHandle` prefers `prompt_json.product` first.
+export const CATEGORY_DEFAULT_HANDLE: Record<string, string> = {
+  walking_pad:     "woodpad-pro",
+  treadmill:       "f37s-pro",
+  speedbike:       "sbike",
+  ergometer:       "x150",
+  crosstrainer:    "scross",
+  rowing_machine:  "aqua-elite",
+  power_station:   "sgym-pro",
+  smith_machine:   "sxm200",
+  vibration_plate: "svibe",
+};
 
 // Map room_preset IDs to display-friendly environment categories
 export const ENVIRONMENTS = [

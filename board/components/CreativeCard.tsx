@@ -1,7 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
-import { PRODUCT_LABELS, ENV_LABELS, PRESET_TO_ENV } from "@/lib/constants";
+import { PRODUCT_LABELS, ENV_LABELS, PRESET_TO_ENV, CATEGORY_DEFAULT_HANDLE } from "@/lib/constants";
 
 export type Creative = {
   id: string;
@@ -59,8 +59,24 @@ export function getImageUrl(creative: Creative): string | null {
   return null;
 }
 
+/**
+ * Resolve the exact product handle for a creative. Prefers the handle
+ * that was explicitly passed to key-visual at generation time
+ * (`prompt_json.product`) because `product_category` is a coarse Shopware
+ * category that two products can share (e.g. `power_station` is both
+ * sgym-pro and hgx50). Falls back to the category default for legacy
+ * creatives that predate the handle fix.
+ */
+export function resolveProductHandle(creative: Creative): string {
+  const promptJson = creative.prompt_json as Record<string, unknown> | null;
+  const fromPrompt = promptJson && typeof promptJson.product === "string" ? promptJson.product : null;
+  if (fromPrompt) return fromPrompt;
+  const category = creative.product_category || "";
+  return CATEGORY_DEFAULT_HANDLE[category] || category;
+}
+
 export function getDownloadFilename(creative: Creative): string {
-  const product = creative.product_category || creative.creative_type;
+  const product = resolveProductHandle(creative) || creative.creative_type;
   const env = creative.environment_style || creative.environment || "lifestyle";
   const cam = creative.camera_angle || "";
   const ts = new Date(creative.created_at).toISOString().slice(0, 10);
@@ -169,7 +185,8 @@ export default function CreativeCard({
   variants = [],
 }: CreativeCardProps) {
   const imageUrl = getImageUrl(creative);
-  const productLabel = PRODUCT_LABELS[creative.product_category || ""] || creative.product_category;
+  const productHandle = resolveProductHandle(creative);
+  const productLabel = PRODUCT_LABELS[productHandle] || productHandle;
   const envStyle = creative.environment_style || creative.environment || "";
   const envCategory = PRESET_TO_ENV[envStyle] || envStyle;
   const envLabel = ENV_LABELS[envCategory] || ENV_LABELS[envStyle] || envStyle;
