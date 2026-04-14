@@ -47,6 +47,15 @@ export const CAMERA_ANGLES = [
   "Ground level",
 ] as const;
 
+export const CHARACTER_ANGLES = [
+  "Front facing",
+  "3/4 angle",
+  "Profile",
+  "Over the shoulder",
+  "Back view",
+  "Top View",
+] as const;
+
 export const FORMATS = [
   { value: "9:16", label: "9:16 Story" },
   { value: "1:1", label: "1:1 Feed" },
@@ -54,7 +63,7 @@ export const FORMATS = [
 ] as const;
 
 export const CREATIVE_TYPES = [
-  { value: "lifestyle", label: "Lifestyle" },
-  { value: "multishot", label: "Multishot" },
-  { value: "color_variant", label: "Variant" },
+  { value: "lifestyle", label: "Key Visuals" },
+  { value: "multishot", label: "Angles" },
+  { value: "color_variant", label: "Colors" },
 ] as const;

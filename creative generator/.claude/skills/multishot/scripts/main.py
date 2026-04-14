@@ -92,23 +92,59 @@ def download_from_supabase(storage_path):
 
 
 def build_multishot_prompt(settings):
-    """Build the multishot prompt from camera settings."""
-    lines = ["Keep the scene, the character and the product the same as in Image 1, but change those variables to:"]
+    """Build the multishot prompt from camera settings.
 
+    Phrased as an imperative re-rendering directive — Gemini 3 Flash
+    otherwise over-weights composition consistency and ignores soft
+    "Camera Angle: X" labels, which is why Clemente's earlier batches
+    all came out on the same eye-level angle.
+    """
+    changes = []
     if settings.get("shot_size") and settings["shot_size"] != "Keep the Same":
-        lines.append(f"Shot Size: {settings['shot_size']}")
+        changes.append(f"shot size becomes **{settings['shot_size']}**")
     if settings.get("camera_angle") and settings["camera_angle"] != "Keep the Same":
-        lines.append(f"Camera Angle: {settings['camera_angle']}")
+        changes.append(
+            f"camera vertical angle becomes **{settings['camera_angle']}** "
+            f"(the camera physically moves to this vertical position relative to the subject — "
+            f"do not keep the original angle)"
+        )
     if settings.get("character_angle") and settings["character_angle"] != "Keep the Same":
-        lines.append(f"Character Angle: {settings['character_angle']}")
+        changes.append(
+            f"character orientation to camera becomes **{settings['character_angle']}** "
+            f"(rotate the character's body relative to the lens — "
+            f"do not keep the original orientation)"
+        )
     if settings.get("lens") and settings["lens"] != "Keep the Same":
-        lines.append(f"Lenses: {settings['lens']}")
+        changes.append(f"lens becomes **{settings['lens']}**")
     if settings.get("depth_of_field") and settings["depth_of_field"] != "Keep the Same":
-        lines.append(f"Depth of Field: {settings['depth_of_field']}")
+        changes.append(f"depth of field becomes **{settings['depth_of_field']}**")
+
+    lines = [
+        "Re-render the exact same scene shown in Image 1 as a NEW photograph from a different viewpoint.",
+        "",
+        "IDENTICAL across both images (must not change):",
+        "- The character (same person, same clothing, same hair, same build)",
+        "- The product (same model, same color, same placement in the room)",
+        "- The room, furniture, decor, lighting, time of day, mood",
+        "- The character's activity and pose (same motion, same body mechanics)",
+        "",
+        "DIFFERENT in the new render — you MUST change these, not approximate them:",
+    ]
+    for change in changes:
+        lines.append(f"- {change}")
+
+    lines += [
+        "",
+        "Treat this as a physical second camera capturing the same moment from a new position.",
+        "The viewer should instantly recognize it as the same scene, but from a clearly different camera setup.",
+        "Do NOT produce a near-duplicate of Image 1 — the requested camera change must be visually obvious.",
+    ]
+
     if settings.get("other_instructions"):
-        lines.append(f"Other instructions: {settings['other_instructions']}")
+        lines.append("")
+        lines.append(f"Additional: {settings['other_instructions']}")
     if settings.get("model_detail"):
-        lines.append(f"Model Detail: {settings['model_detail']}")
+        lines.append(f"Model detail: {settings['model_detail']}")
 
     return "\n".join(lines)
 

@@ -22,6 +22,7 @@ import argparse
 import base64
 import json
 import os
+import random
 import sys
 import uuid
 from datetime import datetime
@@ -40,6 +41,9 @@ SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
 
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3-pro-image-preview")
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+
+VALID_CAMERA_ANGLES = ["Eye level", "Slightly above", "High angle", "Slightly below", "Low angle", "Ground level"]
+VALID_CHARACTER_ANGLES = ["Front facing", "3/4 angle", "Profile", "Over the shoulder", "Back view"]
 
 
 def get_supabase_headers():
@@ -268,8 +272,10 @@ def main():
     parser.add_argument("--room-description", default=None, help="Inline room description")
     parser.add_argument("--pose", default=None, help="Usage pose description")
     parser.add_argument("--shot-size", default="Wide")
-    parser.add_argument("--camera-angle", default="Eye level")
-    parser.add_argument("--character-angle", default="3/4 angle")
+    parser.add_argument("--camera-angle", default=None,
+                        help=f"One of: {', '.join(VALID_CAMERA_ANGLES)}. Omit to rotate randomly per image.")
+    parser.add_argument("--character-angle", default=None,
+                        help=f"One of: {', '.join(VALID_CHARACTER_ANGLES)}. Omit to rotate randomly per image.")
     parser.add_argument("--lens", default="50mm")
     parser.add_argument("--depth-of-field", default="f/4")
     parser.add_argument("--format", default="9:16")
@@ -287,7 +293,8 @@ def main():
     print("KEY VISUAL GENERATOR")
     print("=" * 60)
     print(f"  Product: {args.product}")
-    print(f"  Camera: {args.shot_size} | {args.camera_angle} | {args.lens} | {args.depth_of_field}")
+    print(f"  Camera: {args.shot_size} | {args.camera_angle or 'auto-rotate'} | {args.lens} | {args.depth_of_field}")
+    print(f"  Position: {args.character_angle or 'auto-rotate'}")
     print(f"  Format: {args.format}")
     print(f"  Count: {args.count}")
     print(f"  Batch: {batch_id}")
@@ -340,6 +347,14 @@ def main():
             character_desc = model["prompt_snippet"]
             print(f"  Auto-model: {model['description']}")
 
+        # Auto-rotate camera angle per image when not explicitly set. This
+        # prevents every image in a batch landing on the same default angle
+        # — Clemente's feedback was that everything ended up "Eye level".
+        image_camera_angle = args.camera_angle or random.choice(VALID_CAMERA_ANGLES)
+        image_character_angle = args.character_angle or random.choice(VALID_CHARACTER_ANGLES)
+        if not args.camera_angle or not args.character_angle:
+            print(f"  Camera rotation: {image_camera_angle} / {image_character_angle}")
+
         # === PROVEN APPROACH (CR-005 to CR-007 worked well) ===
         # Product cutouts FIRST → Lifestyle for style → Character → Compositing prompt
         parts = []
@@ -357,8 +372,8 @@ def main():
 
         # Product-specific pose camera (e.g. "3/4 from behind-side") encodes the
         # only viewpoint that keeps the display on the user's side. Overrides the
-        # generic --character-angle default unless the user passed a pose override.
-        effective_character_angle = pose_camera_angle or args.character_angle
+        # rotated/per-image character angle unless the user passed a pose override.
+        effective_character_angle = pose_camera_angle or image_character_angle
 
         # Get direction info if available
         direction = how_it_works.get("direction", "")
@@ -423,7 +438,7 @@ MANDATORY product accuracy:
 FORBIDDEN:
 {chr(10).join('- ' + r for r in must_avoid)}
 
-Technical: {args.shot_size}, {args.camera_angle}, {args.lens}, {args.depth_of_field}. Hasselblad. Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography."""
+Technical: {args.shot_size}, {image_camera_angle}, {args.lens}, {args.depth_of_field}. Hasselblad. Soft natural lighting. {args.format} aspect ratio. No text/watermarks. Professional fitness photography."""
 
         parts.append({"text": prompt_text})
 
@@ -462,8 +477,8 @@ Technical: {args.shot_size}, {args.camera_angle}, {args.lens}, {args.depth_of_fi
                 "pose": args.pose,
             },
             "shot_size": args.shot_size,
-            "camera_angle": args.camera_angle,
-            "character_angle": args.character_angle,
+            "camera_angle": image_camera_angle,
+            "character_angle": effective_character_angle,
             "lens": args.lens,
             "depth_of_field": args.depth_of_field,
             "creative_type": "lifestyle",

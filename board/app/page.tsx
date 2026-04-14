@@ -11,7 +11,7 @@ import CreativeCard, {
 import ImageOverlay from "@/components/ImageOverlay";
 import SaveButton from "@/components/SaveButton";
 import ClearBoardButton from "@/components/ClearBoardButton";
-import { PRODUCTS, ENVIRONMENTS, CAMERA_ANGLES, FORMATS, CREATIVE_TYPES, PRESET_TO_ENV } from "@/lib/constants";
+import { PRODUCTS, ENVIRONMENTS, CAMERA_ANGLES, CHARACTER_ANGLES, FORMATS, CREATIVE_TYPES, PRESET_TO_ENV } from "@/lib/constants";
 
 export default function Board() {
   const { brandId, loading: brandLoading } = useBrand();
@@ -24,6 +24,7 @@ export default function Board() {
   const [productFilter, setProductFilter] = useState("all");
   const [envFilter, setEnvFilter] = useState("all");
   const [cameraFilter, setCameraFilter] = useState("all");
+  const [positionFilter, setPositionFilter] = useState("all");
   const [formatFilter, setFormatFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
 
@@ -95,6 +96,7 @@ export default function Board() {
       return envStyle === envFilter || PRESET_TO_ENV[envStyle] === envFilter;
     })
     .filter((c) => cameraFilter === "all" || c.camera_angle === cameraFilter)
+    .filter((c) => positionFilter === "all" || c.character_angle === positionFilter)
     .filter((c) => formatFilter === "all" || c.format === formatFilter)
     .filter((c) => typeFilter === "all" || c.creative_type === typeFilter);
 
@@ -176,6 +178,18 @@ export default function Board() {
             >
               <option value="all">All Angles</option>
               {CAMERA_ANGLES.map((a) => (
+                <option key={a} value={a}>{a}</option>
+              ))}
+            </select>
+
+            {/* Character Position */}
+            <select
+              value={positionFilter}
+              onChange={(e) => setPositionFilter(e.target.value)}
+              className="text-xs border border-border rounded-lg px-2.5 py-1.5 bg-surface text-foreground focus:outline-none focus:border-primary"
+            >
+              <option value="all">All Positions</option>
+              {CHARACTER_ANGLES.map((a) => (
                 <option key={a} value={a}>{a}</option>
               ))}
             </select>
