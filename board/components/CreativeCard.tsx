@@ -107,7 +107,50 @@ type CreativeCardProps = {
   viewMode?: "grid" | "list";
   draggable?: boolean;
   onDragStart?: (e: React.DragEvent, creative: Creative) => void;
+  variants?: Creative[];
 };
+
+function VariantStrip({
+  label,
+  items,
+  onClick,
+}: {
+  label: string;
+  items: Creative[];
+  onClick?: (c: Creative) => void;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <div className="mt-2">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-[10px] font-semibold text-muted uppercase tracking-wide">{label}</span>
+        <span className="text-[10px] text-muted tabular-nums">{items.length}</span>
+      </div>
+      <div className="flex gap-1 overflow-x-auto pb-0.5">
+        {items.map((v) => {
+          const url = getImageUrl(v);
+          return (
+            <button
+              key={v.id}
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick?.(v);
+              }}
+              className="relative flex-shrink-0 w-10 h-10 rounded-md overflow-hidden bg-background border border-border hover:border-primary/50 transition-colors"
+              title={v.camera_angle || v.color_variant || v.character_angle || undefined}
+            >
+              {url ? (
+                <img src={url} alt="" className="w-full h-full object-cover" loading="lazy" />
+              ) : (
+                <div className="w-full h-full bg-background" />
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function CreativeCard({
   creative,
@@ -116,12 +159,15 @@ export default function CreativeCard({
   viewMode = "grid",
   draggable,
   onDragStart,
+  variants = [],
 }: CreativeCardProps) {
   const imageUrl = getImageUrl(creative);
   const productLabel = PRODUCT_LABELS[creative.product_category || ""] || creative.product_category;
   const envStyle = creative.environment_style || creative.environment || "";
   const envCategory = PRESET_TO_ENV[envStyle] || envStyle;
   const envLabel = ENV_LABELS[envCategory] || ENV_LABELS[envStyle] || envStyle;
+  const multishots = variants.filter((v) => v.creative_type === "multishot");
+  const colors = variants.filter((v) => v.creative_type === "color_variant");
 
   if (viewMode === "list") {
     return (
@@ -164,6 +210,8 @@ export default function CreativeCard({
             {creative.lens && <Tag color="muted">{creative.lens}</Tag>}
             {creative.color_variant && <Tag color="accent">{creative.color_variant}</Tag>}
             <Tag color="muted">{creative.format}</Tag>
+            {multishots.length > 0 && <Tag color="muted">{multishots.length} Multishots</Tag>}
+            {colors.length > 0 && <Tag color="accent">{colors.length} Colors</Tag>}
           </div>
           <p className="text-xs text-muted mt-1 truncate">
             {new Date(creative.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
@@ -240,6 +288,8 @@ export default function CreativeCard({
             {creative.depth_of_field && <Tag color="muted">{creative.depth_of_field}</Tag>}
           </div>
         )}
+        <VariantStrip label="Multishots" items={multishots} onClick={onImageClick} />
+        <VariantStrip label="Colors" items={colors} onClick={onImageClick} />
         {actions && <div className="mt-2.5 flex items-center gap-2">{actions}</div>}
       </div>
     </div>

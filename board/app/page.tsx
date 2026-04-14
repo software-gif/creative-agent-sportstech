@@ -11,7 +11,7 @@ import CreativeCard, {
 import ImageOverlay from "@/components/ImageOverlay";
 import SaveButton from "@/components/SaveButton";
 import ClearBoardButton from "@/components/ClearBoardButton";
-import { PRODUCTS, ENVIRONMENTS, CAMERA_ANGLES, CHARACTER_ANGLES, FORMATS, CREATIVE_TYPES, PRESET_TO_ENV } from "@/lib/constants";
+import { PRODUCTS, ENVIRONMENTS, CAMERA_ANGLES, CHARACTER_ANGLES, FORMATS, PRESET_TO_ENV } from "@/lib/constants";
 
 export default function Board() {
   const { brandId, loading: brandLoading } = useBrand();
@@ -26,7 +26,6 @@ export default function Board() {
   const [cameraFilter, setCameraFilter] = useState("all");
   const [positionFilter, setPositionFilter] = useState("all");
   const [formatFilter, setFormatFilter] = useState("all");
-  const [typeFilter, setTypeFilter] = useState("all");
 
   useEffect(() => {
     if (!brandId) return;
@@ -87,7 +86,24 @@ export default function Board() {
     setLoading(false);
   }
 
-  const filtered = creatives
+  // Group variants under their parent Key Visual. A creative is a "parent
+  // card" when it's a lifestyle shot (creative_type === "lifestyle") OR
+  // when it has no parent_id resolved (orphaned multishot/color_variant
+  // from the pre-parent_id era still needs to show up somewhere).
+  const childrenByParent = new Map<string, Creative[]>();
+  for (const c of creatives) {
+    if (c.parent_id) {
+      const arr = childrenByParent.get(c.parent_id) || [];
+      arr.push(c);
+      childrenByParent.set(c.parent_id, arr);
+    }
+  }
+
+  const parents = creatives.filter(
+    (c) => c.creative_type === "lifestyle" || !c.parent_id
+  );
+
+  const filtered = parents
     .filter((c) => productFilter === "all" || c.product_category === productFilter)
     .filter((c) => {
       if (envFilter === "all") return true;
@@ -97,8 +113,7 @@ export default function Board() {
     })
     .filter((c) => cameraFilter === "all" || c.camera_angle === cameraFilter)
     .filter((c) => positionFilter === "all" || c.character_angle === positionFilter)
-    .filter((c) => formatFilter === "all" || c.format === formatFilter)
-    .filter((c) => typeFilter === "all" || c.creative_type === typeFilter);
+    .filter((c) => formatFilter === "all" || c.format === formatFilter);
 
   const doneCount = creatives.filter((c) => c.status === "done" || c.status === "generated").length;
   const generatingCount = creatives.filter((c) => c.status === "generating").length;
@@ -211,22 +226,6 @@ export default function Board() {
               ))}
             </div>
 
-            {/* Type */}
-            <div className="flex items-center bg-background rounded-lg p-0.5 gap-0.5">
-              {[{ value: "all", label: "All" }, ...CREATIVE_TYPES].map((t) => (
-                <button
-                  key={t.value}
-                  onClick={() => setTypeFilter(t.value)}
-                  className={`text-[11px] font-medium px-2.5 py-1 rounded-md transition-all ${
-                    typeFilter === t.value
-                      ? "bg-surface text-primary shadow-sm"
-                      : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Right: View Toggle */}
@@ -282,6 +281,7 @@ export default function Board() {
                 key={creative.id}
                 creative={creative}
                 viewMode="grid"
+                variants={childrenByParent.get(creative.id) || []}
                 onImageClick={setSelectedImage}
                 actions={
                   (creative.status === "done" || creative.status === "generated") && (
@@ -317,6 +317,7 @@ export default function Board() {
                 key={creative.id}
                 creative={creative}
                 viewMode="list"
+                variants={childrenByParent.get(creative.id) || []}
                 onImageClick={setSelectedImage}
                 actions={
                   (creative.status === "done" || creative.status === "generated") && (

@@ -226,6 +226,33 @@ def save_creative_to_db(creative_data):
     return resp.json()[0]
 
 
+def resolve_parent_id(source_image, explicit_id):
+    """Resolve the parent Key Visual creative this variant derives from.
+
+    Explicit --source-creative-id always wins. Otherwise we look the source
+    up by storage_path so the agent can just pass the same path it gave
+    --source-image and the parent gets linked automatically. Returns None
+    on no match (orphan — filterable later).
+    """
+    if explicit_id:
+        return explicit_id
+    if not source_image:
+        return None
+    try:
+        resp = requests.get(
+            f"{SUPABASE_URL}/rest/v1/creatives",
+            headers=get_supabase_headers(),
+            params={"storage_path": f"eq.{source_image}", "select": "id", "limit": 1},
+        )
+        if resp.ok:
+            rows = resp.json()
+            if rows:
+                return rows[0]["id"]
+    except Exception as e:
+        print(f"  WARN: parent_id lookup failed: {e}")
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Multishot Generator")
     parser.add_argument("--source-image", required=True, help="Source image path")
@@ -245,6 +272,11 @@ def main():
 
     brand_id = get_brand_id()
     batch_id = str(uuid.uuid4())
+    parent_id = resolve_parent_id(args.source_image, args.source_creative_id)
+    if parent_id:
+        print(f"  Parent Key Visual: {parent_id}")
+    else:
+        print(f"  WARN: No parent Key Visual resolved — variant will be orphaned")
 
     # Resolve source image
     source_path = args.source_image
@@ -312,6 +344,7 @@ def main():
             "id": creative_id,
             "brand_id": brand_id,
             "batch_id": batch_id,
+            "parent_id": parent_id,
             "storage_path": storage_path,
             "prompt_text": prompt,
             "prompt_json": {"source_image": args.source_image, "settings": settings},
@@ -336,6 +369,16 @@ def main():
         settings_str = " | ".join(filter(None, [r.get("shot_size"), r.get("camera_angle"), r.get("lens"), r.get("depth_of_field")]))
         print(f"    {r['id']}: {settings_str}")
     print(f"{'=' * 60}")
+
+    # Structured result for agent chaining
+    print("RESULT_JSON " + json.dumps({
+        "batch_id": batch_id,
+        "parent_id": parent_id,
+        "creatives": [
+            {"id": r["id"], "storage_path": r.get("storage_path"), "creative_type": "multishot"}
+            for r in results
+        ],
+    }))
 
     # Cleanup
     tmp = os.path.join(PROJECT_ROOT, ".tmp_multishot_source.png")

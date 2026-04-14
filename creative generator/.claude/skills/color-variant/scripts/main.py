@@ -176,6 +176,33 @@ def save_creative_to_db(creative_data):
     return resp.json()[0]
 
 
+def resolve_parent_id(source_image, explicit_id):
+    """Resolve the parent Key Visual creative this variant derives from.
+
+    Explicit --source-creative-id always wins. Otherwise we look the source
+    up by storage_path so the agent can just pass the same path it gave
+    --source-image and the parent gets linked automatically. Returns None
+    on no match (orphan — filterable later).
+    """
+    if explicit_id:
+        return explicit_id
+    if not source_image:
+        return None
+    try:
+        resp = requests.get(
+            f"{SUPABASE_URL}/rest/v1/creatives",
+            headers=get_supabase_headers(),
+            params={"storage_path": f"eq.{source_image}", "select": "id", "limit": 1},
+        )
+        if resp.ok:
+            rows = resp.json()
+            if rows:
+                return rows[0]["id"]
+    except Exception as e:
+        print(f"  WARN: parent_id lookup failed: {e}")
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Color Variant Generator")
     parser.add_argument("--source-image", required=True, help="Path to source image (local or Supabase storage path)")
@@ -191,6 +218,11 @@ def main():
         sys.exit("ERROR: GEMINI_API_KEY not set")
 
     brand_id = get_brand_id()
+    parent_id = resolve_parent_id(args.source_image, args.source_creative_id)
+    if parent_id:
+        print(f"  Parent Key Visual: {parent_id}")
+    else:
+        print(f"  WARN: No parent Key Visual resolved — variant will be orphaned")
 
     # Resolve source image path
     source_path = args.source_image
@@ -260,6 +292,7 @@ Logo: {logo_inst}"""
     creative_data = {
         "id": creative_id,
         "brand_id": brand_id,
+        "parent_id": parent_id,
         "storage_path": storage_path,
         "prompt_text": prompt,
         "prompt_json": {
@@ -283,6 +316,14 @@ Logo: {logo_inst}"""
     if url:
         print(f"  URL: {url}")
     print(f"{'=' * 60}")
+
+    # Structured result for agent chaining
+    print("RESULT_JSON " + json.dumps({
+        "parent_id": parent_id,
+        "creatives": [
+            {"id": saved["id"], "storage_path": storage_path, "creative_type": "color_variant"}
+        ],
+    }))
 
     # Cleanup temp file
     tmp = os.path.join(PROJECT_ROOT, ".tmp_color_variant_source.png")
