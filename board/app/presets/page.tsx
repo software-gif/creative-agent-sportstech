@@ -89,195 +89,56 @@ export default function PresetsPage() {
   );
 }
 
-function Code({ children }: { children: React.ReactNode }) {
+function Cmd({ children }: { children: React.ReactNode }) {
   return (
-    <code className="font-mono text-[11px] bg-background text-foreground px-1.5 py-0.5 rounded border border-border">
+    <code className="font-mono text-[11px] bg-background text-primary-light px-1.5 py-0.5 rounded">
       {children}
     </code>
   );
 }
 
-function CodeBlock({ children }: { children: string }) {
-  return (
-    <pre className="bg-background border border-border rounded-lg p-3 text-[11px] font-mono text-foreground overflow-x-auto leading-relaxed">
-      {children}
-    </pre>
-  );
-}
-
 function Guide() {
   return (
-    <div className="mb-6 bg-surface rounded-xl border border-border p-5 space-y-5">
-      {/* Mental model */}
-      <div>
-        <h2 className="text-sm font-bold text-foreground mb-1.5">What a preset is</h2>
-        <p className="text-xs text-muted leading-relaxed">
-          A preset is a named recipe of four ingredients:{" "}
-          <span className="text-primary-light font-semibold">Product</span> ×{" "}
-          <span className="text-primary-light font-semibold">Room</span> ×{" "}
-          <span className="text-primary-light font-semibold">Character</span> ×{" "}
-          <span className="text-primary-light font-semibold">Camera</span>. Running a preset
-          fires up the key-visual pipeline with those exact ingredients pre-filled, so you skip
-          re-typing ten flags every time and everyone on the team gets the same consistent look.
-        </p>
-      </div>
+    <div className="mb-6 bg-surface rounded-xl border border-border p-4 text-sm">
+      <p className="text-xs text-muted mb-3">
+        A preset = a named recipe of <span className="text-foreground">Product + Room + Character + Camera</span>. Run it from Claude with a slash command to generate images with those settings.
+      </p>
 
-      {/* Two columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Create */}
-        <div>
-          <h2 className="text-sm font-bold text-foreground mb-1.5">Create a preset</h2>
-          <p className="text-xs text-muted leading-relaxed mb-2">
-            Presets are created from the CLI — this page is read-only so nobody can accidentally
-            delete a good recipe from the browser. Minimum you need is a slug, name, and product;
-            everything else inherits sensible defaults.
-          </p>
-          <CodeBlock>{`python3 .claude/skills/presets/scripts/main.py create \\
-  --slug woodpad-scandi-morning \\
-  --name "WoodPad Pro – Scandi Morning" \\
-  --product woodpad-pro \\
-  --room-preset scandi_minimal \\
-  --character-mode auto_rotate \\
-  --shot-size Wide \\
-  --camera-angle "Eye level" \\
-  --format 9:16 \\
-  --tags walking_pad,scandi,morning \\
-  --default-count 3`}</CodeBlock>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1.5 text-xs">
+        <div className="flex items-baseline gap-2">
+          <Cmd>/presets list</Cmd>
+          <span className="text-muted">show all presets</span>
         </div>
-
-        {/* Run */}
-        <div>
-          <h2 className="text-sm font-bold text-foreground mb-1.5">Run a preset</h2>
-          <p className="text-xs text-muted leading-relaxed mb-2">
-            Running spawns the key-visual skill with all the stored flags, increments{" "}
-            <Code>run_count</Code>, and stamps <Code>last_run_at</Code>. Override{" "}
-            <Code>--count</Code> to generate more than the preset default.
-          </p>
-          <CodeBlock>{`# run with stored default_count
-python3 .claude/skills/presets/scripts/main.py run woodpad-scandi-morning
-
-# override batch size
-python3 .claude/skills/presets/scripts/main.py run woodpad-scandi-morning --count 10
-
-# dry run (print the command without executing)
-python3 .claude/skills/presets/scripts/main.py run woodpad-scandi-morning --dry-run`}</CodeBlock>
+        <div className="flex items-baseline gap-2">
+          <Cmd>/presets show &lt;slug&gt;</Cmd>
+          <span className="text-muted">inspect one in detail</span>
+        </div>
+        <div className="flex items-baseline gap-2">
+          <Cmd>/presets run &lt;slug&gt;</Cmd>
+          <span className="text-muted">generate images with it</span>
+        </div>
+        <div className="flex items-baseline gap-2">
+          <Cmd>/presets run &lt;slug&gt; --count 10</Cmd>
+          <span className="text-muted">override batch size</span>
+        </div>
+        <div className="flex items-baseline gap-2">
+          <Cmd>/presets create ...</Cmd>
+          <span className="text-muted">add a new recipe</span>
+        </div>
+        <div className="flex items-baseline gap-2">
+          <Cmd>/presets delete &lt;slug&gt;</Cmd>
+          <span className="text-muted">remove a recipe</span>
         </div>
       </div>
 
-      {/* Variable reference */}
-      <div>
-        <h2 className="text-sm font-bold text-foreground mb-2">Variable reference</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="border-b border-border text-left text-muted">
-                <th className="py-1.5 pr-4 font-semibold">Variable</th>
-                <th className="py-1.5 pr-4 font-semibold">What it does</th>
-                <th className="py-1.5 pr-4 font-semibold">Values / default</th>
-              </tr>
-            </thead>
-            <tbody className="text-foreground/80">
-              <GuideRow
-                name="--product"
-                desc="Product handle, matches branding/product_knowledge.json"
-                values="f37s-pro, woodpad-pro, sbike, scross, aqua-elite, …"
-                required
-              />
-              <GuideRow
-                name="--room-preset"
-                desc="Room recipe ID from branding/room_prompts.json"
-                values="scandi_minimal, japandi_bookcase, urban_loft_golden, …"
-              />
-              <GuideRow
-                name="--character-mode"
-                desc="How the model/person is chosen at run time"
-                values={
-                  <>
-                    <Code>auto_rotate</Code> (default), <Code>fixed</Code>,{" "}
-                    <Code>description</Code>, <Code>model_pool</Code>
-                  </>
-                }
-              />
-              <GuideRow
-                name="--pose"
-                desc="Free-text pose override. Empty = first correct-usage pose from product_knowledge"
-                values="e.g. 'Walking on the pad while checking phone'"
-              />
-              <GuideRow
-                name="--shot-size"
-                desc="How much frame the subject fills"
-                values="Wide (default), Medium Shot, Close Up, Extreme Wide, Bird's Eye"
-              />
-              <GuideRow
-                name="--camera-angle"
-                desc="Camera pitch relative to subject (vertical)"
-                values="Eye level (default), Slightly above, High, Slightly below, Low, Ground"
-              />
-              <GuideRow
-                name="--character-angle"
-                desc="Subject rotation relative to camera (horizontal)"
-                values="3/4 angle (default), Front facing, Profile, Over the shoulder, Back view"
-              />
-              <GuideRow
-                name="--lens"
-                desc="Focal length — wider = more room, longer = compressed"
-                values="14mm, 24mm, 35mm, 50mm (default), 85mm, 135mm, 200mm"
-              />
-              <GuideRow
-                name="--depth-of-field"
-                desc="Aperture / background blur"
-                values="f/1.2 – f/16 (default f/4)"
-              />
-              <GuideRow
-                name="--format"
-                desc="Output aspect ratio"
-                values="9:16 (default), 1:1, 16:9, 4:5"
-              />
-              <GuideRow
-                name="--default-count"
-                desc="How many images to generate per run when --count is not passed"
-                values="int (default 3)"
-              />
-              <GuideRow
-                name="--tags"
-                desc="Comma-separated searchable labels"
-                values="e.g. walking_pad,scandi,morning"
-              />
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <p className="text-[11px] text-muted/70 pt-2 border-t border-border">
-        Full documentation lives in{" "}
-        <Code>creative generator/.claude/skills/presets/SKILL.md</Code>. Every preset gets
-        validated against <Code>product_knowledge.json</Code> and <Code>room_prompts.json</Code>{" "}
-        before it's saved.
+      <p className="text-[11px] text-muted/70 mt-3 pt-3 border-t border-border">
+        Full flag reference lives in{" "}
+        <code className="font-mono text-[10px] bg-tag-bg text-foreground/80 px-1 py-0.5 rounded">
+          .claude/skills/presets/SKILL.md
+        </code>
+        .
       </p>
     </div>
-  );
-}
-
-function GuideRow({
-  name,
-  desc,
-  values,
-  required,
-}: {
-  name: string;
-  desc: string;
-  values: React.ReactNode;
-  required?: boolean;
-}) {
-  return (
-    <tr className="border-b border-border/50 last:border-0">
-      <td className="py-1.5 pr-4 align-top">
-        <code className="font-mono text-[11px] text-primary-light">{name}</code>
-        {required && <span className="text-[9px] text-accent ml-1 font-bold">required</span>}
-      </td>
-      <td className="py-1.5 pr-4 align-top text-muted leading-tight">{desc}</td>
-      <td className="py-1.5 pr-4 align-top leading-tight">{values}</td>
-    </tr>
   );
 }
 
