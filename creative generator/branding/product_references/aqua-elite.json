@@ -1,0 +1,91 @@
+{
+  "product": "aqua-elite",
+  "images": {
+    "renders/aqua-elite/cutouts/0.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "wood_frame",
+        "water_tank",
+        "touchscreen",
+        "SPORTSTECH_logo",
+        "wheels",
+        "footrests",
+        "seat_rail"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image shows the product folded and stored vertically, highlighting its compact form factor and the touchscreen's position."
+    },
+    "renders/aqua-elite/cutouts/1.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "wood_frame",
+        "black_rail",
+        "seat",
+        "footrests",
+        "handlebar",
+        "water_tank",
+        "LED_lighting",
+        "touchscreen",
+        "wood_stand",
+        "SPORTSTECH_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the entire rowing machine, highlighting the light wood frame, black rail, and the illuminated water tank with the touchscreen."
+    },
+    "renders/aqua-elite/cutouts/2.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "water_tank",
+        "footrests",
+        "handlebar",
+        "seat",
+        "side_rail",
+        "SPORTSTECH_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front_3_4 angle, showing the display screen, water tank, and the SPORTSTECH logo clearly."
+    },
+    "renders/aqua-elite/cutouts/3.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "wood_frame",
+        "black_rail",
+        "water_tank",
+        "touchscreen",
+        "SPORTSTECH_logo",
+        "seat",
+        "footrests",
+        "handlebar"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear profile view of the entire rowing machine, highlighting the wood frame, water tank, touchscreen, and branding."
+    },
+    "renders/aqua-elite/cutouts/4.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "water_tank",
+        "footrests",
+        "seat",
+        "handlebar",
+        "side_rail",
+        "branding_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, showing the display, water tank, and branding."
+    }
+  }
+}

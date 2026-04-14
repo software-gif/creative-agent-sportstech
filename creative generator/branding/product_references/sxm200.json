@@ -1,0 +1,100 @@
+{
+  "product": "sxm200",
+  "images": {
+    "renders/sxm200/cutouts/0.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "red_black",
+      "visible_parts": [
+        "power_rack_frame",
+        "guided_barbell",
+        "cable_towers",
+        "weight_stacks",
+        "pull_up_bar",
+        "j-hooks",
+        "safety_spotter_arms",
+        "landmine_attachment",
+        "plate_storage_pegs",
+        "dip_handles",
+        "multi-grip_pull-up_bar"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, showcasing the entire structure and key attachments like the guided barbell and cable towers."
+    },
+    "renders/sxm200/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "red_black",
+      "visible_parts": [
+        "power_rack",
+        "guided_barbell",
+        "weight_plates",
+        "cable_towers",
+        "weight_stacks",
+        "pull_up_bar",
+        "handles",
+        "spotter_arms",
+        "j-hooks",
+        "plate_storage_pegs",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, showcasing all major components and the red and black color scheme."
+    },
+    "renders/sxm200/cutouts/2.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "red_black",
+      "visible_parts": [
+        "power_rack_frame",
+        "guided_barbell",
+        "weight_plates",
+        "cable_towers",
+        "weight_stacks",
+        "pull_up_bar",
+        "barbell_holders",
+        "safety_catches"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, clearly showing the guided barbell, cable towers, and weight stacks."
+    },
+    "renders/sxm200/cutouts/3.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "red_black",
+      "visible_parts": [
+        "power_rack",
+        "guided_barbell",
+        "weight_plates",
+        "cable_towers",
+        "weight_blocks",
+        "pull-up_bar",
+        "j-hooks",
+        "spotter_arms",
+        "branding_logo",
+        "handles"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front three-quarter view of the entire smith machine, clearly showing all major components and the red and black color scheme."
+    },
+    "renders/sxm200/cutouts/4.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "red_black",
+      "visible_parts": [
+        "guided_barbell",
+        "weight_plates",
+        "cable_towers",
+        "pull-up_bar",
+        "safety_catches",
+        "j-hooks",
+        "weight_storage_pegs",
+        "dip_handles",
+        "landmine_attachment",
+        "multi-grip_pull-up_bar"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front 3/4 view of the entire Smith Machine, highlighting all major components and attachments clearly."
+    }
+  }
+}

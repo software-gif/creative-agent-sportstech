@@ -110,44 +110,51 @@ type CreativeCardProps = {
   variants?: Creative[];
 };
 
-function VariantStrip({
+function VariantDot({
+  letter,
+  count,
   label,
-  items,
-  onClick,
 }: {
+  letter: string;
+  count: number;
   label: string;
-  items: Creative[];
-  onClick?: (c: Creative) => void;
 }) {
-  if (items.length === 0) return null;
+  const active = count > 0;
   return (
-    <div className="mt-2">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-[10px] font-semibold text-muted uppercase tracking-wide">{label}</span>
-        <span className="text-[10px] text-muted tabular-nums">{items.length}</span>
-      </div>
-      <div className="flex gap-1 overflow-x-auto pb-0.5">
-        {items.map((v) => {
-          const url = getImageUrl(v);
-          return (
-            <button
-              key={v.id}
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick?.(v);
-              }}
-              className="relative flex-shrink-0 w-10 h-10 rounded-md overflow-hidden bg-background border border-border hover:border-primary/50 transition-colors"
-              title={v.camera_angle || v.color_variant || v.character_angle || undefined}
-            >
-              {url ? (
-                <img src={url} alt="" className="w-full h-full object-cover" loading="lazy" />
-              ) : (
-                <div className="w-full h-full bg-background" />
-              )}
-            </button>
-          );
-        })}
-      </div>
+    <span
+      title={`${label}: ${count}`}
+      className="inline-flex items-center gap-1"
+    >
+      <span
+        className={`w-1.5 h-1.5 rounded-full ${
+          active
+            ? "bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.9)]"
+            : "bg-red-500/70 shadow-[0_0_4px_rgba(239,68,68,0.5)]"
+        }`}
+      />
+      <span
+        className={`text-[10px] font-semibold leading-none ${
+          active ? "text-green-400" : "text-red-400/80"
+        }`}
+      >
+        {letter}
+        {active && <span className="ml-0.5 tabular-nums">{count}</span>}
+      </span>
+    </span>
+  );
+}
+
+function VariantDots({
+  multishotCount,
+  colorCount,
+}: {
+  multishotCount: number;
+  colorCount: number;
+}) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <VariantDot letter="M" count={multishotCount} label="Multishots" />
+      <VariantDot letter="C" count={colorCount} label="Color Variants" />
     </div>
   );
 }
@@ -172,14 +179,14 @@ export default function CreativeCard({
   if (viewMode === "list") {
     return (
       <div
-        className="group flex items-center gap-4 bg-surface rounded-xl border border-border p-2 hover:border-primary/30 hover:bg-surface-hover transition-all"
+        className="group flex items-center gap-4 bg-surface rounded-xl border border-border p-2 hover:border-primary/30 hover:bg-surface-hover transition-all cursor-pointer"
         draggable={draggable}
         onDragStart={(e) => onDragStart?.(e, creative)}
+        onClick={() => imageUrl && onImageClick?.(creative)}
       >
         {/* Thumbnail */}
         <div
-          className="relative w-20 h-20 rounded-lg bg-background overflow-hidden cursor-pointer flex-shrink-0"
-          onClick={() => imageUrl && onImageClick?.(creative)}
+          className="relative w-20 h-20 rounded-lg bg-background overflow-hidden flex-shrink-0"
         >
           {creative.status === "generating" ? (
             <div className="absolute inset-0 flex items-center justify-center">
@@ -210,8 +217,7 @@ export default function CreativeCard({
             {creative.lens && <Tag color="muted">{creative.lens}</Tag>}
             {creative.color_variant && <Tag color="accent">{creative.color_variant}</Tag>}
             <Tag color="muted">{creative.format}</Tag>
-            {multishots.length > 0 && <Tag color="muted">{multishots.length} Multishots</Tag>}
-            {colors.length > 0 && <Tag color="accent">{colors.length} Color Variants</Tag>}
+            <VariantDots multishotCount={multishots.length} colorCount={colors.length} />
           </div>
           <p className="text-xs text-muted mt-1 truncate">
             {new Date(creative.created_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
@@ -220,8 +226,15 @@ export default function CreativeCard({
           </p>
         </div>
 
-        {/* Actions */}
-        {actions && <div className="flex items-center gap-2 flex-shrink-0">{actions}</div>}
+        {/* Actions — stop row-click propagation so Download/Delete don't open overlay */}
+        {actions && (
+          <div
+            className="flex items-center gap-2 flex-shrink-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {actions}
+          </div>
+        )}
       </div>
     );
   }
@@ -275,11 +288,14 @@ export default function CreativeCard({
 
       {/* Tags & Meta */}
       <div className="p-3">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          {productLabel && <Tag color="primary">{productLabel}</Tag>}
-          {envLabel && <Tag>{envLabel}</Tag>}
-          {creative.camera_angle && <Tag color="muted">{creative.camera_angle}</Tag>}
-          {creative.color_variant && <Tag color="accent">{creative.color_variant}</Tag>}
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex items-center gap-1.5 flex-wrap flex-1 min-w-0">
+            {productLabel && <Tag color="primary">{productLabel}</Tag>}
+            {envLabel && <Tag>{envLabel}</Tag>}
+            {creative.camera_angle && <Tag color="muted">{creative.camera_angle}</Tag>}
+            {creative.color_variant && <Tag color="accent">{creative.color_variant}</Tag>}
+          </div>
+          <VariantDots multishotCount={multishots.length} colorCount={colors.length} />
         </div>
         {(creative.lens || creative.shot_size) && (
           <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
@@ -288,8 +304,6 @@ export default function CreativeCard({
             {creative.depth_of_field && <Tag color="muted">{creative.depth_of_field}</Tag>}
           </div>
         )}
-        <VariantStrip label="Multishots" items={multishots} onClick={onImageClick} />
-        <VariantStrip label="Color Variants" items={colors} onClick={onImageClick} />
         {actions && <div className="mt-2.5 flex items-center gap-2">{actions}</div>}
       </div>
     </div>

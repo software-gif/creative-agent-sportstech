@@ -1,0 +1,44 @@
+{
+  "product": "svibe",
+  "images": {
+    "renders/svibe/cutouts/0.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "hexagonal_vibration_plate",
+        "display_screen",
+        "control_buttons",
+        "LED_lighting",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear top-down view of the entire product, highlighting the hexagonal pattern, display, controls, and LED lighting."
+    },
+    "renders/svibe/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "hexagonal_vibration_plate",
+        "LED_lighting",
+        "display_screen",
+        "control_buttons"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product, including the hexagonal plate, LED lighting, and the display screen with control buttons."
+    },
+    "renders/svibe/cutouts/2.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "vibration_plate",
+        "LED_lighting",
+        "feet"
+      ],
+      "detail_richness": 7,
+      "key_features": "Clear front view of the hexagonal vibration plate with illuminated LED edges and visible feet."
+    }
+  }
+}

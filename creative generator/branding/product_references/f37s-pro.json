@@ -1,0 +1,122 @@
+{
+  "product": "f37s-pro",
+  "images": {
+    "renders/f37s-pro/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black_purple_led",
+      "visible_parts": [
+        "running_deck",
+        "LED_strips",
+        "console",
+        "display_screen",
+        "handlebars",
+        "safety_key",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, clearly showing the purple LED strips and the display screen."
+    },
+    "renders/f37s-pro/cutouts/2.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "front_console",
+        "handlebar",
+        "running_deck",
+        "LED_strips",
+        "SPORTSTECH_branding",
+        "safety_key",
+        "start_button",
+        "stop_button"
+      ],
+      "detail_richness": 9,
+      "key_features": "Full product view from the front, clearly showing the display, console, handlebars, running deck with LED strips, and all key buttons and branding."
+    },
+    "renders/f37s-pro/cutouts/3.png": {
+      "camera_angle": "hero_overview",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "front_console",
+        "handlebar",
+        "running_deck",
+        "LED_strips",
+        "control_panel",
+        "safety_key",
+        "branding_logo",
+        "cup_holders"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive overview of the entire treadmill from a high angle, showcasing all key features including the display, controls, and LED strips."
+    },
+    "renders/f37s-pro/cutouts/4.png": {
+      "camera_angle": "low_angle",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "running_deck",
+        "LED_strips",
+        "console",
+        "handlebars",
+        "branding_logo",
+        "safety_key"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a low-angle view of the treadmill, highlighting the running deck texture and the illuminated LED strips along the sides."
+    },
+    "renders/f37s-pro/cutouts/5.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "handlebar",
+        "running_deck",
+        "LED_strips",
+        "branding_logo",
+        "safety_key",
+        "console"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front, clearly showing the display, handlebars, running deck with LED strips, and branding."
+    },
+    "renders/f37s-pro/cutouts/6.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "front_console",
+        "handlebar",
+        "running_deck",
+        "LED_strips",
+        "branding_logo",
+        "safety_key",
+        "START_button",
+        "STOP_button"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive view of the entire treadmill from a front three-quarter angle, highlighting the display, controls, and LED strips."
+    },
+    "renders/f37s-pro/cutouts/7.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "branding_logo",
+        "handlebar",
+        "LED_strips",
+        "running_deck",
+        "console",
+        "safety_key"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear, head-on view of the entire treadmill, highlighting the display, handlebars, and illuminated LED strips."
+    }
+  }
+}

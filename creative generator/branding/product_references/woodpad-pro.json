@@ -1,0 +1,909 @@
+{
+  "product": "woodpad-pro",
+  "images": {
+    "renders/woodpad-pro/cutouts/0.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "side_panel",
+        "branding_logo",
+        "front_console",
+        "end_cap",
+        "feet"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear profile view of the WoodPad Pro, highlighting the wood_light finish and branding."
+    },
+    "renders/woodpad-pro/cutouts/1.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "side_panel",
+        "branding_logo",
+        "front_console",
+        "rear_wheels",
+        "adjustable_feet"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear profile view of the WoodPad Pro, highlighting the wood_light finish and the 'SPORTSTECH' branding."
+    },
+    "renders/woodpad-pro/cutouts/10.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "running_belt",
+        "front_console",
+        "display_screen",
+        "side_rail",
+        "branding_logo",
+        "power_port",
+        "end_cap"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front three-quarter angle, highlighting the dark wood finish and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/11.png": {
+      "camera_angle": "eye_level_side",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "side_panel",
+        "branding_logo",
+        "display_screen",
+        "control_knobs",
+        "feet"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear side profile of the WoodPad Pro, highlighting the dark wood finish, branding, and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/12.png": {
+      "camera_angle": "eye_level_side",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "side_panel",
+        "branding_logo",
+        "display_screen",
+        "control_knobs",
+        "feet"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear side profile of the WoodPad Pro, showcasing the dark wood finish, branding, and display screen."
+    },
+    "renders/woodpad-pro/cutouts/13.png": {
+      "camera_angle": "eye_level_side",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "side_panel",
+        "branding_logo",
+        "display_screen",
+        "control_knobs",
+        "feet"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear side profile of the WoodPad Pro, highlighting the dark wood finish, branding, and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/14.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_casing",
+        "display_screen",
+        "branding_logo",
+        "side_rail"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the entire WoodPad Pro, highlighting the dark wood casing, treadmill belt, and display screen with legible branding."
+    },
+    "renders/woodpad-pro/cutouts/15.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "running_belt",
+        "wood_frame",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front three-quarter angle, highlighting the wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/16.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "Clear view of the entire treadmill from a front three-quarter angle, showcasing the display and branding."
+    },
+    "renders/woodpad-pro/cutouts/17.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "branding_logo",
+        "end_cap"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the front right side of the treadmill, highlighting the wood finish and branding on the end cap."
+    },
+    "renders/woodpad-pro/cutouts/18.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire treadmill from a front-three-quarter angle, showcasing the dark wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/19.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "front_console",
+        "display_screen"
+      ],
+      "detail_richness": 7,
+      "key_features": "Clear, eye-level view of the front console and display, showing the wood grain and digital time."
+    },
+    "renders/woodpad-pro/cutouts/2.png": {
+      "camera_angle": "high_angle",
+      "framing": "three_quarter",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "side_rail",
+        "treadmill_belt",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the display screen and the wood grain on the side rail, showing the 'SPORTS' branding on the belt."
+    },
+    "renders/woodpad-pro/cutouts/20.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the WoodPad Pro, highlighting the wood_light variant, display screen, and branding on the treadmill belt."
+    },
+    "renders/woodpad-pro/cutouts/21.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from a front three-quarter angle, showcasing the dark wood variant and the compact, foldable design."
+    },
+    "renders/woodpad-pro/cutouts/22.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "side_rail",
+        "end_cap",
+        "branding_logo",
+        "power_switch",
+        "power_cable_port"
+      ],
+      "detail_richness": 7,
+      "key_features": "Full product view from the front-right, showing the display, power switch, and branding."
+    },
+    "renders/woodpad-pro/cutouts/23.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "display_screen",
+        "power_button",
+        "power_port",
+        "branding_logo",
+        "end_cap"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the WoodPad Pro, highlighting the dark wood finish, display screen, and branding."
+    },
+    "renders/woodpad-pro/cutouts/24.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "running_surface",
+        "side_rail",
+        "front_console",
+        "display_screen",
+        "branding_logo",
+        "power_switch",
+        "wheels"
+      ],
+      "detail_richness": 9,
+      "key_features": "Clear view of the entire product from a front three-quarter angle, highlighting the wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/25.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "treadmill_belt",
+        "display_screen",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire treadmill from a front three-quarter angle, showcasing the display and branding."
+    },
+    "renders/woodpad-pro/cutouts/26.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_paneling",
+        "control_panel",
+        "power_switch",
+        "wheels",
+        "feet",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the WoodPad Pro, highlighting the wood paneling and the compact, flat design."
+    },
+    "renders/woodpad-pro/cutouts/27.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "wood_frame",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear, full product view of the WoodPad Pro from a front three-quarter angle, highlighting the light wood finish and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/28.png": {
+      "camera_angle": "low_angle",
+      "framing": "three_quarter",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "end_cap",
+        "power_switch",
+        "power_port",
+        "display_screen",
+        "treadmill_belt",
+        "side_rail"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the power switch and port, along with the end cap and a portion of the display."
+    },
+    "renders/woodpad-pro/cutouts/29.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "end_cap",
+        "branding_logo",
+        "power_switch",
+        "wheels",
+        "display_screen"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front-three-quarter angle, showcasing the dark wood finish and key components like the display and power switch."
+    },
+    "renders/woodpad-pro/cutouts/3.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "display_screen",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the treadmill belt, side rails, display screen, and branding logo from a front three-quarter angle."
+    },
+    "renders/woodpad-pro/cutouts/30.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "branding_logo",
+        "end_cap"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the treadmill belt, side rail, and branding logo on the dark wood variant."
+    },
+    "renders/woodpad-pro/cutouts/31.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo",
+        "power_cord_area"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a clear front three-quarter view of the entire WoodPad Pro, highlighting the wood_light variant and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/32.png": {
+      "camera_angle": "profile_left",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "side_panel_left",
+        "treadmill_belt",
+        "control_panel",
+        "branding_logo",
+        "adjustment_knobs",
+        "front_wheel",
+        "foot_pads"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear profile view of the WoodPad Pro, showcasing the dark wood finish, control panel, and branding logo."
+    },
+    "renders/woodpad-pro/cutouts/33.png": {
+      "camera_angle": "profile_left",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "side_panel_left",
+        "treadmill_belt",
+        "control_panel",
+        "branding_logo",
+        "adjustment_knobs",
+        "front_wheel"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear profile view of the WoodPad Pro, showcasing the dark wood finish, branding, and control panel from the left side."
+    },
+    "renders/woodpad-pro/cutouts/34.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "wood_panel",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Top-down view showing the full product, including the display screen and branding on the treadmill belt."
+    },
+    "renders/woodpad-pro/cutouts/35.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front three-quarter angle, highlighting the wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/36.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "display_screen",
+        "side_rail",
+        "branding_logo",
+        "end_cap"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire treadmill from a front three-quarter angle, showcasing the dark wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/37.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "running_belt",
+        "wood_panel",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Top-down view showing the full product, including the display screen and branding on the running belt."
+    },
+    "renders/woodpad-pro/cutouts/38.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "front_console",
+        "display_screen",
+        "branding_logo",
+        "power_switch"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the WoodPad Pro, highlighting the dark wood finish, display screen, and branding."
+    },
+    "renders/woodpad-pro/cutouts/39.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "side_rail",
+        "branding_logo",
+        "power_port",
+        "end_cap"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a clear, full product view of the WoodPad Pro from a front three-quarter angle, highlighting the wood_light variant and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/4.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "running_belt",
+        "side_rail",
+        "end_cap",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the display screen and the wood grain on the side rail, showcasing the product's aesthetic."
+    },
+    "renders/woodpad-pro/cutouts/40.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "branding_logo",
+        "control_knobs",
+        "base_feet"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the WoodPad Pro, highlighting its compact, foldable design and the light wood finish."
+    },
+    "renders/woodpad-pro/cutouts/41.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "running_surface",
+        "display_screen",
+        "wood_frame",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front-three-quarter angle, highlighting the wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/42.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "running_surface",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the entire WoodPad Pro, highlighting the display and running surface with branding."
+    },
+    "renders/woodpad-pro/cutouts/43.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "front_panel",
+        "branding_logo",
+        "power_switch",
+        "power_port",
+        "display_screen"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive view of the entire WoodPad Pro from a front three-quarter angle, showcasing the dark wood finish and key functional elements."
+    },
+    "renders/woodpad-pro/cutouts/44.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "wood_panel",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear top-down view of the entire product, showcasing the wood panel, display, and treadmill belt with branding."
+    },
+    "renders/woodpad-pro/cutouts/45.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Top-down view showing the full product, including the display screen and branding on the treadmill belt."
+    },
+    "renders/woodpad-pro/cutouts/46.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "Shows the front three-quarter view of the black WoodPad Pro, highlighting the treadmill belt and side rail with branding."
+    },
+    "renders/woodpad-pro/cutouts/47.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "running_surface",
+        "wood_frame",
+        "display_screen",
+        "branding_logo",
+        "power_switch",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the entire WoodPad Pro, highlighting the wood_light variant, display, and running surface."
+    },
+    "renders/woodpad-pro/cutouts/48.png": {
+      "camera_angle": "back_3_4",
+      "framing": "three_quarter",
+      "variant": "wood_light",
+      "visible_parts": [
+        "end_cap",
+        "power_port",
+        "on_off_switch",
+        "display_screen",
+        "running_belt",
+        "side_rail",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the back end, including the power port, on/off switch, and the display screen with legible text."
+    },
+    "renders/woodpad-pro/cutouts/49.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "running_surface",
+        "side_rails",
+        "display_screen",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front three-quarter angle, showcasing the wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/5.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_deck",
+        "side_rail",
+        "branding_logo",
+        "display_screen",
+        "power_switch",
+        "transport_wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the front-right side, showcasing the dark wood finish, branding, display, and power switch."
+    },
+    "renders/woodpad-pro/cutouts/50.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "display_screen",
+        "power_button",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the entire WoodPad Pro, highlighting the dark wood finish and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/51.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_casing",
+        "display_screen",
+        "branding_logo",
+        "power_port",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the WoodPad Pro, highlighting the wood casing, display screen, and branding, with good detail on the treadmill belt and visible wheels."
+    },
+    "renders/woodpad-pro/cutouts/52.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "side_panel",
+        "branding_logo",
+        "power_cord_area"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a clear, full product view from a front three-quarter angle, highlighting the dark wood finish and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/53.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "running_deck",
+        "side_rail",
+        "front_panel",
+        "display_screen",
+        "power_button",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "Full product view from a front three-quarter angle, showing the display and power button clearly."
+    },
+    "renders/woodpad-pro/cutouts/54.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_side_panel",
+        "control_panel",
+        "branding_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear, full product view of the WoodPad Pro from a front three-quarter angle, highlighting the wood finish and control panel."
+    },
+    "renders/woodpad-pro/cutouts/55.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "front_console",
+        "display_screen"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear, eye-level view of the front console and display screen, showing the wood grain and digital time."
+    },
+    "renders/woodpad-pro/cutouts/56.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front three-quarter view of the entire WoodPad Pro, highlighting its wood_light finish and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/57.png": {
+      "camera_angle": "hero_overview",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_side_panels",
+        "display_screen",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive overview of the WoodPad Pro in a folded, upright position, highlighting the wood finish and display."
+    },
+    "renders/woodpad-pro/cutouts/58.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "running_belt",
+        "side_panel_wood_dark"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the display screen and the dark wood grain texture on the side panel."
+    },
+    "renders/woodpad-pro/cutouts/59.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "display_screen",
+        "branding_logo",
+        "end_cap"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the treadmill belt, side rails, display screen, and branding from a front 3/4 angle."
+    },
+    "renders/woodpad-pro/cutouts/6.png": {
+      "camera_angle": "profile_left",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "treadmill_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the WoodPad Pro, showcasing its full length, the wood_light variant, and the branding logo."
+    },
+    "renders/woodpad-pro/cutouts/60.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "display_screen",
+        "treadmill_belt",
+        "side_caps",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Top-down view showing the full product, including the display screen and treadmill belt with branding."
+    },
+    "renders/woodpad-pro/cutouts/61.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "running_belt",
+        "wood_frame",
+        "display_screen",
+        "branding_logo",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire product from a front three-quarter angle, highlighting the wood_light variant and the display screen."
+    },
+    "renders/woodpad-pro/cutouts/62.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "front_console",
+        "display_screen"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear, eye-level front view of the WoodPad Pro, highlighting the dark wood finish and the digital display showing 'T11:30'."
+    },
+    "renders/woodpad-pro/cutouts/63.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "display_screen",
+        "branding_logo",
+        "power_switch",
+        "wood_finish_console"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire WoodPad Pro from a front 3/4 angle, highlighting the dark wood finish and the illuminated display."
+    },
+    "renders/woodpad-pro/cutouts/64.png": {
+      "camera_angle": "back_3_4",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "back_controls",
+        "power_port",
+        "display_screen",
+        "end_cap",
+        "branding_logo",
+        "running_belt"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the back control panel, power port, and the display screen with legible text."
+    },
+    "renders/woodpad-pro/cutouts/7.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "front_console",
+        "display_screen",
+        "branding_logo",
+        "power_port",
+        "wheels"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive view of the entire WoodPad Pro from a front three-quarter angle, showcasing the dark wood finish and all major components."
+    },
+    "renders/woodpad-pro/cutouts/8.png": {
+      "camera_angle": "profile_left",
+      "framing": "full_product",
+      "variant": "wood_dark",
+      "visible_parts": [
+        "treadmill_belt",
+        "side_rail",
+        "display_screen",
+        "branding_logo",
+        "front_panel",
+        "rear_panel"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a clear profile view of the WoodPad Pro, showcasing its folded state and the wood_dark finish."
+    },
+    "renders/woodpad-pro/cutouts/9.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "wood_light",
+      "visible_parts": [
+        "running_surface",
+        "display_screen",
+        "wood_panel",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Top-down view showing the entire product, highlighting the wood panel and running surface with branding."
+    }
+  }
+}

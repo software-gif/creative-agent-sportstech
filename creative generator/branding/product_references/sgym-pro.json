@@ -1,0 +1,319 @@
+{
+  "product": "sgym-pro",
+  "images": {
+    "renders/sgym-pro/cutouts/0.png": {
+      "camera_angle": "profile_left",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "base_platform",
+        "vertical_frame",
+        "adjustable_handles",
+        "pull-up_bar",
+        "display_screen",
+        "cable_pulley_system"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the entire sGym Pro Kraftstation, highlighting its compact tower design and the full range of adjustable components."
+    },
+    "renders/sgym-pro/cutouts/1.png": {
+      "camera_angle": "back",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "pull_up_bar",
+        "cable_tower",
+        "display_screen",
+        "handles",
+        "base"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear back view of the entire sGym Pro Kraftstation, highlighting the pull-up bar, cable tower, and the back of the display screen."
+    },
+    "renders/sgym-pro/cutouts/10.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "handlebar",
+        "base_platform"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the entire sGym Pro Kraftstation, highlighting its compact tower design and the full length of the cable tower."
+    },
+    "renders/sgym-pro/cutouts/11.png": {
+      "camera_angle": "low_angle",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "seat",
+        "pedals",
+        "foot_rest",
+        "base_frame",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a comprehensive view of the entire sGym Pro Kraftstation from a low angle, highlighting the display, pull-up bar, and the full structure."
+    },
+    "renders/sgym-pro/cutouts/12.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull-up_bar",
+        "handlebar",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the display screen with UI, cable system, and one handlebar, showing the product's interactive and functional aspects."
+    },
+    "renders/sgym-pro/cutouts/13.png": {
+      "camera_angle": "high_angle",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "pull_up_bar",
+        "handlebar",
+        "cable_tower",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a high-angle view of the full product, clearly showing the display screen, pull-up bar, and cable tower, with legible branding."
+    },
+    "renders/sgym-pro/cutouts/14.png": {
+      "camera_angle": "front_3_4",
+      "framing": "detail_close_up",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a clear view of the display screen and the branding logo, showing the user interface for login."
+    },
+    "renders/sgym-pro/cutouts/15.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "pull_up_bar",
+        "display_screen",
+        "cable_tower",
+        "handlebar",
+        "base_platform"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear top-down view of the entire sGym Pro Kraftstation, highlighting the pull-up bar, display, and cable system."
+    },
+    "renders/sgym-pro/cutouts/16.png": {
+      "camera_angle": "back",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "pull_up_bar",
+        "cable_tower",
+        "display_screen",
+        "cable_attachments",
+        "base_unit"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear and detailed view of the back of the sGym Pro, highlighting the pull-up bar, cable tower, and the rear of the display screen."
+    },
+    "renders/sgym-pro/cutouts/17.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "handles",
+        "base_platform",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a good overall view of the sGym Pro Kraftstation, highlighting the display, pull-up bar, and cable system from a front three-quarter angle."
+    },
+    "renders/sgym-pro/cutouts/18.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "base",
+        "Sportstech_logo",
+        "handles"
+      ],
+      "detail_richness": 7,
+      "key_features": "Full product view from the front-three-quarter angle, showing the display, cable tower, and pull-up bar."
+    },
+    "renders/sgym-pro/cutouts/19.png": {
+      "camera_angle": "front",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "base_platform",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full front view of the sGym Pro Kraftstation, clearly showing the display, cable system, pull-up bar, and base platform."
+    },
+    "renders/sgym-pro/cutouts/2.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "pull_up_bar",
+        "cable_tower",
+        "platform",
+        "branding_logo",
+        "adjustable_handles"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front three-quarter view of the sGym Pro, showcasing the full product with its display, pull-up bar, and platform clearly visible."
+    },
+    "renders/sgym-pro/cutouts/20.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "branding_logo",
+        "handlebar",
+        "cable_tower",
+        "pull_up_bar"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a good overall view of the sGym Pro Kraftstation, highlighting the display, branding, and the cable tower system."
+    },
+    "renders/sgym-pro/cutouts/21.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "cable_tower",
+        "pull_up_bar",
+        "display_screen",
+        "cable_pull",
+        "handles"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the sGym Pro Kraftstation, highlighting its compact tower design and the full height of the cable tower and pull-up bar."
+    },
+    "renders/sgym-pro/cutouts/3.png": {
+      "camera_angle": "back_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "handles",
+        "base"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the back 3/4 angle, clearly showing the display, pull-up bar, and cable system."
+    },
+    "renders/sgym-pro/cutouts/4.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull-up_bar",
+        "bench",
+        "handles",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a comprehensive view of the sGym Pro Kraftstation, highlighting the display screen, cable tower, pull-up bar, and detachable bench, along with various accessories."
+    },
+    "renders/sgym-pro/cutouts/5.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "pull_up_bar",
+        "display_screen",
+        "cable_tower",
+        "handles",
+        "base_platform"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive view of the entire sGym Pro Kraftstation, showcasing the pull-up bar, display, cable tower, and base platform from a front three-quarter angle."
+    },
+    "renders/sgym-pro/cutouts/6.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "handlebar",
+        "power_port"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the sGym Pro Kraftstation, highlighting its compact tower design and the full height of the cable tower and pull-up bar."
+    },
+    "renders/sgym-pro/cutouts/7.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "branding_logo",
+        "cable_tower",
+        "pull_up_bar",
+        "cable_pull_handles"
+      ],
+      "detail_richness": 6,
+      "key_features": "Full product view from a front 3/4 angle, showcasing the display screen with UI, branding, and the cable tower with pull-up bar and handles."
+    },
+    "renders/sgym-pro/cutouts/8.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "pull_up_bar",
+        "display_screen",
+        "cable_tower",
+        "handles",
+        "branding_logo",
+        "base_platform"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image shows two sGym Pro Kraftstation units side-by-side, one with the base platform extended and the other with it retracted, offering a comprehensive view of both configurations and all major components."
+    },
+    "renders/sgym-pro/cutouts/9.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "cable_tower",
+        "pull_up_bar",
+        "handlebar",
+        "base_platform"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear profile view of the entire sGym Pro Kraftstation, highlighting its compact tower design and all major components from the right side."
+    }
+  }
+}

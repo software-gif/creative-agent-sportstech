@@ -1,0 +1,176 @@
+{
+  "product": "scross",
+  "images": {
+    "renders/scross/cutouts/0.png": {
+      "camera_angle": "high_angle",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "tablet_holder",
+        "display_screen",
+        "fixed_handlebar",
+        "moving_handlebar"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the tablet holder, display screen, and both types of handlebars from a high angle."
+    },
+    "renders/scross/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black_silver",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "flywheel",
+        "pedals",
+        "base",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front three-quarter view of the sCross Crosstrainer, clearly showing the main body, handlebars, display, flywheel, and pedals."
+    },
+    "renders/scross/cutouts/10.png": {
+      "camera_angle": "high_angle",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "tablet_holder",
+        "moving_arms",
+        "frame"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the tablet holder, display screen, and the upper part of the handlebars from a high angle."
+    },
+    "renders/scross/cutouts/11.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "pedals",
+        "flywheel",
+        "base",
+        "frame"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, showing the display, handlebars, pedals, and flywheel clearly."
+    },
+    "renders/scross/cutouts/2.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "pedals",
+        "flywheel",
+        "base",
+        "frame",
+        "cable_routing"
+      ],
+      "detail_richness": 8,
+      "key_features": "Shows the front 3/4 view of the crosstrainer, highlighting the pedals, flywheel, and lower frame details."
+    },
+    "renders/scross/cutouts/3.png": {
+      "camera_angle": "profile_right",
+      "framing": "full_product",
+      "variant": "black_silver",
+      "visible_parts": [
+        "handlebar",
+        "pedals",
+        "flywheel",
+        "display_screen",
+        "frame",
+        "stabilizer_bars"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear profile view of the entire crosstrainer, highlighting the black frame and silver flywheel, with visible display and handlebars."
+    },
+    "renders/scross/cutouts/4.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "flywheel",
+        "pedals",
+        "base"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front three-quarter view of the sCross Crosstrainer, highlighting the overall design and key components like the display, handlebars, and pedals."
+    },
+    "renders/scross/cutouts/5.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "handlebar",
+        "pedals",
+        "flywheel",
+        "base"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire crosstrainer from a front three-quarter angle, highlighting the display, handlebars, and pedals."
+    },
+    "renders/scross/cutouts/6.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "tablet_holder"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the display screen and tablet holder, showing the digital interface and tablet content."
+    },
+    "renders/scross/cutouts/7.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "flywheel",
+        "pedals",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire crosstrainer from a front three-quarter angle, highlighting the display, handlebars, and pedals."
+    },
+    "renders/scross/cutouts/8.png": {
+      "camera_angle": "front",
+      "framing": "three_quarter",
+      "variant": "black_and_silver",
+      "visible_parts": [
+        "pedals",
+        "fixed_handlebars",
+        "moving_handlebars",
+        "base_unit",
+        "central_column"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear front view of the pedals and lower handlebar area, showing the central column and base."
+    },
+    "renders/scross/cutouts/9.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "flywheel",
+        "pedals",
+        "base",
+        "frame"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front 3/4 view of the sCross Crosstrainer, showcasing all major components including the display, handlebars, flywheel, and pedals."
+    }
+  }
+}

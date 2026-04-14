@@ -1,0 +1,95 @@
+{
+  "product": "x150",
+  "images": {
+    "renders/x150/cutouts/0.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black_red",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "seat",
+        "backrest",
+        "pedals",
+        "flywheel",
+        "frame",
+        "power_ropes"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front 3/4 angle, clearly showing the X-shaped frame, red accents, and all major components including the backrest and power ropes."
+    },
+    "renders/x150/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black_red",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "seat",
+        "backrest",
+        "pedals",
+        "flywheel",
+        "folding_frame",
+        "power_ropes",
+        "stabilizer_feet",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive view of the X150 Ergometer 3in1, showcasing its X-shaped folding frame, red accents, and key components from a front three-quarter angle."
+    },
+    "renders/x150/cutouts/2.png": {
+      "camera_angle": "hero_overview",
+      "framing": "full_product",
+      "variant": "black_red",
+      "visible_parts": [
+        "handlebar",
+        "front_console",
+        "display_screen",
+        "seat",
+        "backrest",
+        "pedals",
+        "flywheel",
+        "power_ropes",
+        "frame"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive hero overview of the X150 Ergometer, showcasing all key components and the black and red color scheme from a dynamic angle."
+    },
+    "renders/x150/cutouts/3.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black_red",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "seat",
+        "backrest",
+        "pedals",
+        "flywheel",
+        "power_ropes",
+        "folding_mechanism",
+        "stabilizer_feet",
+        "branding_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "Full product view from the front-three-quarter angle, clearly showing the X-frame, red accents, and all major components including the power ropes."
+    },
+    "renders/x150/cutouts/4.png": {
+      "camera_angle": "top_down",
+      "framing": "full_product",
+      "variant": "red",
+      "visible_parts": [
+        "handlebar",
+        "display_screen",
+        "seat",
+        "backrest",
+        "flywheel",
+        "pedals",
+        "frame",
+        "power_ropes"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive top-down view of the entire product, highlighting its compact, foldable design and all major components."
+    }
+  }
+}

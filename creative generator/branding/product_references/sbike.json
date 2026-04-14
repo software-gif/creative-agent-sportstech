@@ -1,0 +1,105 @@
+{
+  "product": "sbike",
+  "images": {
+    "renders/sbike/cutouts/0.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "default",
+      "visible_parts": [
+        "flywheel",
+        "LED_light_ring",
+        "pedals",
+        "seat",
+        "handlebar",
+        "resistance_knob",
+        "display_screen",
+        "S_logo",
+        "SPORTSTECH_branding"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front 3/4 view of the sBike, clearly showing the blue LED light ring, display screen with S-logo, and SPORTSTECH branding."
+    },
+    "renders/sbike/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "S-logo",
+        "handlebar",
+        "red_resistance_knob",
+        "SPORTSTECH_branding",
+        "seat",
+        "pedals"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear view of the display screen with streaming functions, the S-logo, handlebar, red resistance knob, and the SPORTSTECH branding on the frame."
+    },
+    "renders/sbike/cutouts/2.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "display_screen",
+        "handlebar",
+        "red_resistance_knob",
+        "seat",
+        "pedals",
+        "flywheel",
+        "SPORTSTECH_branding_logo",
+        "blue_glowing_S_logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear front 3/4 view of the entire sBike, highlighting the display screen, handlebar, seat, pedals, and the glowing flywheel."
+    },
+    "renders/sbike/cutouts/3.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "handlebar",
+        "red_resistance_knob",
+        "branding_logo",
+        "pedals",
+        "blue_LED_light_ring",
+        "seat_post_adjustment",
+        "handlebar_post_adjustment"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a good three-quarter view of the bike, highlighting the display, handlebars, pedals, and the blue LED light ring."
+    },
+    "renders/sbike/cutouts/6.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black",
+      "visible_parts": [
+        "flywheel",
+        "pedals",
+        "seat",
+        "handlebar",
+        "display_screen",
+        "red_resistance_knob",
+        "blue_LED_light_ring",
+        "SPORTSTECH_branding_logo",
+        "blue_S_logo_under_display"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a comprehensive front 3/4 view of the sBike, clearly showing all major components including the glowing blue LED rings and the display."
+    },
+    "renders/sbike/cutouts/7.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "default",
+      "visible_parts": [
+        "display_screen",
+        "handlebar",
+        "water_bottle_holder",
+        "resistance_knob",
+        "S-logo"
+      ],
+      "detail_richness": 8,
+      "key_features": "This image provides a clear view of the display screen, handlebar, water bottle holder, and the resistance knob from a front-three-quarter angle."
+    }
+  }
+}

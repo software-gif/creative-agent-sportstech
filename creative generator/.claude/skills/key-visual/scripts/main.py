@@ -97,6 +97,147 @@ def download_image(url):
 MAX_PRODUCT_REFERENCES = 12  # upper bound to keep the request payload sane
 
 
+def load_reference_catalog(product_handle):
+    """Load the vision-analyzed catalog produced by product-image-analyzer.
+
+    Returns a dict keyed by storage_path → metadata, or None if the catalog
+    hasn't been built yet (in which case callers fall back to random sampling).
+    """
+    path = os.path.join(PROJECT_ROOT, "branding", "product_references", f"{product_handle}.json")
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path) as f:
+            data = json.load(f)
+        return data.get("images", {}) or None
+    except Exception as e:
+        print(f"  WARN: failed to load reference catalog: {e}")
+        return None
+
+
+def map_target_to_catalog_angles(image_camera_angle, image_character_angle):
+    """Map the generator's (camera_angle, character_angle) pair to the set of
+    catalog camera_angle values that are acceptable matches for the target."""
+    relevant = set()
+    char_map = {
+        "Front facing":     {"front", "front_3_4"},
+        "3/4 angle":        {"front_3_4"},
+        "Profile":          {"profile_left", "profile_right", "eye_level_side"},
+        "Over the shoulder":{"back_3_4"},
+        "Back view":        {"back", "back_3_4"},
+        "Top View":         {"top_down"},
+    }
+    relevant.update(char_map.get(image_character_angle, {"front_3_4"}))
+
+    pitch_map = {
+        "Low angle":      {"low_angle"},
+        "Ground level":   {"low_angle"},
+        "Slightly below": {"low_angle"},
+        "High angle":     {"high_angle", "top_down"},
+        "Slightly above": {"high_angle"},
+    }
+    relevant.update(pitch_map.get(image_camera_angle, set()))
+    return relevant
+
+
+def dominant_variant(catalog):
+    from collections import Counter
+    counts = Counter(m.get("variant") for m in catalog.values() if m.get("variant"))
+    return counts.most_common(1)[0][0] if counts else None
+
+
+def select_smart_references(catalog, target_angles, target_variant, max_count=MAX_PRODUCT_REFERENCES):
+    """Pick reference paths from the catalog based on target angle + variant.
+
+    Layered strategy:
+      1. 1-2 overview / hero shots (full product context)
+      2. 2-3 shots with a matching target camera_angle
+      3. 2-3 high-detail close-ups (for must-match features like back buttons)
+      4. Fill remaining slots with angle diversity (different angles not yet used)
+    Always filters to a single variant so Gemini isn't averaging two product
+    colours together.
+    """
+    if not catalog:
+        return []
+
+    # Filter by variant — either the one explicitly requested or the dominant
+    # one in the catalog (so a woodpad-pro key-visual doesn't mix wood + black).
+    variant = target_variant or dominant_variant(catalog)
+    candidates = {
+        p: m for p, m in catalog.items() if not variant or m.get("variant") == variant
+    }
+    if not candidates:
+        candidates = dict(catalog)  # fallback if filter eliminated everything
+
+    by_detail = lambda p: candidates[p].get("detail_richness", 0)
+    selected = []
+
+    def take(paths, limit):
+        for p in paths:
+            if len(selected) >= max_count:
+                return
+            if p not in selected and len(selected) < max_count:
+                selected.append(p)
+                if len([x for x in selected if x in paths]) >= limit:
+                    return
+
+    # 1. Overview / hero
+    overviews = sorted(
+        [p for p, m in candidates.items()
+         if m.get("camera_angle") == "hero_overview"
+         or m.get("framing") == "full_product"],
+        key=by_detail,
+        reverse=True,
+    )
+    take(overviews, 2)
+
+    # 2. Matching target angle
+    angle_matches = sorted(
+        [p for p, m in candidates.items()
+         if m.get("camera_angle") in target_angles and p not in selected],
+        key=by_detail,
+        reverse=True,
+    )
+    take(angle_matches, 3)
+
+    # 3. Detail close-ups (must-match features)
+    details = sorted(
+        [p for p, m in candidates.items()
+         if m.get("framing") in ("detail_close_up", "extreme_detail")
+         and p not in selected],
+        key=by_detail,
+        reverse=True,
+    )
+    take(details, 3)
+
+    # 4. Angle diversity — fill with different camera angles not already used
+    used_angles = {candidates[p].get("camera_angle") for p in selected}
+    diverse = sorted(
+        [p for p, m in candidates.items()
+         if p not in selected and m.get("camera_angle") not in used_angles],
+        key=by_detail,
+        reverse=True,
+    )
+    for p in diverse:
+        if len(selected) >= max_count:
+            break
+        selected.append(p)
+
+    # 5. Final fill — just top by detail richness
+    if len(selected) < max_count:
+        leftover = sorted(
+            [p for p in candidates if p not in selected],
+            key=by_detail,
+            reverse=True,
+        )
+        for p in leftover:
+            if len(selected) >= max_count:
+                break
+            selected.append(p)
+
+    return [(p, candidates[p]) for p in selected[:max_count]]
+
+
 def get_product_images(product_handle):
     """Fetch product reference images: high-res render cutouts first, then
     whatever Shopware thumbnails we have as a lightweight extra.
@@ -307,6 +448,8 @@ def main():
     parser.add_argument("--format", default="9:16")
     parser.add_argument("--prompt", default=None, help="Full composite prompt from Claude (overrides auto-build)")
     parser.add_argument("--count", type=int, default=1, help="Number of images to generate")
+    parser.add_argument("--variant", default=None,
+                        help="Product color/material variant (e.g. wood_light, black). If unset, defaults to the dominant variant in the catalog.")
     parser.add_argument("--auto-qc", action="store_true",
                         help="Run quality-control on each generated image and retry on failure.")
     parser.add_argument("--qc-retries", type=int, default=2,
@@ -361,6 +504,27 @@ def main():
     render_cutouts = [img for img in product_images if img.get("type") == "render_cutout"]
     raw_renders = [img for img in product_images if img.get("type") == "render"]
     thumbs = [img for img in product_images if img.get("type") == "thumb"]
+
+    # Load catalog + attach metadata to every downloaded cutout. With a
+    # catalog we can do deterministic smart selection per attempt; without
+    # one we still have random sampling as fallback.
+    reference_catalog = load_reference_catalog(args.product)
+    if reference_catalog:
+        print(f"  Catalog: {len(reference_catalog)} entries — smart selection enabled")
+        # The catalog keys are storage_paths like
+        # "renders/woodpad-pro/cutouts/17.png". Match by filename.
+        by_filename = {}
+        for path, meta in reference_catalog.items():
+            fn = path.rsplit("/", 1)[-1]
+            by_filename[fn] = (path, meta)
+        for img in render_cutouts:
+            # img["name"] looks like "render_cutout/17.png" from get_product_images
+            fn = img.get("name", "").rsplit("/", 1)[-1]
+            if fn in by_filename:
+                img["catalog_path"] = by_filename[fn][0]
+                img["catalog_meta"] = by_filename[fn][1]
+    else:
+        print("  Catalog: none — using random sampling fallback")
 
     # === STEP 1: LOAD CACHED PRODUCT DESCRIPTION (from Image Describer skill) ===
     product_description_ai = load_cached_product_description(args.product)
@@ -425,16 +589,51 @@ def main():
             direction = how_it_works.get("direction", "")
 
             # GROUP 1: Product references (ground truth for product accuracy).
-            # Prefer the transparent high-res render cutouts; fall back to raw
-            # renders when no cutouts exist; append small Shopware thumbs last
-            # as a color anchor. Cap total references to MAX_PRODUCT_REFERENCES
-            # so the request payload stays reasonable.
-            primary_refs = render_cutouts or raw_renders
-            # Shuffle so multi-image batches don't always see the same order —
-            # Gemini tends to weight earlier images more heavily.
-            primary_sampled = random.sample(primary_refs, min(len(primary_refs), MAX_PRODUCT_REFERENCES - min(3, len(thumbs))))
-            thumb_sampled = thumbs[:MAX_PRODUCT_REFERENCES - len(primary_sampled)]
-            selected_refs = primary_sampled + thumb_sampled
+            # When a catalog is available we do deterministic smart selection:
+            # variant-filter first, then mix overview + target-angle + detail
+            # close-ups + angle diversity. Without a catalog we fall back to
+            # random sampling from the downloaded cutouts.
+            selected_refs = []
+            slot_labels = []
+
+            if reference_catalog and render_cutouts:
+                target_angles = map_target_to_catalog_angles(image_camera_angle, image_character_angle)
+                smart_choices = select_smart_references(
+                    reference_catalog,
+                    target_angles,
+                    target_variant=getattr(args, "variant", None),
+                    max_count=MAX_PRODUCT_REFERENCES,
+                )
+                # Resolve smart choices back to the downloaded image dicts
+                catalog_to_img = {
+                    img.get("catalog_path"): img
+                    for img in render_cutouts
+                    if img.get("catalog_path")
+                }
+                for path, meta in smart_choices:
+                    img = catalog_to_img.get(path)
+                    if img is None:
+                        continue
+                    selected_refs.append(img)
+                    slot_labels.append(
+                        f"{meta.get('camera_angle', '?')}"
+                        f" · {meta.get('framing', '?')}"
+                        f" · {meta.get('variant', '?')}"
+                        f" · detail {meta.get('detail_richness', '?')}"
+                    )
+                print(f"  Smart selection: {len(selected_refs)} refs "
+                      f"(variant={getattr(args, 'variant', None) or dominant_variant(reference_catalog)}, "
+                      f"target_angles={sorted(target_angles)})")
+
+            if not selected_refs:
+                # Fallback: random sampling over whatever primary refs we have
+                primary_refs = render_cutouts or raw_renders
+                primary_sampled = random.sample(
+                    primary_refs,
+                    min(len(primary_refs), MAX_PRODUCT_REFERENCES - min(3, len(thumbs))),
+                )
+                thumb_sampled = thumbs[:MAX_PRODUCT_REFERENCES - len(primary_sampled)]
+                selected_refs = primary_sampled + thumb_sampled
 
             for img in selected_refs:
                 parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
@@ -443,8 +642,28 @@ def main():
             product_refs = ", ".join([f"Image {j+1}" for j in range(n_product)])
             ref_source = "high-resolution transparent CGI renders" if render_cutouts else "product renders"
 
-            parts.append({
-                "text": (
+            # If we have slot labels from smart selection, tell Gemini exactly
+            # what each image is for so it can weight them appropriately.
+            if slot_labels:
+                slot_description = "\n".join(
+                    f"  - Image {j+1}: {lbl}" for j, lbl in enumerate(slot_labels)
+                )
+                ref_explanation = (
+                    f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name} "
+                    f"({n_product} curated {ref_source}, deterministically chosen to cover the "
+                    f"target shot). Per-image roles:\n{slot_description}\n\n"
+                    f"Use these images to match the exact geometry, proportions, colors, "
+                    f"materials, wood grain, branding text, and every visible detail of the "
+                    f"product. Treat them as the ground truth for what the product looks like. "
+                    f"Pay close attention to the detail close-ups — those show features "
+                    f"(back-end controls, front console, side rails, end caps) that often get "
+                    f"smoothed away. DO NOT copy the camera angle, composition, or orientation "
+                    f"of the references — those are marketing shots. The final image uses a "
+                    f"COMPLETELY DIFFERENT camera position defined in the SCENE SETUP section "
+                    f"of the prompt below.\n\n"
+                )
+            else:
+                ref_explanation = (
                     f"[{product_refs}] = PRODUCT SHAPE REFERENCE for the {product_name} "
                     f"({n_product} {ref_source}). Use these images ONLY to match the exact "
                     f"geometry, proportions, colors, materials, wood grain, branding text, "
@@ -455,7 +674,8 @@ def main():
                     f"facing the viewer. The final image uses a COMPLETELY DIFFERENT camera "
                     f"position defined in the SCENE SETUP section of the prompt below.\n\n"
                 )
-            })
+
+            parts.append({"text": ref_explanation})
 
             # Character references — these are the ONLY other images sent alongside
             # product cutouts. Lifestyle example refs are never appended here; see

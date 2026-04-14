@@ -1,0 +1,82 @@
+{
+  "product": "hgx50",
+  "images": {
+    "renders/hgx50/cutouts/0.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "black_red",
+      "visible_parts": [
+        "main_frame",
+        "seat",
+        "backrest",
+        "chest_press_arms",
+        "cable_pulleys",
+        "weight_stack",
+        "branding_logo"
+      ],
+      "detail_richness": 7,
+      "key_features": "Shows the front three-quarter view of the multi-gym, highlighting the seat, backrest, and chest press arms with the branding logo clearly visible."
+    },
+    "renders/hgx50/cutouts/1.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "default",
+      "visible_parts": [
+        "cable_tower",
+        "pulley_system",
+        "handle"
+      ],
+      "detail_richness": 2,
+      "key_features": "Shows the upper part of the cable tower and a handle, but with very low detail."
+    },
+    "renders/hgx50/cutouts/2.png": {
+      "camera_angle": "front_3_4",
+      "framing": "three_quarter",
+      "variant": "black_red",
+      "visible_parts": [
+        "seat",
+        "backrest",
+        "weight_stack",
+        "leg_press",
+        "chain",
+        "handlebar"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the seat, backrest, weight stack, and leg press attachment, with good detail on the chain and handlebar."
+    },
+    "renders/hgx50/cutouts/3.png": {
+      "camera_angle": "front_3_4",
+      "framing": "full_product",
+      "variant": "black_red",
+      "visible_parts": [
+        "cable_tower",
+        "weight_stack",
+        "seat",
+        "backrest",
+        "leg_developer",
+        "pull_down_bar",
+        "branding_logo",
+        "pulleys",
+        "frame"
+      ],
+      "detail_richness": 8,
+      "key_features": "Clear view of the entire multi-gym from a front-three-quarter angle, highlighting the black and red color scheme and the weight stack."
+    },
+    "renders/hgx50/cutouts/4.png": {
+      "camera_angle": "profile_right",
+      "framing": "three_quarter",
+      "variant": "black_red",
+      "visible_parts": [
+        "weight_stack",
+        "seat",
+        "backrest",
+        "frame",
+        "cables",
+        "pulleys",
+        "leg_extension_pad"
+      ],
+      "detail_richness": 7,
+      "key_features": "This image provides a clear profile view of the weight stack and the main frame, with good detail on the seat and backrest."
+    }
+  }
+}
