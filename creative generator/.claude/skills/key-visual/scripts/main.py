@@ -95,7 +95,6 @@ def download_image(url):
 
 
 MAX_PRODUCT_REFERENCES = 12  # upper bound to keep the request payload sane
-MAX_USAGE_REFERENCES = 5     # how many real-user photos to include per generation
 
 
 def load_reference_catalog(product_handle):
@@ -240,20 +239,22 @@ def select_smart_references(catalog, target_angles, target_variant, max_count=MA
 
 
 def get_product_images(product_handle):
-    """Fetch product reference images: high-res render cutouts first,
-    Shopware thumbnails as a colour anchor, and real-user usage photos
-    as a distinct pose/usage reference.
+    """Fetch product reference images: high-res render cutouts first, then
+    whatever Shopware thumbnails we have as a lightweight extra.
 
-    - `renders/<handle>/cutouts/` → transparent CGI cutouts, the geometric
-      ground truth. Produced by the background-remover skill.
-    - `products/<handle>/` → small Shopware listing thumbnails (~200px),
-      low-priority colour anchor.
-    - `lifestyle/<handle>/` → real photos of a person using the product.
-      Previously disabled because Gemini was copying the photographer's
-      camera angle / person / clothing straight into the output. Now
-      re-enabled but explicitly labelled in the prompt as POSE-ONLY
-      references, and the SCENE SETUP / HARD FAILURES block in the
-      compositing prompt overrides any stray attempts at copying.
+    The primary source is `renders/<handle>/cutouts/` — those were produced
+    by the background-remover skill from the 1500-4096px CGI renders and
+    are by far the most useful references Gemini has for matching product
+    geometry, materials, and branding.
+
+    The `products/<handle>/` folder contains small Shopware thumbnails
+    (often ~200px). They're kept as a low-priority fallback — they can
+    still contribute color information without bloating the payload.
+
+    Lifestyle examples are intentionally NOT fetched here. Gemini weights
+    images higher than text, so lifestyle refs showing people in the wrong
+    orientation caused pose-direction regressions (see commit 9eb82b5).
+    Lifestyle context is provided via the cached Image Describer text.
     """
     images = []
 
@@ -276,7 +277,7 @@ def get_product_images(product_handle):
             if img:
                 images.append({**img, "name": f"render/{f['name']}", "type": "render"})
 
-    # 3. Shopware thumbnails as a lightweight extra (colour anchor)
+    # 3. Shopware thumbnails as a lightweight extra (color anchor)
     thumb_files = list_storage_files(f"products/{product_handle}/")
     print(f"  Shopware thumbs: {len(thumb_files)} found")
     for f in sorted(thumb_files, key=lambda x: x.get("name", "")):
@@ -286,18 +287,6 @@ def get_product_images(product_handle):
         img = download_image(url)
         if img:
             images.append({**img, "name": f"thumb/{f['name']}", "type": "thumb"})
-
-    # 4. Lifestyle examples — real usage photos, labelled as POSE-ONLY refs
-    #    in the prompt. Critical for products with sparse render coverage
-    #    (sxm200, hgx50, svibe) where Gemini otherwise can't tell what the
-    #    product does or how a person physically interacts with it.
-    lifestyle_files = list_storage_files(f"lifestyle/{product_handle}/")
-    print(f"  Lifestyle examples: {len(lifestyle_files)} found")
-    for f in sorted(lifestyle_files, key=lambda x: x.get("name", "")):
-        url = f"{SUPABASE_URL}/storage/v1/object/public/creatives/lifestyle/{product_handle}/{f['name']}"
-        img = download_image(url)
-        if img:
-            images.append({**img, "name": f"lifestyle/{f['name']}", "type": "lifestyle"})
 
     return images
 
@@ -461,12 +450,10 @@ def main():
     parser.add_argument("--count", type=int, default=1, help="Number of images to generate")
     parser.add_argument("--variant", default=None,
                         help="Product color/material variant (e.g. wood_light, black). If unset, defaults to the dominant variant in the catalog.")
-    parser.add_argument("--auto-qc", dest="auto_qc", action="store_true", default=True,
-                        help="Run quality-control on each generated image and retry on failure. Default: on.")
-    parser.add_argument("--no-qc", dest="auto_qc", action="store_false",
-                        help="Skip the QC loop and land every image on the board. Use sparingly.")
+    parser.add_argument("--auto-qc", action="store_true",
+                        help="Run quality-control on each generated image and retry on failure.")
     parser.add_argument("--qc-retries", type=int, default=2,
-                        help="Max retries per image when auto-qc is on (default 2, so up to 3 attempts total).")
+                        help="Max retries per image when --auto-qc is enabled (default 2, so up to 3 attempts total).")
     parser.add_argument("--qc-threshold", type=int, default=7,
                         help="Minimum QC score (0-10) to accept the image (default 7).")
     args = parser.parse_args()
@@ -513,13 +500,10 @@ def main():
     # Pre-select best images by type. Render cutouts are the high-quality
     # geometric anchors (transparent PNGs, 1500-4096px). Raw renders are a
     # fallback for products where the bg-remover hasn't run yet. Shopware
-    # thumbs are low-res (~200px) and only contribute colour information.
-    # Lifestyle examples are real photos of people using the product and
-    # teach Gemini usage semantics — labelled POSE-ONLY in the prompt.
+    # thumbs are low-res (~200px) and only contribute color information.
     render_cutouts = [img for img in product_images if img.get("type") == "render_cutout"]
     raw_renders = [img for img in product_images if img.get("type") == "render"]
     thumbs = [img for img in product_images if img.get("type") == "thumb"]
-    lifestyle_refs = [img for img in product_images if img.get("type") == "lifestyle"]
 
     # Load catalog + attach metadata to every downloaded cutout. With a
     # catalog we can do deterministic smart selection per attempt; without
@@ -576,15 +560,8 @@ def main():
             # Auto-rotate camera angle per attempt when not explicitly set. On
             # retries this gives Gemini a fresh angle to try — often the fix
             # for a pose/geometry failure.
-            #
-            # For sparse-reference products (where we only have renders from a
-            # single viewpoint), product_knowledge can override the global pool
-            # via ai_generation_rules.allowed_camera_angles / allowed_character_angles
-            # so the retry loop never rolls a shot Gemini has no ground truth for.
-            camera_pool = pk.get("ai_generation_rules", {}).get("allowed_camera_angles") or VALID_CAMERA_ANGLES
-            character_pool = pk.get("ai_generation_rules", {}).get("allowed_character_angles") or VALID_CHARACTER_ANGLES
-            image_camera_angle = args.camera_angle or random.choice(camera_pool)
-            image_character_angle = args.character_angle or random.choice(character_pool)
+            image_camera_angle = args.camera_angle or random.choice(VALID_CAMERA_ANGLES)
+            image_character_angle = args.character_angle or random.choice(VALID_CHARACTER_ANGLES)
             if not args.camera_angle or not args.character_angle:
                 print(f"  Camera rotation: {image_camera_angle} / {image_character_angle}")
 
@@ -700,52 +677,9 @@ def main():
 
             parts.append({"text": ref_explanation})
 
-            # GROUP 2: Usage/lifestyle references. Real photos of a person
-            # using this product. These are what make the difference for
-            # sparse-reference products (sxm200, hgx50, svibe) — Gemini
-            # learns HOW the product is physically used, not just what it
-            # looks like. Labelled explicitly so Gemini doesn't copy the
-            # photographer's camera, the model, or the background.
-            usage_sampled = random.sample(
-                lifestyle_refs, min(len(lifestyle_refs), MAX_USAGE_REFERENCES)
-            ) if lifestyle_refs else []
-            if usage_sampled:
-                usage_start = n_product + 1
-                usage_end = n_product + len(usage_sampled)
-                usage_slot = (
-                    f"Image {usage_start}"
-                    if usage_start == usage_end
-                    else f"Images {usage_start}-{usage_end}"
-                )
-                for img in usage_sampled:
-                    parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
-                parts.append({
-                    "text": (
-                        f"[{usage_slot}] = USAGE REFERENCES — real photos of people using the "
-                        f"{product_name}. These are here so you understand HOW the product is "
-                        f"physically used: where the feet stand, where the hands grip, where "
-                        f"the weight rests, and what a believable training posture looks like "
-                        f"on this specific machine.\n\n"
-                        f"COPY from these images:\n"
-                        f"  - the pose, body mechanics, and stance\n"
-                        f"  - the exact contact points between the person and the product "
-                        f"(feet, hands, seat, shoulders, etc.)\n"
-                        f"  - the fact that the person is ACTIVELY using the product\n\n"
-                        f"DO NOT COPY from these images:\n"
-                        f"  - the camera angle (that is defined by the SCENE SETUP below)\n"
-                        f"  - the specific person shown (face, body type, ethnicity, clothing "
-                        f"— those are defined by the PERSON section below)\n"
-                        f"  - the lighting, background, room, or any decor\n"
-                        f"  - any product details that disagree with the PRODUCT SHAPE "
-                        f"REFERENCE images above — those come first\n"
-                        f"  - any product variant (colour, material) that disagrees with the "
-                        f"PRODUCT SHAPE REFERENCE — stay consistent with that variant\n\n"
-                        f"Treat these as pose references for a choreographer, not as photos "
-                        f"to imitate.\n\n"
-                    )
-                })
-
-            # Character references — the last image group before the prompt.
+            # Character references — these are the ONLY other images sent alongside
+            # product cutouts. Lifestyle example refs are never appended here; see
+            # get_product_images() for the rationale.
             for img in character_images:
                 parts.append({"inline_data": {"mime_type": img["mime"], "data": img["data"]}})
 
@@ -770,12 +704,6 @@ The person must be in active physical contact with the {product_name}. Their fee
 The {product_name}'s display screen has exactly ONE side with the interface and it ALWAYS faces the user. The camera position in (2) determines what the camera can see:
 - When the camera is behind or beside the user, the display faces AWAY from the camera. We see only the back edge of the console. No screen interface is visible in the frame.
 - The user's face and the screen interface CANNOT both be visible in the same frame. This combination is physically impossible — never generate it.
-
-4. DISPLAY / SCREEN CONTENT (handle this carefully — the model tends to hallucinate UI):
-If any display, touchscreen or console screen is visible in the frame, render it as a DARK MATTE SCREEN (black or deep charcoal). If you render UI at all, keep it minimal and abstract: a subtle workout line graph, clean sans-serif labels at unreadable size, maybe one accent colour highlight. NEVER render readable numbers, timer values, menu text, text you cannot directly verify from the reference images, Apple iOS UI, smartphone lockscreens, or any realistic-looking user interface with specific text. When in doubt, render the display completely off. A dark display is always better than an invented one.
-
-5. COMPONENT COUNT (non-negotiable):
-Count the cables, handles, pulleys, rollers, handlebars, display screens and weight stacks you see in the reference images and match those counts exactly in the generated image. Do not duplicate linear elements. If a cable goes from the tower down to a handle, it is ONE continuous cable — never split it into two or render it as multiple strands. If the reference has two handles with one cable each, the generated image has exactly two cables total.
 {'=' * 40}
 
 PERSON: {character_desc or args.character_description or 'An athletic person in dark fitness clothing'}
